@@ -4,7 +4,16 @@
     "description": "EduBlocks is a visual block based programming tool",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "ui": "cd ui && pwd",
+        "server": "cd server && pwd",
+        "dev": "concurrently \"yarn run server\" \"yarn run ui\"",
+        "ui-dev-start": "cd ui && yarn && yarn run watch",
+        "server-dev-start": "cd server && yarn && yarn run watch",
+        "dev-start": "concurrently \"yarn run server-dev-start\" \"yarn run ui-dev-start\"",
+        "ui-build": "cd ui && yarn && yarn run build",
+        "server-build": "cd server && yarn && yarn run build",
+        "build-all": "concurrently \"yarn run server-build\" \"yarn run ui-build\""
     },
     "repository": {
         "type": "git",
@@ -15,5 +24,8 @@
     "bugs": {
         "url": "https://github.com/AllAboutCode/EduBlocks/issues"
     },
-    "homepage": "https://github.com/AllAboutCode/EduBlocks#readme"
+    "homepage": "https://github.com/AllAboutCode/EduBlocks#readme",
+    "devDependencies": {
+        "concurrently": "^4.0.0"
+    }
 }
