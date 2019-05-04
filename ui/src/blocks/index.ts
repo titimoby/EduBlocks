@@ -61,7 +61,7 @@ export async function getToolBoxXml(extensions: Extension[]) {
     (await import('./circuitpython/basic/definitions')).default(Blockly.Blocks);
     (await import('./circuitpython/basic/generators')).default(Blockly.Python as any);
     toolBoxXml += fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'circuitpython', 'basic', 'toolbox.xml'));
-    
+
     (await import('./microbit/variables/definitions')).default(Blockly.Blocks);
     (await import('./microbit/variables/generators')).default(Blockly.Python as any);
     toolBoxXml += fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'variables', 'toolbox.xml'));
@@ -101,6 +101,10 @@ export async function getToolBoxXml(extensions: Extension[]) {
     (await import('./circuitpython/advanced/definitions')).default(Blockly.Blocks);
     (await import('./circuitpython/advanced/generators')).default(Blockly.Python as any);
     toolBoxXml += fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'circuitpython', 'advanced', 'toolbox.xml'));
+
+    (await import('./circuitpython/gamebuino_meta/definitions')).default(Blockly.Blocks);
+    (await import('./circuitpython/gamebuino_meta/generators')).default(Blockly.Python as any);
+    toolBoxXml += fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'circuitpython', 'gamebuino_meta', 'toolbox.xml'));
   }
 
   if (extensions.indexOf('micro:bit General') !== -1) {

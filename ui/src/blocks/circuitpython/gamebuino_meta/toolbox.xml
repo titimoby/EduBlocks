@@ -1,0 +1,14 @@
+<category name="Gamebuino Meta" colour="38">
+    <label text="Gamebuino Meta" web-class="myLabelStyle"></label>
+    <block type="import_gamebuino_meta"></block>
+    <block type="begin"></block>
+    <block type="waitForUpdate"></block>
+    <block type="display">
+        <value name="text">
+            <shadow type="textinline">
+                <field name="text">2</field>
+            </shadow>
+        </value>
+    </block>
+
+</category>
