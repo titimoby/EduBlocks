@@ -61,8 +61,9 @@ export default function define(Python: Blockly.BlockGenerators) {
   Python['input_web'] = function(block) {
     var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'input(' +value_name+ ')\n';
-    return code;
+    var code = 'input(' +value_name+ ')';
+    // TODO: Change ORDER_NONE to the correct strength.
+    return [code, Blockly.Python.ORDER_ATOMIC];
   };
 
 }

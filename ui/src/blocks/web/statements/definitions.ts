@@ -137,7 +137,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
       this.setOutput(true, null);
       this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
       this.setColour('#F89621');
-   this.setTooltip("Text input");
+   this.setTooltip("");
    this.setHelpUrl("");
     }
   };
