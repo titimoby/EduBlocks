@@ -66,10 +66,10 @@ export default function define(Python: Blockly.BlockGenerators) {
   };
 
   Python['blinktsetpixel'] = function (block) {
-    let text_pixelno = block.getFieldValue('pixelno');
-    let text_r = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
-    let text_g = Blockly.Python.valueToCode(block, 'text1', Blockly.Python.ORDER_ATOMIC);
-    let text_b = Blockly.Python.valueToCode(block, 'text2', Blockly.Python.ORDER_ATOMIC);
+    let text_pixelno = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
+    let text_r = Blockly.Python.valueToCode(block, 'text1', Blockly.Python.ORDER_ATOMIC);
+    let text_g = Blockly.Python.valueToCode(block, 'text2', Blockly.Python.ORDER_ATOMIC);
+    let text_b = Blockly.Python.valueToCode(block, 'text3', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
     let code = 'set_pixel(' + text_pixelno + ', ' + text_r + ', ' + text_g + ', ' + text_b + ')\n';
     return code;
