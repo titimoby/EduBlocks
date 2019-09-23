@@ -12,7 +12,6 @@ export function newMicrobitPlatform(): PlatformInterface {
     extensions: [
       'scroll:bit',
       'GiggleBot',
-      'Pi Supply IoT LoRa Node',
     ],
   };
 }
