@@ -1,0 +1,19 @@
+CACHE MANIFEST
+# mywebapp.appcache v1
+# this is my cache manifest 
+index.html
+css/editor.css
+css/themes.css
+images/webpy.png
+images/pi.png
+images/microbit.png
+images/circuitplayground.png
+images/edublock-logo_Final_edublocks_white.svg
+
+# Use from network if available
+NETWORK:
+network.html
+
+# Fallback content
+FALLBACK:
+/ fallback.html
