@@ -85,13 +85,13 @@ EduBlocks UI will now be available at http://localhost:8081/
 
 #### Linux Install Instructions:
 
-    sudo apt install git build-essential
+    sudo apt install git build-essential tmux
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
     . ~/.nvm/nvm.sh
     nvm install 6.10.3
     npm --global install yarn
 
-    git clone git@github.com:AllAboutCode/EduBlocks/
+    git clone https://github.com/AllAboutCode/EduBlocks/
 
     cd EduBlocks
     cd ui
