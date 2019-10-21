@@ -29,7 +29,7 @@ echo "Creating symlinks..."
 sudo rm -f $GLOBAL_BIN_PATH/edublocks-connect
 sudo rm -f $GLOBAL_BIN_PATH/edublocks-startup-enable
 sudo rm -f $GLOBAL_BIN_PATH/edublocks-startup-disable
-sudo rm -f $GLOBAL_BIN_PATH/edublocks-uninstall
+sudo rm -f $GLOBAL_BIN_PATH/edublocks-connect-uninstall
 
 sudo ln -s $INSTALL_PATH/server/start.sh            $GLOBAL_BIN_PATH/edublocks-connect
 sudo ln -s $INSTALL_PATH/server/startup-enable.sh   $GLOBAL_BIN_PATH/edublocks-startup-enable
