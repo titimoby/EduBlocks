@@ -61,6 +61,14 @@ export default class Auth extends Component<AuthProps, State> {
         this.props.openAuth();
     }
 
+    private logOutAccount() {
+        firebase.auth().signOut().then(function() {
+            // Sign-out successful.
+          }, function(error) {
+            // An error happened.
+          });
+    }
+
     componentDidMount(): void {
         if (this.ui.isPendingRedirect()) {
             this.ui.start('#firebaseui-auth-container', this.uiConfig);
@@ -73,7 +81,7 @@ export default class Auth extends Component<AuthProps, State> {
                 console.log(user);
                 self.setState({
                     user: user,
-                });
+                }); 
             } else {
                 self.setState({
                     user: null,
@@ -87,7 +95,7 @@ export default class Auth extends Component<AuthProps, State> {
         if (this.state.user) {
             return <div className='login'>
                 {this.state.user.photoURL ? <img src={this.state.user.photoURL} alt=""/> : null}
-                <span>Welcome, {this.state.user.displayName}</span>
+                <button style="background: rgba(0, 0, 0, 0); padding: 0.1em !important;" onClick={this.logOutAccount} data-tooltip="Log Out"><span>Welcome, {this.state.user.displayName}</span></button>
             </div>;
         }
 

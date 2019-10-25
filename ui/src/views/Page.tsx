@@ -228,7 +228,7 @@ export default class Page extends Component<Props, State> {
             xhr.responseType = 'text';
             xhr.onload = function (event) {
                 self.readBlocklyContents(xhr.responseText);
-            };
+            }; 
             xhr.open('GET', url);
             xhr.send();
         }).catch(function (error) {
