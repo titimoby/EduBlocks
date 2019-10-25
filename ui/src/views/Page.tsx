@@ -227,9 +227,7 @@ export default class Page extends Component<Props, State> {
             const xhr = new XMLHttpRequest();
             xhr.responseType = 'blob';
             xhr.onload = function (event) {
-                xhr.response.text().then((t: string) => {
-                    self.readBlocklyContents(t);
-                });
+                self.readBlocklyContents(xhr.responseText);
             };
             xhr.open('GET', url);
             xhr.send();
