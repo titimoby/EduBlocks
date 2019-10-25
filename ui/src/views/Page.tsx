@@ -225,7 +225,7 @@ export default class Page extends Component<Props, State> {
         let self = this;
         file.getDownloadURL().then(function (url) {
             const xhr = new XMLHttpRequest();
-            xhr.responseType = 'blob';
+            xhr.responseType = 'text';
             xhr.onload = function (event) {
                 self.readBlocklyContents(xhr.responseText);
             };
