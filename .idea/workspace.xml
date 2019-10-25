@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42143e1c-adca-4e85-9ca6-a043db5bbb29" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ui/src/views/Auth.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/EduBlocks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/EduBlocks.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/css/editor.css" beforeDir="false" afterPath="$PROJECT_DIR$/ui/css/editor.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ui/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ui/src/main.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/src/views/AlertModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ui/src/views/AlertModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/src/views/Nav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ui/src/views/Nav.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/src/views/Page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ui/src/views/Page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ui/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +52,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571990698748</updated>
-      <workItem from="1571990710163" duration="7527000" />
+      <workItem from="1571990710163" duration="12405000" />
     </task>
     <servers />
   </component>
@@ -78,5 +68,9 @@
       <screen x="0" y="0" width="1920" height="1200" />
     </state>
     <state x="611" y="190" width="687" height="754" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1200@0.0.1920.1200" timestamp="1571995723188" />
+    <state x="630" y="326" width="660" height="528" key="find.popup" timestamp="1572004932665">
+      <screen x="0" y="0" width="1920" height="1200" />
+    </state>
+    <state x="630" y="326" width="660" height="528" key="find.popup/0.0.1920.1200@0.0.1920.1200" timestamp="1572004932665" />
   </component>
 </project>

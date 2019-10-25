@@ -32,15 +32,21 @@ interface DocumentState {
     pythonClean: boolean;
 }
 
+interface FileSelectModalOption {
+    label: string;
+    ref: firebase.storage.Reference;
+}
+
 interface State {
     platform?: PlatformInterface;
     viewMode: ViewMode;
-    modal: null | 'platform' | 'terminal' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error';
-    prevModal: null | 'platform' | 'terminal' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error';
+    modal: null | 'platform' | 'terminal' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    prevModal: null | 'platform' | 'terminal' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
     extensionsActive: Extension[];
     progress: number;
     doc: Readonly<DocumentState>;
     fileName: string;
+    files: FileSelectModalOption[];
 }
 
 export default class Page extends Component<Props, State> {
@@ -55,8 +61,8 @@ export default class Page extends Component<Props, State> {
             prevModal: null,
             extensionsActive: [],
             progress: 0,
-            fileName: "Untitled",
-
+            fileName: 'Untitled',
+            files: [],
             doc: {
                 xml: null,
                 python: null,
@@ -187,11 +193,54 @@ export default class Page extends Component<Props, State> {
         this.updateFromPython(python);
     }
 
-  private async openFile() {
-    const xml = await this.props.app.openFile();
+    private async openFile() {
+        const user = firebase.auth().currentUser;
+        if (user) {
+            let self = this;
+            const ref = firebase.storage().ref(`blocks/${user.uid}`);
 
-    this.readBlocklyContents(xml);
-  }
+            ref.listAll().then(function (res) {
+                self.setState({
+                    files: res.items.map((i) => ({
+                        label: i.name,
+                        ref: i,
+                    })),
+                    modal: 'files',
+                });
+            }).catch(function (error) {
+                self.setState({
+                    modal: 'error',
+                });
+                console.error(error);
+            });
+
+        } else {
+            const xml = await this.props.app.openFile();
+            this.readBlocklyContents(xml);
+        }
+    }
+
+    private async openFirebaseFile(file: firebase.storage.Reference) {
+        this.closeModal();
+        let self = this;
+        file.getDownloadURL().then(function (url) {
+            const xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function (event) {
+                xhr.response.text().then((t: string) => {
+                    self.readBlocklyContents(t);
+                });
+            };
+            xhr.open('GET', url);
+            xhr.send();
+        }).catch(function (error) {
+            self.setState({
+                modal: 'error',
+            });
+            console.error(error);
+        });
+
+    }
 
     private async saveFile() {
         const xml = this.state.doc.xml;
@@ -217,12 +266,9 @@ export default class Page extends Component<Props, State> {
                     self.setState({
                         modal: 'error',
                     });
-                    console.log(error);
+                    console.error(error);
                 }, function () {
                     self.closeModal();
-                    task.snapshot.ref.getDownloadURL().then(function (downloadURL: string) {
-                        console.log('File available at', downloadURL);
-                    });
                 });
             } else {
                 await this.props.app.saveFile(this.state.fileName, xml, 'xml', 'text/xml;charset=utf-8');
@@ -561,6 +607,16 @@ export default class Page extends Component<Props, State> {
                     onClose={() => this.onTerminalClose()}
                 />
                 }
+
+                <SelectModal
+                    title='Files'
+                    options={this.state.files}
+                    selectLabel='Open'
+                    buttons={[]}
+                    visible={this.state.modal === 'files'}
+                    onSelect={(file: FileSelectModalOption) => this.openFirebaseFile(file.ref)}
+                    onButtonClick={(key) => key === 'close' && this.closeModal()}
+                />
 
                 <SelectModal
                     title='Samples'
