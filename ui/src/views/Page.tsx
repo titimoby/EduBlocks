@@ -2,6 +2,7 @@ import React = require('preact');
 import {Component} from 'preact';
 import {getPlatform, getPlatformList} from '../platforms';
 import {App, Capability, Extension, Platform, PlatformInterface} from '../types';
+import * as firebase from 'firebase/app';
 import {AuthModal} from './Auth';
 import AlertModal from './AlertModal';
 import BlocklyView from './BlocklyView';
@@ -192,13 +193,42 @@ export default class Page extends Component<Props, State> {
     this.readBlocklyContents(xml);
   }
 
-  private async saveFile() {
-    const xml = this.state.doc.xml;
+    private async saveFile() {
+        const xml = this.state.doc.xml;
 
-    if (xml) {
-      await this.props.app.saveFile(this.state.fileName, xml, 'xml', 'text/xml;charset=utf-8');
+        if (xml) {
+            const user = firebase.auth().currentUser;
+
+            if (user) {
+                let self = this;
+                this.setState({
+                    modal: 'progress',
+                });
+                const ref = firebase.storage().ref(`blocks/${user.uid}/${this.state.fileName}.xml`);
+                const task = ref.putString(xml, undefined, {
+                    contentType: 'text/xml',
+                });
+                task.on('state_changed', function (snapshot) {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes);
+                    self.setState({
+                        progress: progress,
+                    });
+                }, function (error) {
+                    self.setState({
+                        modal: 'error',
+                    });
+                    console.log(error);
+                }, function () {
+                    self.closeModal();
+                    task.snapshot.ref.getDownloadURL().then(function (downloadURL: string) {
+                        console.log('File available at', downloadURL);
+                    });
+                });
+            } else {
+                await this.props.app.saveFile(this.state.fileName, xml, 'xml', 'text/xml;charset=utf-8');
+            }
+        }
     }
-  }
 
     private async downloadPython() {
         const python = this.state.doc.python;
