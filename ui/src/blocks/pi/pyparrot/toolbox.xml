@@ -1,0 +1,61 @@
+<category name="PyParrot" colour="#22a6b3" iconclass="blocklyTreeIconCustom drone">
+    <block type="import_mambo"></block>
+    <block type="mambo_setup">
+        <value name="NAME">
+            <shadow type="textinline">
+                <field name="text"></field>
+            </shadow>
+        </value>
+    </block>
+    <block type="mambo_connect">
+        <value name="NAME">
+            <shadow type="textinline">
+                <field name="text"></field>
+            </shadow>
+        </value>
+    </block>
+    <block type="mambo_sleep">
+        <value name="NAME">
+            <shadow type="textinline">
+                <field name="text"></field>
+            </shadow>
+        </value>
+    </block>
+    <block type="mambo_update"></block>
+    <block type="mambo_disconnect"></block>
+    <block type="mambo_takeoff">
+        <value name="NAME">
+            <shadow type="textinline">
+                <field name="text"></field>
+            </shadow>
+        </value>
+    </block>
+    <block type="mambo_turn">
+        <value name="NAME">
+            <shadow type="textinline">
+                <field name="text"></field>
+            </shadow>
+        </value>
+    </block>
+    <block type="mambo_land">
+        <value name="NAME">
+            <shadow type="textinline">
+                <field name="text"></field>
+            </shadow>
+        </value>
+    </block>
+    <block type="mambo_sleep">
+        <value name="NAME">
+            <shadow type="textinline">
+                <field name="text"></field>
+            </shadow>
+        </value>
+    </block>
+    <block type="mambo_flip">
+        <value name="NAME">
+            <shadow type="textinline">
+                <field name="text"></field>
+            </shadow>
+        </value>
+    </block>
+</category>  

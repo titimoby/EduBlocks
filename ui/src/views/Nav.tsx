@@ -49,13 +49,13 @@ export default class Nav extends Component<Props, {}> {
                     {this.props.platformImg && <img src={this.props.platformImg} class='Nav__platformImg' height={50}/>}
                     <img class='logo' src='/images/edublock-logo_Final_edublocks_white.svg'/>
                 </a>
+                <Auth openAuth={this.props.openAuth} closeAuth={this.props.closeAuth}/>
                 <input class='brand' type='email' placeholder='Untitled'
-                       style='width: 200px !important; color:black; margin-left: 5px'
+                       style='width: 200px !important; color:black; margin-left: 5px; float:right'
                        onChange={(e) => this.props.onFileChange((e.target as any).value)}/>
                 <input id='bmenub' type='checkbox' class='show'/>
                 <label for='bmenub' class='burger pseudo button icon-menu'/>
 
-                <Auth openAuth={this.props.openAuth} closeAuth={this.props.closeAuth}/>
 
                 <div class='menu'>
 

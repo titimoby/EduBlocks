@@ -86,13 +86,13 @@ export default class Auth extends Component<AuthProps, State> {
     public render() {
         if (this.state.user) {
             return <div className='login'>
-                <span>Welcome {this.state.user.displayName}</span>
                 {this.state.user.photoURL ? <img src={this.state.user.photoURL} alt=""/> : null}
+                <span>Welcome, {this.state.user.displayName}</span>
             </div>;
         }
 
         return <div className='login'>
-            <button onClick={this.openAuth}>Login</button>
+            <button style="background: rgba(0, 0, 0, 0)" onClick={this.openAuth}><i class="fas fa-sign-in-alt"></i>  Login</button>
         </div>;
     }
 }
