@@ -74,7 +74,7 @@ export default class Auth extends Component<AuthProps, State> {
             this.ui.start('#firebaseui-auth-container', this.uiConfig);
             this.props.openAuth();
         }
-
+ 
         let self = this;
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -95,7 +95,7 @@ export default class Auth extends Component<AuthProps, State> {
         if (this.state.user) {
             return <div className='login'>
                 {this.state.user.photoURL ? <img src={this.state.user.photoURL} alt=""/> : null}
-                <button style="background: rgba(0, 0, 0, 0); padding: 0.1em !important;" onClick={this.logOutAccount} data-tooltip="Log Out"><span>Welcome, {this.state.user.displayName}</span></button>
+                <button style="background: rgba(0, 0, 0, 0); padding: 0.1em !important;" onClick={this.logOutAccount} data-tooltip="Log Out"><span>{this.state.user.displayName}</span></button>
             </div>;
         }
 
