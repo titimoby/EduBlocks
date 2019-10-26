@@ -1,7 +1,6 @@
 import React = require('preact');
 import {Component} from 'preact';
 import Auth from './Auth';
-import * as firebase from 'firebase/app';
 
 interface Props {
     platformImg?: string;
