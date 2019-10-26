@@ -12,6 +12,7 @@ import OverModal from './OverwriteModal';
 import PythonView from './PythonView';
 import RemoteShellView from './RemoteShellView';
 import SelectModal, {SelectModalOption} from './SelectModal';
+import FirebaseSelectModal from './FirebaseSelectModal';
 import TrinketView from './TrinketView';
 
 type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex';
@@ -32,7 +33,7 @@ interface DocumentState {
     pythonClean: boolean;
 }
 
-interface FileSelectModalOption {
+interface FileFirebaseSelectModalOption {
     label: string;
     ref: firebase.storage.Reference;
 }
@@ -46,7 +47,7 @@ interface State {
     progress: number;
     doc: Readonly<DocumentState>;
     fileName: string;
-    files: FileSelectModalOption[];
+    files: FileFirebaseSelectModalOption[];
 }
 
 export default class Page extends Component<Props, State> {
@@ -238,6 +239,11 @@ export default class Page extends Component<Props, State> {
             console.error(error);
         });
 
+    }
+
+    private async deleteFirebaseFile(file: firebase.storage.Reference) {
+        file.delete();
+        this.closeModal();
     }
 
     private async saveFile() {
@@ -606,13 +612,14 @@ export default class Page extends Component<Props, State> {
                 />
                 }
 
-                <SelectModal
+                <FirebaseSelectModal
                     title='Files'
                     options={this.state.files}
                     selectLabel='Open'
                     buttons={[]}
                     visible={this.state.modal === 'files'}
-                    onSelect={(file: FileSelectModalOption) => this.openFirebaseFile(file.ref)}
+                    onSelect={(file: FileFirebaseSelectModalOption) => this.openFirebaseFile(file.ref)}
+                    onDelete={(file: FileFirebaseSelectModalOption) => this.deleteFirebaseFile(file.ref)}
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
                 />
 

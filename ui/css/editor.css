@@ -162,6 +162,10 @@ button {
     margin: 0;
 }
 
+.buttonMenu {
+    margin-left: 0.5em;
+}
+
 .blocklyText {
 
     cursor: default;
