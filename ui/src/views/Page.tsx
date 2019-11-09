@@ -1,9 +1,9 @@
 import React = require('preact');
-import {Component} from 'preact';
-import {getPlatform, getPlatformList} from '../platforms';
-import {App, Capability, Extension, Platform, PlatformInterface} from '../types';
+import { Component } from 'preact';
+import { getPlatform, getPlatformList } from '../platforms';
+import { App, Capability, Extension, Platform, PlatformInterface } from '../types';
 import * as firebase from 'firebase/app';
-import {AuthModal} from './Auth';
+import { AuthModal } from './Auth';
 import AlertModal from './AlertModal';
 import BlocklyView from './BlocklyView';
 import ImageModal from './ImageModal';
@@ -11,7 +11,7 @@ import Nav from './Nav';
 import OverModal from './OverwriteModal';
 import PythonView from './PythonView';
 import RemoteShellView from './RemoteShellView';
-import SelectModal, {SelectModalOption} from './SelectModal';
+import SelectModal, { SelectModalOption } from './SelectModal';
 import FirebaseSelectModal from './FirebaseSelectModal';
 import TrinketView from './TrinketView';
 
@@ -83,7 +83,7 @@ export default class Page extends Component<Props, State> {
             pythonClean: true,
         };
 
-        this.setState({doc});
+        this.setState({ doc });
 
         this.switchView(ViewModeBlockly);
     }
@@ -97,7 +97,7 @@ export default class Page extends Component<Props, State> {
         }
 
         if (this.state.doc.python !== python && !this.state.doc.pythonClean) {
-            this.setState({modal: 'pythonOverwritten'});
+            this.setState({ modal: 'pythonOverwritten' });
         }
 
         const doc: DocumentState = {
@@ -106,7 +106,7 @@ export default class Page extends Component<Props, State> {
             pythonClean: true,
         };
 
-        this.setState({doc});
+        this.setState({ doc });
     }
 
     private updateFromPython(python: string) {
@@ -120,7 +120,7 @@ export default class Page extends Component<Props, State> {
             pythonClean: false,
         };
 
-        this.setState({doc});
+        this.setState({ doc });
     }
 
     private new() {
@@ -130,7 +130,7 @@ export default class Page extends Component<Props, State> {
             pythonClean: true,
         };
 
-        this.setState({doc});
+        this.setState({ doc });
 
         this.switchView('blocks');
     }
@@ -156,12 +156,12 @@ export default class Page extends Component<Props, State> {
     private switchView(viewMode: ViewMode): 0 {
         switch (viewMode) {
             case ViewModeBlockly:
-                this.setState({viewMode: 'blocks'});
+                this.setState({ viewMode: 'blocks' });
 
                 return 0;
 
             case ViewModePython:
-                this.setState({viewMode: 'python'});
+                this.setState({ viewMode: 'python' });
 
                 return 0;
         }
@@ -169,12 +169,12 @@ export default class Page extends Component<Props, State> {
 
     private openTerminal() {
         if (!this.state.doc.python) {
-            this.setState({modal: 'noCode'});
+            this.setState({ modal: 'noCode' });
 
             return;
         }
 
-        this.setState({modal: 'terminal'});
+        this.setState({ modal: 'terminal' });
 
         if (this.remoteShellView) {
             this.remoteShellView.focus();
@@ -229,7 +229,7 @@ export default class Page extends Component<Props, State> {
             xhr.responseType = 'text';
             xhr.onload = function (event) {
                 self.readBlocklyContents(xhr.responseText);
-            }; 
+            };
             xhr.open('GET', url);
             xhr.send();
         }).catch(function (error) {
@@ -337,21 +337,21 @@ export default class Page extends Component<Props, State> {
 
 
     private closeModal() {
-        this.setState({modal: this.state.prevModal, prevModal: null});
+        this.setState({ modal: this.state.prevModal, prevModal: null });
     }
 
 
     private openAuth() {
-        this.setState({modal: 'auth', prevModal: this.state.modal});
+        this.setState({ modal: 'auth', prevModal: this.state.modal });
     }
 
 
     private openSamples() {
-        this.setState({modal: 'samples'});
+        this.setState({ modal: 'samples' });
     }
 
     private selectSample(file: string) {
-        this.setState({modal: null});
+        this.setState({ modal: null });
 
         const xml = this.props.app.getSample(this.state.platform!.key, file);
 
@@ -360,7 +360,7 @@ export default class Page extends Component<Props, State> {
 
 
     private openThemes() {
-        this.setState({modal: 'themes'});
+        this.setState({ modal: 'themes' });
     }
 
     private selectTheme(theme: string) {
@@ -371,13 +371,13 @@ export default class Page extends Component<Props, State> {
 
 
     private openExtensions() {
-        this.setState({modal: 'extensions'});
+        this.setState({ modal: 'extensions' });
     }
 
     private selectExtension(extension: Extension) {
         this.closeModal();
 
-        const {extensionsActive} = this.state;
+        const { extensionsActive } = this.state;
 
         this.setState({
             extensionsActive: [...extensionsActive, extension],
@@ -419,20 +419,20 @@ export default class Page extends Component<Props, State> {
 
 
     private openAdvancedFunctionDialog() {
-        this.setState({modal: 'functions'});
+        this.setState({ modal: 'functions' });
     }
 
     private fileChange(fileName: string) {
-        this.setState({fileName});
+        this.setState({ fileName });
     }
 
     private openPlatforms() {
         this.new();
-        this.setState({modal: 'platform'});
+        this.setState({ modal: 'platform' });
     }
 
     private modeQuestion() {
-        this.setState({modal: 'codeOverwrite'});
+        this.setState({ modal: 'codeOverwrite' });
     }
 
     private getAdvancedFunctionList(): SelectModalOption[] {
@@ -462,14 +462,14 @@ export default class Page extends Component<Props, State> {
             const python = this.state.doc.python;
 
             if (python) {
-                this.setState({modal: 'progress', progress: 0});
+                this.setState({ modal: 'progress', progress: 0 });
 
                 try {
                     await this.props.app.flashHex(python, this.state.extensionsActive, (progress) => {
-                        this.setState({progress});
+                        this.setState({ progress });
                     });
                 } finally {
-                    this.setState({modal: null});
+                    this.setState({ modal: null });
                 }
             }
         }
@@ -597,19 +597,19 @@ export default class Page extends Component<Props, State> {
                 </section>
 
                 {this.hasCapability('RemoteShell') &&
-                <RemoteShellView
-                    ref={(c) => this.initTerminal(c)}
-                    visible={this.state.modal === 'terminal'}
-                    onClose={() => this.onTerminalClose()}
-                />
+                    <RemoteShellView
+                        ref={(c) => this.initTerminal(c)}
+                        visible={this.state.modal === 'terminal'}
+                        onClose={() => this.onTerminalClose()}
+                    />
                 }
 
                 {this.hasCapability('TrinketShell') &&
-                <TrinketView
-                    pythonCode={this.getPythonCode()}
-                    visible={this.state.modal === 'terminal'}
-                    onClose={() => this.onTerminalClose()}
-                />
+                    <TrinketView
+                        pythonCode={this.getPythonCode()}
+                        visible={this.state.modal === 'terminal'}
+                        onClose={() => this.onTerminalClose()}
+                    />
                 }
 
                 <FirebaseSelectModal
@@ -625,7 +625,7 @@ export default class Page extends Component<Props, State> {
 
                 <SelectModal
                     title='Samples'
-                    options={this.state.platform ? this.props.app.getSamples(this.state.platform.key).map((label) => ({label})) : []}
+                    options={this.state.platform ? this.props.app.getSamples(this.state.platform.key).map((label) => ({ label })) : []}
                     selectLabel='Open'
                     buttons={[]}
                     visible={this.state.modal === 'samples'}
@@ -635,7 +635,7 @@ export default class Page extends Component<Props, State> {
 
                 <SelectModal
                     title='Themes'
-                    options={this.props.app.getThemes().map((label) => ({label}))}
+                    options={this.props.app.getThemes().map((label) => ({ label }))}
                     selectLabel='Select'
                     buttons={[]}
                     visible={this.state.modal === 'themes'}
@@ -654,15 +654,15 @@ export default class Page extends Component<Props, State> {
                 />
 
                 {this.getExtensions().length > 0 &&
-                <SelectModal
-                    title='Extensions'
-                    options={this.getExtensions().map((label) => ({label}))}
-                    selectLabel='Load'
-                    buttons={[]}
-                    visible={this.state.modal === 'extensions'}
-                    onSelect={(extension) => this.selectExtension(extension.label as Extension)}
-                    onButtonClick={(key) => key === 'close' && this.closeModal()}
-                />
+                    <SelectModal
+                        title='Extensions'
+                        options={this.getExtensions().map((label) => ({ label }))}
+                        selectLabel='Load'
+                        buttons={[]}
+                        visible={this.state.modal === 'extensions'}
+                        onSelect={(extension) => this.selectExtension(extension.label as Extension)}
+                        onButtonClick={(key) => key === 'close' && this.closeModal()}
+                    />
                 }
 
             </div>

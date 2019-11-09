@@ -1,11 +1,12 @@
-import * as React from 'preact';
-import * as firebase from 'firebase/app';
 import 'firebase/analytics';
+import * as firebase from 'firebase/app';
 import 'firebase/storage';
-import {newApp} from './app';
+import * as React from 'preact';
+import { newApp } from './app';
+import { sleep } from './lib/util';
 import Page from './views/Page';
 
-function main() {
+async function main() {
     Blockly.HSV_VALUE = 0.9;
 
     const app = newApp();
@@ -25,11 +26,13 @@ function main() {
         appId: '1:1073955966212:web:b828491fbc775a2130d451',
         measurementId: 'G-ELDZXSL916',
     };
+
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
 
+    await sleep(1000);
 
-    React.render(<Page app={app}/>, pageDiv.parentElement, pageDiv);
+    React.render(<Page app={app} />, pageDiv.parentElement, pageDiv);
 
     function getElementByIdSafe(id: string): HTMLElement {
         const element = document.getElementById(id);
