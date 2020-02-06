@@ -69,6 +69,8 @@ export default class BlocklyView extends Component<BlocklyViewProps, {}> {
 
       Blockly.svgResize(this.workspace);
 
+      Blockly.Generator.prototype.INDENT = '\t';
+
       this.setXml(this.xml);
     }
   }
