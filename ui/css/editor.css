@@ -317,13 +317,27 @@ a {
     transform: translate(-50%, -50%);
   }
   
-  .flex-container > div {
+.flex-container > div {
     margin: 10px;
     text-align: center;
     line-height: 75px;
     font-size: 30px;
     margin: 0 auto;
   }
+
+.card header, .modal .overlay ~ * header {
+    font-weight: bold;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    background-color: #1B173D;
+    color: white;
+    text-align: center;
+  }
+
+.modal > input:checked ~ .overlay ~ * {
+    border-radius: 15px;
+    width: 57%;
+   }
 
 .loader {
     border: 16px solid #f3f3f3;
