@@ -336,7 +336,6 @@ a {
 
 .modal > input:checked ~ .overlay ~ * {
     border-radius: 15px;
-    width: 57%;
    }
 
 .loader {
@@ -427,6 +426,13 @@ button{
     text-align: left;
     padding-left: 20px;
 }
+
+.LoginModal__close{
+    
+    color: white;
+}
+
+
 
 .ImageHelpIconContainer{
     position: absolute;
