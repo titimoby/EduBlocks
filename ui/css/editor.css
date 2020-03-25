@@ -53,9 +53,8 @@ nav .button {
 }
 
 nav {
-    background: #396afc; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #2948ff, #396afc); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #2948ff, #396afc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #1B173D; 
+   
 }
 
 .Nav__platformImg {
@@ -113,7 +112,7 @@ nav .login img {
 
 
 .SelectModal__header {
-    background: #396afc;
+    background: #1B173D;
     color: #fff;
     border-bottom: none !important;
 }
@@ -288,7 +287,7 @@ table.primary td {
 
 
 a {
-    color: #396afc
+    color: #1B173D
 }
 
 
@@ -313,6 +312,10 @@ div.blocklyTreeRow {
 
 }
 
+button{
+    background: #4455A5;
+}
+
 .ImageModalOptionContainer {
     display: flex;
     flex-wrap: wrap;
@@ -326,6 +329,7 @@ div.blocklyTreeRow {
     border: solid 1px #e5e3e3;
     margin: 10px;
     text-align: center;
+    border-radius: 15px;
 }
 
 .ImageModalOption:hover {
