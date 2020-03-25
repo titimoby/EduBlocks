@@ -1,5 +1,6 @@
 body {
     height: auto;
+    background-color: #1B173D;
 }
 
 .blocklyWidgetDiv .fieldTextInput {
@@ -232,6 +233,7 @@ table.primary td {
 
 #blockly {
     width: 100%;
+    overflow: hidden;
     height: 100%;
     background-color: white;
 }
@@ -240,6 +242,7 @@ table.primary td {
     white-space: pre;
     font-family: Courier New, Courier, monospace;
     font-size: 20px;
+    width: 10px !important;
     line-height: 28px;
     padding: 10px;
     background: #e7e7e7;
@@ -251,8 +254,8 @@ table.primary td {
     position: absolute;
     top: 0;
     right: 0;
+    width: 30%;
     bottom: 0;
-    left: 0;
 }
 
 #terminal-dialog {
@@ -304,6 +307,44 @@ a {
 .blocklyTreeRow {
     height: 52px !important
 }
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .flex-container > div {
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
+    font-size: 30px;
+    margin: 0 auto;
+  }
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #E71D64;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 /* Specifying rounded toolbox borders. */
 div.blocklyTreeRow {
