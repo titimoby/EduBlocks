@@ -13,9 +13,10 @@ import PythonView from './PythonView';
 import RemoteShellView from './RemoteShellView';
 import SelectModal, { SelectModalOption } from './SelectModal';
 import FirebaseSelectModal from './FirebaseSelectModal';
+
 import TrinketView from './TrinketView';
 
-type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex';
+type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions';
 const AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes'];
 
 const ViewModeBlockly = 'blocks';
@@ -440,6 +441,7 @@ export default class Page extends Component<Props, State> {
 
         if (this.state.platform && this.state.platform.capabilities.indexOf('HexFlash') !== -1) {
             advancedFunctions = [...advancedFunctions, 'Flash Hex'];
+            advancedFunctions = [...advancedFunctions, 'Extensions'];
         }
 
         return advancedFunctions.map((func) => ({
@@ -456,6 +458,10 @@ export default class Page extends Component<Props, State> {
 
         if (func === 'Themes') {
             await this.openThemes();
+        }
+
+        if (func === 'Extensions') {
+            await this.openExtensions();
         }
 
         if (func === 'Flash Hex') {
@@ -644,7 +650,7 @@ export default class Page extends Component<Props, State> {
                 />
 
                 <SelectModal
-                    title='Advanced Functions'
+                    title='Extras'
                     selectLabel='Go'
                     buttons={[]}
                     visible={this.state.modal === 'functions'}

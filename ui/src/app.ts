@@ -40,6 +40,7 @@ export function newApp(): App {
     newpy = newpy.replace('from scrollbit import *', '');
     newpy = newpy.replace('from envirobit import *', '');
     newpy = newpy.replace('from iotloranode import loraNode', '');
+    //Automated Extensions under here
 
     const combinedScript = (beforeScript ? (beforeScript + '\n\n') : '') + newpy;
 

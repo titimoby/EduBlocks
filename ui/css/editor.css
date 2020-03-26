@@ -331,7 +331,6 @@ a {
     border-bottom: 1px solid #eee;
     background-color: #1B173D;
     color: white;
-    text-align: center;
   }
 
 .modal > input:checked ~ .overlay ~ * {

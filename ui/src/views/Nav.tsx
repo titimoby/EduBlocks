@@ -41,7 +41,7 @@ interface Props {
 
 export default class Nav extends Component<Props, {}> {
     public render() {
-        const {openExtensions, downloadHex, openTerminal: sendCode, downloadPython} = this.props;
+        const {downloadHex, openTerminal: sendCode, downloadPython} = this.props;
 
         return (
             <nav>
@@ -94,12 +94,7 @@ export default class Nav extends Component<Props, {}> {
             Themes
           </a>*/}
 
-                    {openExtensions &&
-                    <a class='button icon-puzzle' title='Extensions' href='javascript:void(0)'
-                       onClick={() => openExtensions()}>
-                        Extensions
-                    </a>
-                    }
+                   
 
                     <a class='button icon-book' title='Samples' href='javascript:void(0)'
                        onClick={() => this.props.openSamples()}>
@@ -108,7 +103,7 @@ export default class Nav extends Component<Props, {}> {
 
                     <a class='button icon-cog' title='Settings' href='javascript:void(0)'
                        onClick={() => this.props.onFunction()}>
-                        Settings
+                        Extras
                     </a>
 
                     {sendCode &&

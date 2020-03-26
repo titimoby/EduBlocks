@@ -12,6 +12,8 @@ export function newMicrobitPlatform(): PlatformInterface {
     extensions: [
       'scroll:bit',
       'GiggleBot',
+      //Automated Extensions under here
+      
     ],
   };
 }

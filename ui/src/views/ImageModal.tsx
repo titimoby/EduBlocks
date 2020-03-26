@@ -41,8 +41,8 @@ export default class ImageModal<T extends ImageModalOption> extends Component<Im
         <input id='modal_1' type='checkbox' disabled={true} checked={this.props.visible} />
         <label for='modal_1' class='overlay'></label>
         <article style="width: 57%;">
-          <header>
-            <h3>{this.props.title}</h3>
+          <header style="text-align: center;">
+            <h3 style="margin: 0 !important;">{this.props.title}</h3>
           </header>
 
           <section class='content'>
