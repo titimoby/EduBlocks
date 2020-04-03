@@ -36,7 +36,7 @@ export default class UploadModal<T extends UploadModalOption> extends Component<
 
           <section class='SelectModel__content'>
             <progress id="file" value={this.props.text} max="100"></progress>
-            {this.props.text}%
+            {this.props.text}
           </section>
           <footer class="alertFooter">
             <label for="modal_1" class="button dangerous" onClick={() => this.props.onButtonClick('close')}>
