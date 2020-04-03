@@ -552,7 +552,7 @@ export default class Page extends Component<Props, State> {
                 <AlertModal
                     title='Uploading...'
                     visible={this.state.modal === 'progress'}
-                    text={`Uploading: ${(this.state.progress * 100) | 0}%`}
+                    text={'<progress id="file" value="'+ this.state.progress * 100 + '" max="100"></progress>'}
                     onCancel={() => {
                     }}
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
