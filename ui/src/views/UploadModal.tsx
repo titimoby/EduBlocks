@@ -1,25 +1,27 @@
 import React = require('preact');
 import { Component } from 'preact';
 
-interface AlertModalProps<T extends AlertModalOption> {
+interface UploadModalProps<T extends UploadModalOption> {
   title: string;
   visible: boolean;
   text: string;
+  progress: string;
 
   onCancel(): void;
   onButtonClick(key: string): void;
 }
 
-interface AlertModalState {
+interface UploadModalState {
 
 }
 
-export interface AlertModalOption {
+export interface UploadModalOption {
   title: string;
   text: string;
+  progress: string;
 }
 
-export default class AlertModal<T extends AlertModalOption> extends Component<AlertModalProps<T>, AlertModalState> {
+export default class UploadModal<T extends UploadModalOption> extends Component<UploadModalProps<T>, UploadModalState> {
   public render() {
 
     return (
@@ -33,7 +35,8 @@ export default class AlertModal<T extends AlertModalOption> extends Component<Al
           </header>
 
           <section class='SelectModel__content'>
-            {this.props.text}
+            <progress id="file" value={this.props.text} max="100"></progress>
+            {this.props.text}%
           </section>
           <footer class="alertFooter">
             <label for="modal_1" class="button dangerous" onClick={() => this.props.onButtonClick('close')}>

@@ -5,6 +5,7 @@ import { App, Capability, Extension, Platform, PlatformInterface } from '../type
 import * as firebase from 'firebase/app';
 import { AuthModal } from './Auth';
 import AlertModal from './AlertModal';
+import UploadModal from './UploadModal';
 import BlocklyView from './BlocklyView';
 import ImageModal from './ImageModal';
 import Nav from './Nav';
@@ -549,10 +550,11 @@ export default class Page extends Component<Props, State> {
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
                 />
 
-                <AlertModal
+                <UploadModal
                     title='Uploading...'
                     visible={this.state.modal === 'progress'}
-                    text={<progress id="file" value="'+ this.state.progress * 100 + '" max="100"></progress>}
+                    text={'${(this.state.progress * 100)'}
+                    progress={'${(this.state.progress * 100)'}
                     onCancel={() => {
                     }}
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
