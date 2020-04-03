@@ -4,7 +4,7 @@ import { Component } from 'preact';
 interface AlertModalProps<T extends AlertModalOption> {
   title: string;
   visible: boolean;
-  text: string;
+  text: any;
 
   onCancel(): void;
   onButtonClick(key: string): void;
@@ -16,7 +16,7 @@ interface AlertModalState {
 
 export interface AlertModalOption {
   title: string;
-  text: string;
+  text: any;
 }
 
 export default class AlertModal<T extends AlertModalOption> extends Component<AlertModalProps<T>, AlertModalState> {
