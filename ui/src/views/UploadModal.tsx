@@ -5,7 +5,7 @@ interface UploadModalProps<T extends UploadModalOption> {
   title: string;
   visible: boolean;
   text: string;
-  progress: string;
+  progress: any;
 
   onCancel(): void;
   onButtonClick(key: string): void;
@@ -18,7 +18,7 @@ interface UploadModalState {
 export interface UploadModalOption {
   title: string;
   text: string;
-  progress: string;
+  progress: any;
 }
 
 export default class UploadModal<T extends UploadModalOption> extends Component<UploadModalProps<T>, UploadModalState> {
@@ -34,8 +34,9 @@ export default class UploadModal<T extends UploadModalOption> extends Component<
             <a class='SelectModal__close close' onClick={() => this.props.onButtonClick('close')}>&times;</a>
           </header>
 
-          <section class='SelectModel__content'>
-            <progress id="file" value={this.props.text} max="100"></progress>
+          <section class='SelectModel__content' style="text-align: center;">
+            <progress id="file" value={this.props.progress} max="100"></progress>
+            <br></br>
             {this.props.text}
           </section>
           <footer class="alertFooter">
