@@ -18,7 +18,7 @@ async function main() {
 
     const firebaseConfig = {
         apiKey: 'AIzaSyDsJfMGnGrAWKAGKm-sowLs1q_JfEGvF1Q',
-        authDomain: 'edublocks-38d74.firebaseapp.com',
+        authDomain: 'auth.edublocks.org',
         databaseURL: 'https://edublocks-38d74.firebaseio.com',
         projectId: 'edublocks-38d74',
         storageBucket: 'edublocks-38d74.appspot.com',
