@@ -50,7 +50,7 @@ export default class Auth extends React.Component<AuthProps, State> {
                 firebase.auth.TwitterAuthProvider.PROVIDER_ID,
                 {
                     provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                    signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
+                    requireDisplayName: true
                 },
             ],
         };
