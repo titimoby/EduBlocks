@@ -14,7 +14,6 @@ interface State {
     user: firebase.User | null;
 }
 
-
 export default class Auth extends React.Component<AuthProps, State> {
     ui: firebaseui.auth.AuthUI;
     uiConfig: {};
@@ -35,9 +34,18 @@ export default class Auth extends React.Component<AuthProps, State> {
             },
             // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
             signInFlow: 'popup',
+            
             signInOptions: [
                 // Leave the lines as is for the providers you want to offer your users.
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                {
+                    hd: 'acme.com',
+                    provider: 'microsoft.com',
+                    providerName: 'Microsoft',
+                    buttonColor: '#2F2F2F',
+                    iconUrl: 'https://clipartart.com/images/microsoft-logo-clipart-transparent-3.png',
+                    loginHintKey: 'login_hint',
+                  },
                 firebase.auth.GithubAuthProvider.PROVIDER_ID,
                 firebase.auth.TwitterAuthProvider.PROVIDER_ID,
                 {
