@@ -17,8 +17,8 @@ import FirebaseSelectModal from './FirebaseSelectModal';
 
 import TrinketView from './TrinketView';
 
-type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions';
-const AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes'];
+type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Split View';
+const AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Split View"];
 
 const ViewModeBlockly = 'blocks';
 const ViewModePython = 'python';
@@ -459,6 +459,26 @@ export default class Page extends Component<Props, State> {
 
         if (func === 'Themes') {
             await this.openThemes();
+            
+        }
+
+        if (func === 'Split View') {
+            alert(Blockly.WorkspaceSvg.toString())
+            let blocklyEditor = document.getElementById('blockly') as HTMLBodyElement;
+            let pythonEditor = document.getElementById('python') as HTMLBodyElement;
+            let editorElement = document.getElementById('editor') as HTMLBodyElement;
+            
+
+            blocklyEditor.style.width = "60%";
+            editorElement.style.width = "40%";
+
+            window.dispatchEvent(new Event('resize'))
+
+            pythonEditor.classList.add("show-editor");
+
+            this.switchView(ViewModePython);
+
+            await this.closeModal();
         }
 
         if (func === 'Extensions') {
