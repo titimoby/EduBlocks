@@ -59,10 +59,22 @@ interface State {
 // Labels
 
 export let navLabels: string[] = new Array();
-navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled"];
+navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download"];
 
 export let generic: string[] = new Array();
-generic = ["Open", "Go", "Select", "Close", "Delete", "Yes", "No", "Attention!", "There is no code to run!", "Changing mode will make you lose your code, do you wish to continue?"];
+generic = ["Open", 
+            "Go", 
+            "Select", 
+            "Close", 
+            "Delete", 
+            "Yes", 
+            "No", 
+            "Attention!", 
+            "There is no code to run!", 
+            "Changing mode will make you lose your code, do you wish to continue?", 
+            "Uploading...", 
+            "Select your mode",
+            "Files"];
 
 export default class Page extends Component<Props, State> {
     public remoteShellView?: RemoteShellView;
@@ -477,16 +489,44 @@ export default class Page extends Component<Props, State> {
 
     private async runLanguages(func: Languages) {
         if (func === 'English') {
-            navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled"];
-            generic = ["Open", "Go", "Select", "Close", "Delete", "Yes", "No", "Attention!", "There is no code to run!", "Changing mode will make you lose your code, do you wish to continue?"];
+            navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex"];
+            
+            generic = ["Open", 
+            "Go", 
+            "Select", 
+            "Close", 
+            "Delete", 
+            "Yes", 
+            "No", 
+            "Attention!", 
+            "There is no code to run!", 
+            "Changing mode will make you lose your code, do you wish to continue?", 
+            "Uploading...", 
+            "Select your mode",
+            "Files"];
+
             document.getElementById("menubar")!.innerHTML = navLabels[0];
             document.getElementById("menubar")!.innerHTML = generic[0];
             await this.closeModal();
         }
 
         if (func === 'French') {
-            navLabels = ["Nouveau", "Ouvrir", "Sauvegarder", "Examples", "Préférences", "Exécuter", "S'identifier", "Sans Titre"];
-            generic = ["Ouvert", "Aller", "Sélectionner", "Fermer", "Effacer", "Oui", "Non", "Attention!", "Il n’y a pas de code à exécuter!", "Changer le mode te fera perdre ton code, souhaites tu continuer?"];
+            navLabels = ["Nouveau", "Ouvrir", "Sauvegarder", "Examples", "Préférences", "Exécuter", "S'identifier", "Sans Titre", "Télécharger Hex"];
+            
+            generic = [ "Ouvert", 
+                        "Aller", 
+                        "Sélectionner", 
+                        "Fermer", 
+                        "Effacer", 
+                        "Oui", 
+                        "Non", 
+                        "Attention!", 
+                        "Il n’y a pas de code à exécuter!", 
+                        "Changer le mode te fera perdre ton code, souhaites tu continuer?",
+                        "Téléchargement...", 
+                        "Sélectionnez votre mode",
+                        "Des dossiers"];
+
             document.getElementById("menubar")!.innerHTML = generic[0];
             document.getElementById("menubar")!.innerHTML = navLabels[0];
             await this.closeModal();
@@ -555,7 +595,7 @@ export default class Page extends Component<Props, State> {
         return (
             <div id='page'>
                 <ImageModal
-                    title='Select your mode'
+                    title={generic[11]}
                     options={availablePlatforms}
                     visible={this.state.modal === 'platform'}
                     onSelect={(platform) => this.selectPlatform(platform.platform) && this.new()}
@@ -615,7 +655,7 @@ export default class Page extends Component<Props, State> {
                 />
 
                 <UploadModal
-                    title='Uploading...'
+                    title={generic[10]}
                     visible={this.state.modal === 'progress'}
                     text={`${(this.state.progress * 100) | 0}%`}
                     progress={this.state.progress * 100}
@@ -685,7 +725,7 @@ export default class Page extends Component<Props, State> {
                 }
 
                 <FirebaseSelectModal
-                    title='Files'
+                    title={generic[12]}
                     options={this.state.files}
                     selectLabel='Open'
                     buttons={[]}

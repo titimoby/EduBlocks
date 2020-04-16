@@ -1,5 +1,6 @@
 import React = require('preact');
 import { Component } from 'preact';
+import {generic} from './Page';
 
 interface FirebaseSelectModalProps<T extends FirebaseSelectModalOption> {
   title: string;
@@ -42,8 +43,8 @@ export default class FirebaseSelectModal<T extends FirebaseSelectModalOption> ex
         <span>{option.label}</span>
       </div>,
       <div class='SelectModal__cell SelectModal__cell--action'>
-        <button class="buttonMenu error" onClick={() => this.props.onDelete(option)}>Delete</button>
-        <button onClick={() => this.props.onSelect(option)}>{this.props.selectLabel}</button>
+        <button class="buttonMenu error" onClick={() => this.props.onDelete(option)}>{generic[4]}</button>
+        <button onClick={() => this.props.onSelect(option)}>{generic[0]}</button>
       </div>,
     ]));
 
@@ -57,7 +58,7 @@ export default class FirebaseSelectModal<T extends FirebaseSelectModalOption> ex
         <article class='SelectModel__container'>
 
           <header class='SelectModal__header'>
-            <h3>{this.props.title}</h3>
+            <h3>{generic[12]}</h3>
             <a class='SelectModal__close close' onClick={() => this.props.onButtonClick('close')}>&times;</a>
           </header>
 
@@ -70,7 +71,7 @@ export default class FirebaseSelectModal<T extends FirebaseSelectModalOption> ex
           <footer class='SelectModal__buttons'>
             {
               this.getButtons().map((button) => (
-                <button style={{ float: button.position, [`margin-${button.position === 'left' ? 'right' : 'left'}`]: '8px' }} onClick={() => this.props.onButtonClick(button.key)}>{button.label}</button>
+                <button style={{ float: button.position, [`margin-${button.position === 'left' ? 'right' : 'left'}`]: '8px' }} onClick={() => this.props.onButtonClick(button.key)}>{generic[3]}</button>
               ))
             }
           </footer>
