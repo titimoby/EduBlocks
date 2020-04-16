@@ -106,3 +106,5 @@ Blockly.downloadScreenshot = function(workspace) {
     a.parentNode.removeChild(a);
   });
 };
+
+Blockly.workspace.configureContextMenu = configureContextualMenu;

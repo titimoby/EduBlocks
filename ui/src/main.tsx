@@ -7,6 +7,7 @@ import { sleep } from './lib/util';
 import Page from './views/Page';
 
 async function main() {
+    
     Blockly.HSV_VALUE = 0.9;
 
     const app = newApp();
@@ -28,6 +29,9 @@ async function main() {
     };
 
     firebase.initializeApp(firebaseConfig);
+
+    
+    
     firebase.analytics();
 
     await sleep(1000);

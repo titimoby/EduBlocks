@@ -169,6 +169,7 @@ Blockly.Msg.LOGIC_NEGATE_HELPURL = "https://github.com/google/blockly/wiki/Logic
 Blockly.Msg.LOGIC_NEGATE_TITLE = "not %1";
 Blockly.Msg.LOGIC_NEGATE_TOOLTIP = "Returns true if the input is false. Returns false if the input is true.";
 Blockly.Msg.LOGIC_NULL = "null";
+Blockly.downloadScreenshot = "Download Screenshot";
 Blockly.Msg.LOGIC_NULL_HELPURL = "https://en.wikipedia.org/wiki/Nullable_type";
 Blockly.Msg.LOGIC_NULL_TOOLTIP = "Returns null.";
 Blockly.Msg.LOGIC_OPERATION_AND = "and";

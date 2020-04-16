@@ -30,6 +30,7 @@
     },
     "dependencies": {
         "@types/change-case": "^2.3.1",
+        "@types/jquery": "^3.3.35",
         "@types/es6-promise": "0.0.32",
         "@types/file-saver": "^0.0.1",
         "@types/lodash": "^4.14.62",
@@ -41,6 +42,7 @@
         "firebaseui": "^4.2.0",
         "lodash": "^4.17.4",
         "preact": "^8.4.2",
+        "jquery": "3.5.0",
         "term.js": "^0.0.7"
     }
 }

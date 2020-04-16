@@ -9,6 +9,7 @@ import UploadModal from './UploadModal';
 import BlocklyView from './BlocklyView';
 import ImageModal from './ImageModal';
 import Nav from './Nav';
+
 import OverModal from './OverwriteModal';
 import PythonView from './PythonView';
 import RemoteShellView from './RemoteShellView';
@@ -17,8 +18,8 @@ import FirebaseSelectModal from './FirebaseSelectModal';
 
 import TrinketView from './TrinketView';
 
-type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Split View';
-const AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Split View"];
+type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Split View' | 'French';
+const AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Split View", "French"];
 
 const ViewModeBlockly = 'blocks';
 const ViewModePython = 'python';
@@ -392,6 +393,8 @@ export default class Page extends Component<Props, State> {
     }
 
 
+
+
     private hasCapability(capability: Capability) {
         if (!this.state.platform) return false;
 
@@ -427,6 +430,7 @@ export default class Page extends Component<Props, State> {
     private fileChange(fileName: string) {
         this.setState({ fileName });
     }
+    
 
     private openPlatforms() {
         this.new();
@@ -462,6 +466,11 @@ export default class Page extends Component<Props, State> {
             
         }
 
+
+        if (func === 'French') {
+            //Code Here
+        }
+
         if (func === 'Split View') {
             alert(Blockly.WorkspaceSvg.toString())
             let blocklyEditor = document.getElementById('blockly') as HTMLBodyElement;
@@ -472,7 +481,6 @@ export default class Page extends Component<Props, State> {
             blocklyEditor.style.width = "60%";
             editorElement.style.width = "40%";
 
-            window.dispatchEvent(new Event('resize'))
 
             pythonEditor.classList.add("show-editor");
 
