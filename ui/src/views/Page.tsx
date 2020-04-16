@@ -511,7 +511,7 @@ export default class Page extends Component<Props, State> {
         }
 
         if (func === 'French') {
-            navLabels = ["Nouveau", "Ouvrir", "Sauvegarder", "Examples", "Préférences", "Exécuter", "S'identifier", "Sans Titre", "Télécharger Hex"];
+            navLabels = ["Nouveau", "Ouvrir", "Sauvegarder", "Exemples", "Préférences", "Exécuter", "S'identifier", "Sans Titre", "Télécharger Hex"];
             
             generic = [ "Ouvert", 
                         "Aller", 
