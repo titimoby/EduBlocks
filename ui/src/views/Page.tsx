@@ -472,7 +472,6 @@ export default class Page extends Component<Props, State> {
         }
 
         if (func === 'Split View') {
-            alert(Blockly.WorkspaceSvg.toString())
             let blocklyEditor = document.getElementById('blockly') as HTMLBodyElement;
             let pythonEditor = document.getElementById('python') as HTMLBodyElement;
             let editorElement = document.getElementById('editor') as HTMLBodyElement;
@@ -481,10 +480,9 @@ export default class Page extends Component<Props, State> {
             blocklyEditor.style.width = "60%";
             editorElement.style.width = "40%";
 
+            window.dispatchEvent(new Event('resize'))
 
             pythonEditor.classList.add("show-editor");
-
-            this.switchView(ViewModePython);
 
             await this.closeModal();
         }
