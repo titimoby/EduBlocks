@@ -59,7 +59,7 @@ interface State {
 // Labels
 
 export let navLabels: string[] = new Array();
-navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download"];
+navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex", "Download", "Themes"];
 
 export let generic: string[] = new Array();
 generic = ["Open", 
@@ -489,7 +489,7 @@ export default class Page extends Component<Props, State> {
 
     private async runLanguages(func: Languages) {
         if (func === 'English') {
-            navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex"];
+            navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex", "Download", "Themes"];
             
             generic = ["Open", 
             "Go", 
@@ -511,7 +511,7 @@ export default class Page extends Component<Props, State> {
         }
 
         if (func === 'French') {
-            navLabels = ["Nouveau", "Ouvrir", "Sauvegarder", "Exemples", "Préférences", "Exécuter", "S'identifier", "Sans Titre", "Télécharger Hex"];
+            navLabels = ["Nouveau", "Ouvrir", "Sauvegarder", "Exemples", "Préférences", "Exécuter", "S'identifier", "Sans Titre", "Télécharger Hex", "Télécharger", "Thèmes"];
             
             generic = [ "Ouvert", 
                         "Aller", 
@@ -522,7 +522,7 @@ export default class Page extends Component<Props, State> {
                         "Non", 
                         "Attention!", 
                         "Il n’y a pas de code à exécuter!", 
-                        "Changer le mode te fera perdre ton code, souhaites tu continuer?",
+                        "Changer le mode te fera perdre ton code, souhaites-tu continuer?",
                         "Téléchargement...", 
                         "Sélectionnez votre mode",
                         "Des dossiers"];
@@ -746,7 +746,7 @@ export default class Page extends Component<Props, State> {
                 />
 
                 <SelectModal
-                    title='Themes'
+                    title={navLabels[10]}
                     options={this.props.app.getThemes().map((label) => ({ label }))}
                     selectLabel={generic[2]}
                     buttons={[]}
@@ -756,7 +756,7 @@ export default class Page extends Component<Props, State> {
                 />
 
                 <SelectModal
-                    title='Extras'
+                    title={generic[4]}
                     selectLabel={generic[1]}
                     buttons={[]}
                     visible={this.state.modal === 'functions'}

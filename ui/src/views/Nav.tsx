@@ -86,7 +86,7 @@ export default class Nav extends Component<Props, {}> {
                     {downloadPython &&
                     <a class='button icon-download' title='Download Python Source Code' href='javascript:void(0)'
                        onClick={() => downloadPython()}>
-                        Download
+                        {navLabels[9]}
                     </a>
                     }
 
