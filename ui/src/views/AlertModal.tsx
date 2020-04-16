@@ -1,5 +1,6 @@
 import React = require('preact');
 import { Component } from 'preact';
+import {generic} from './Page';
 
 interface AlertModalProps<T extends AlertModalOption> {
   title: string;
@@ -32,12 +33,12 @@ export default class AlertModal<T extends AlertModalOption> extends Component<Al
             <a class='SelectModal__close close' onClick={() => this.props.onButtonClick('close')}>&times;</a>
           </header>
 
-          <section class='SelectModel__content'>
+          <section class='SelectModel__content' id="modaltext">
             {this.props.text}
           </section>
           <footer class="alertFooter">
             <label for="modal_1" class="button dangerous" onClick={() => this.props.onButtonClick('close')}>
-              Close
+              {generic[3]}
             </label>
           </footer>
         </article>

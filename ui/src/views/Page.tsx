@@ -18,8 +18,11 @@ import FirebaseSelectModal from './FirebaseSelectModal';
 
 import TrinketView from './TrinketView';
 
-type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Split View' | 'French';
-const AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Split View", "French"];
+type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Split View' | 'Switch Language';
+let AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Split View", "Switch Language"];
+
+type Languages = 'English' | 'French';
+const Languages: Languages[] = ['English', 'French'];
 
 const ViewModeBlockly = 'blocks';
 const ViewModePython = 'python';
@@ -44,14 +47,22 @@ interface FileFirebaseSelectModalOption {
 interface State {
     platform?: PlatformInterface;
     viewMode: ViewMode;
-    modal: null | 'platform' | 'terminal' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
-    prevModal: null | 'platform' | 'terminal' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    modal: null | 'platform' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    prevModal: null | 'platform' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
     extensionsActive: Extension[];
     progress: number;
     doc: Readonly<DocumentState>;
     fileName: string;
     files: FileFirebaseSelectModalOption[];
 }
+
+// Labels
+
+export let navLabels: string[] = new Array();
+navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled"];
+
+export let generic: string[] = new Array();
+generic = ["Open", "Go", "Select", "Close", "Delete", "Yes", "No", "Attention!", "There is no code to run!", "Changing mode will make you lose your code, do you wish to continue?"];
 
 export default class Page extends Component<Props, State> {
     public remoteShellView?: RemoteShellView;
@@ -455,6 +466,33 @@ export default class Page extends Component<Props, State> {
         }));
     }
 
+    private getLanguagesList(): SelectModalOption[] {
+        let languages = Languages;
+
+        return languages.map((func) => ({
+            label: func,
+            obj: func,
+        }));
+    }
+
+    private async runLanguages(func: Languages) {
+        if (func === 'English') {
+            navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled"];
+            generic = ["Open", "Go", "Select", "Close", "Delete", "Yes", "No", "Attention!", "There is no code to run!", "Changing mode will make you lose your code, do you wish to continue?"];
+            document.getElementById("menubar")!.innerHTML = navLabels[0];
+            document.getElementById("menubar")!.innerHTML = generic[0];
+            await this.closeModal();
+        }
+
+        if (func === 'French') {
+            navLabels = ["Nouveau", "Ouvrir", "Sauvegarder", "Examples", "Préférences", "Exécuter", "S'identifier", "Sans Titre"];
+            generic = ["Ouvert", "Aller", "Sélectionner", "Fermer", "Effacer", "Oui", "Non", "Attention!", "Il n’y a pas de code à exécuter!", "Changer le mode te fera perdre ton code, souhaites tu continuer?"];
+            document.getElementById("menubar")!.innerHTML = generic[0];
+            document.getElementById("menubar")!.innerHTML = navLabels[0];
+            await this.closeModal();
+        }
+    }
+
     private async runAdvancedFunction(func: AdvancedFunction) {
         if (func === 'Export Python') {
             await this.downloadPython();
@@ -467,8 +505,8 @@ export default class Page extends Component<Props, State> {
         }
 
 
-        if (func === 'French') {
-            //Code Here
+        if (func === 'Switch Language') {
+            this.setState({ modal: 'languages' });
         }
 
         if (func === 'Split View') {
@@ -531,18 +569,18 @@ export default class Page extends Component<Props, State> {
                 />
 
                 <AlertModal
-                    title='Attention!'
+                    title={generic[7]}
                     visible={this.state.modal === 'pythonOverwritten'}
-                    text='Python changes have been overwritten!'
+                    text={generic[8]}
                     onCancel={() => {
                     }}
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
                 />
 
                 <OverModal
-                    title='Attention!'
+                    title={generic[7]}
                     visible={this.state.modal === 'codeOverwrite'}
-                    text='Changing mode will make you lose your code, do you wish to continue?'
+                    text={generic[9]}
                     onCancel={() => {
                     }}
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
@@ -550,7 +588,7 @@ export default class Page extends Component<Props, State> {
                 />
 
                 <AlertModal
-                    title='Attention!'
+                    title={generic[7]}
                     visible={this.state.modal === 'https'}
                     text='Need to switch to HTTPS...'
                     onCancel={() => {
@@ -559,9 +597,9 @@ export default class Page extends Component<Props, State> {
                 />
 
                 <AlertModal
-                    title='Attention!'
+                    title={generic[7]}
                     visible={this.state.modal === 'noCode'}
-                    text='There is no code to run!'
+                    text={generic[8]}
                     onCancel={() => {
                     }}
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
@@ -658,9 +696,9 @@ export default class Page extends Component<Props, State> {
                 />
 
                 <SelectModal
-                    title='Samples'
+                    title={navLabels[3]}
                     options={this.state.platform ? this.props.app.getSamples(this.state.platform.key).map((label) => ({ label })) : []}
-                    selectLabel='Open'
+                    selectLabel={generic[0]}
                     buttons={[]}
                     visible={this.state.modal === 'samples'}
                     onSelect={(file) => this.selectSample(file.label)}
@@ -670,7 +708,7 @@ export default class Page extends Component<Props, State> {
                 <SelectModal
                     title='Themes'
                     options={this.props.app.getThemes().map((label) => ({ label }))}
-                    selectLabel='Select'
+                    selectLabel={generic[2]}
                     buttons={[]}
                     visible={this.state.modal === 'themes'}
                     onSelect={(theme) => this.selectTheme(theme.label)}
@@ -679,7 +717,7 @@ export default class Page extends Component<Props, State> {
 
                 <SelectModal
                     title='Extras'
-                    selectLabel='Go'
+                    selectLabel={generic[1]}
                     buttons={[]}
                     visible={this.state.modal === 'functions'}
                     options={this.getAdvancedFunctionList()}
@@ -687,11 +725,22 @@ export default class Page extends Component<Props, State> {
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
                 />
 
+                <SelectModal
+                    title='Switch Language'
+                    selectLabel={generic[2]}
+                    buttons={[]}
+                    visible={this.state.modal === 'languages'}
+                    options={this.getLanguagesList()}
+                    onSelect={(func) => this.runLanguages(func.label as Languages)}
+                    onButtonClick={(key) => key === 'close' && this.closeModal()}
+                />
+
+
                 {this.getExtensions().length > 0 &&
                     <SelectModal
                         title='Extensions'
                         options={this.getExtensions().map((label) => ({ label }))}
-                        selectLabel='Load'
+                        selectLabel={generic[2]}
                         buttons={[]}
                         visible={this.state.modal === 'extensions'}
                         onSelect={(extension) => this.selectExtension(extension.label as Extension)}

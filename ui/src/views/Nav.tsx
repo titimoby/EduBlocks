@@ -1,6 +1,7 @@
 import React = require('preact');
 import {Component} from 'preact';
 import Auth from './Auth';
+import {navLabels} from './Page';
 
 interface Props {
     platformImg?: string;
@@ -50,7 +51,7 @@ export default class Nav extends Component<Props, {}> {
                     <img class='logo' src='https://i.ibb.co/2Zp0pyw/weblogo.png'/>
                 </a>
                 <Auth openAuth={this.props.openAuth} closeAuth={this.props.closeAuth}/>
-                <input class='brand' type='email' placeholder='Untitled'
+                <input class='brand' type='email' placeholder={navLabels[7]}
                        style='width: 200px !important; color:black; margin-left: 5px; float:right'
                        onChange={(e) => this.props.onFileChange((e.target as any).value)}/>
                 <input id='bmenub' type='checkbox' class='show'/>
@@ -62,17 +63,17 @@ export default class Nav extends Component<Props, {}> {
 
                     <a class='button icon-plus' id="new" title='Create new file' href='javascript:void(0)'
                        onClick={() => this.props.newCode()}>
-                        New
+                        {navLabels[0]}
                     </a>
 
                     <a class='button icon-folder-open' title='Open a file' href='javascript:void(0)'
                        onClick={() => this.props.openCode()}>
-                        Open
+                        {navLabels[1]}
                     </a>
 
                     <a class='button icon-floppy' title='Save a file' href='javascript:void(0)'
                        onClick={() => this.props.saveCode()}>
-                        Save
+                        {navLabels[2]}
                     </a>
 
                     {downloadHex &&
@@ -98,18 +99,18 @@ export default class Nav extends Component<Props, {}> {
 
                     <a class='button icon-book' title='Samples' href='javascript:void(0)'
                        onClick={() => this.props.openSamples()}>
-                        Samples
+                        {navLabels[3]}
                     </a>
 
                     <a class='button icon-cog' title='Settings' href='javascript:void(0)'
                        onClick={() => this.props.onFunction()}>
-                        Extras
+                        {navLabels[4]}
                     </a>
 
                     {sendCode &&
                     <a class='button icon-play button-green' title='Run your code' href='javascript:void(0)'
                        onClick={() => sendCode()}>
-                        Run
+                        {navLabels[5]}
                     </a>
                     
                     

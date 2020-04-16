@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import * as firebaseui from 'firebaseui';
 import * as React from 'preact';
+import {navLabels} from './Page';
 
 
 interface AuthProps {
@@ -13,6 +14,8 @@ interface State {
     modal: boolean;
     user: firebase.User | null;
 }
+
+export const hellomyname = "hello";
 
 export default class Auth extends React.Component<AuthProps, State> {
     ui: firebaseui.auth.AuthUI;
@@ -114,7 +117,7 @@ export default class Auth extends React.Component<AuthProps, State> {
         }
 
         return <div className='login'>
-            <button style='background: rgba(0, 0, 0, 0)' onClick={this.openAuth}><i class='fas fa-sign-in-alt'></i>  Login</button>
+            <button style='background: rgba(0, 0, 0, 0)' onClick={this.openAuth}><i class='fas fa-sign-in-alt'></i>  {navLabels[6]}</button>
         </div>;
     }
 }
@@ -134,7 +137,7 @@ export class AuthModal extends React.Component<AuthModalProps, {}> {
                 <label for='modal_1' class='overlay' />
                 <article class='LoginModal__container'>
                     <header class='LoginModal__header'>
-                        <h3>Login</h3>
+                        <h3>{navLabels[6]}</h3>
                         <a class='LoginModal__close close'
                             onClick={this.props.onClose}>&times;</a>
                     </header>

@@ -1,5 +1,6 @@
 import React = require('preact');
 import { Component } from 'preact';
+import {generic} from './Page';
 
 interface OverModalProps<T extends OverModalOption> {
   title: string;
@@ -39,10 +40,10 @@ export default class OverModal<T extends OverModalOption> extends Component<Over
           </section>
           <footer class="alertFooter">
             <label for="modal_1" class="button dangerous" onClick={() => this.props.onButtonClick('close')}>
-              No
+              {generic[6]}
             </label>
             <label for="modal_1" class="button buttonFloatRight buttonMarginRight" onClick={() => this.props.onYes('yes')}>
-              Yes
+              {generic[5]}
             </label>
           </footer>
         </article>
