@@ -46,8 +46,14 @@ export default class Auth extends React.Component<AuthProps, State> {
                     iconUrl: 'https://clipartart.com/images/microsoft-logo-clipart-transparent-3.png',
                     loginHintKey: 'login_hint',
                   },
-                firebase.auth.GithubAuthProvider.PROVIDER_ID,
-                firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+                  {
+                    hd: 'acme.com',
+                    provider: 'apple.com',
+                    providerName: 'Apple',
+                    buttonColor: '#000000',
+                    iconUrl: 'https://201758-624029-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2017/05/white-apple-logo-on-black-background-md.png',
+                    loginHintKey: 'login_hint',
+                  },
                 {
                     provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
                     requireDisplayName: true
