@@ -21,8 +21,8 @@ import TrinketView from './TrinketView';
 type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Split View' | 'Switch Language';
 let AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Split View", "Switch Language"];
 
-type Languages = 'English' | 'French' | 'Welsh';
-const Languages: Languages[] = ['English', 'French', 'Welsh'];
+type Languages = 'English' | 'French' | 'German' | 'Welsh';
+const Languages: Languages[] = ['English', 'French', 'German', 'Welsh'];
 
 const ViewModeBlockly = 'blocks';
 const ViewModePython = 'python';
@@ -526,6 +526,28 @@ export default class Page extends Component<Props, State> {
                         "Téléchargement...", 
                         "Sélectionnez votre mode",
                         "Des dossiers"];
+
+            document.getElementById("menubar")!.innerHTML = generic[0];
+            document.getElementById("menubar")!.innerHTML = navLabels[0];
+            await this.closeModal();
+        }
+
+        if (func === 'German') {
+            navLabels = ["Neu", "Öffnen", "Speichern", "Proben", "Extras", "Ausführen", "Login", "Unbetitelt", "Herunterladen Hex", "Herunterladen", "Themen"];
+            
+            generic = [ "Öffnen", 
+                        "Los", 
+                        "Markieren", 
+                        "Schließen", 
+                        "Löschen", 
+                        "Ja", 
+                        "Nein", 
+                        "Achtung!", 
+                        "Es ist kein Code zum Ausführen!", 
+                        "Wenn sie den Modus ändern, wird ihr Code gelöscht. Möchten sie fortfahren?", 
+                        "Wird hochgeladen...", 
+                        "Wählen sie ihren Modus aus",
+                        "Dateien"];
 
             document.getElementById("menubar")!.innerHTML = generic[0];
             document.getElementById("menubar")!.innerHTML = navLabels[0];
