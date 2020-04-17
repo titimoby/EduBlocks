@@ -21,8 +21,8 @@ import TrinketView from './TrinketView';
 type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Split View' | 'Switch Language';
 let AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Split View", "Switch Language"];
 
-type Languages = 'English' | 'French';
-const Languages: Languages[] = ['English', 'French'];
+type Languages = 'English' | 'French' | 'Welsh';
+const Languages: Languages[] = ['English', 'French', 'Welsh'];
 
 const ViewModeBlockly = 'blocks';
 const ViewModePython = 'python';
@@ -526,6 +526,28 @@ export default class Page extends Component<Props, State> {
                         "Téléchargement...", 
                         "Sélectionnez votre mode",
                         "Des dossiers"];
+
+            document.getElementById("menubar")!.innerHTML = generic[0];
+            document.getElementById("menubar")!.innerHTML = navLabels[0];
+            await this.closeModal();
+        }
+
+        if (func === 'Welsh') {
+            navLabels = ["Newydd", "Agor", "Cadw", "Samplau", "Yn ychwanegol", "Rhedeg", "Mewngofnodi", "Heb enw", "Lawrlwython Hex", "Lawrlwython", "Themâu"];
+            
+            generic = [ "Agor", 
+                        "Mynd", 
+                        "Dewis", 
+                        "Cau", 
+                        "Dileu", 
+                        "Ie", 
+                        "Na", 
+                        "Eich sylw!", 
+                        "Nid oes cod i'w redeg!", 
+                        "Fe fydd newid modd yn achosi colled cod, ydych chi esiau parhau?", 
+                        "Yn lanlwytho...", 
+                        "Dewiswch eith modd",
+                        "Ffeiliau"];
 
             document.getElementById("menubar")!.innerHTML = generic[0];
             document.getElementById("menubar")!.innerHTML = navLabels[0];
