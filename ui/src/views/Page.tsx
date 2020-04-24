@@ -872,7 +872,7 @@ export default class Page extends Component<Props, State> {
                 />
 
                 <SelectModal
-                    title={generic[4]}
+                    title={navLabels[4]}
                     selectLabel={generic[1]}
                     buttons={[]}
                     visible={this.state.modal === 'functions'}
