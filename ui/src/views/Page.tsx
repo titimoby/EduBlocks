@@ -670,20 +670,6 @@ export default class Page extends Component<Props, State> {
             this.setState({ modal: 'languages' });
         }
 
-        if (func === 'Split View') { 
-            var locURL = window.location.href.toString();
-            let self = this;
-            var loadShareURL = locURL.replace('http://localhost:8081/#share?python3?','');
-            const xhr = new XMLHttpRequest();
-            xhr.responseType = 'text';
-            xhr.onload = function (event) {
-                self.readBlocklyContents(xhr.responseText);
-            };
-            xhr.open('GET', loadShareURL);
-            xhr.send();
-            this.setState({ modal: null });
-        }
-
         if (func === 'Extensions') {
             await this.openExtensions();
         }
