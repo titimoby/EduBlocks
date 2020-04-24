@@ -58,6 +58,8 @@ interface State {
 
 // Labels
 
+
+
 export let navLabels: string[] = new Array();
 navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex", "Download", "Themes"];
 
@@ -77,6 +79,8 @@ generic = ["Open",
             "Files"];
 
 export default class Page extends Component<Props, State> {
+
+    
     public remoteShellView?: RemoteShellView;
 
     constructor() {
@@ -113,6 +117,8 @@ export default class Page extends Component<Props, State> {
 
         this.switchView(ViewModeBlockly);
     }
+
+    
 
     private updateFromBlockly(xml: string, python: string) {
         if (
@@ -250,6 +256,8 @@ export default class Page extends Component<Props, State> {
     private async openFirebaseFile(file: firebase.storage.Reference) {
         this.closeModal();
         let self = this;
+        let newFileName = file.name.replace(".xml", "");
+        (document.getElementById("filename") as HTMLInputElement).value = newFileName;
         file.getDownloadURL().then(function (url) {
             const xhr = new XMLHttpRequest();
             xhr.responseType = 'text';
