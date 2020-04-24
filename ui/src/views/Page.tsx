@@ -28,7 +28,6 @@ const Languages: Languages[] = ['English', 'French', 'German', 'Welsh'];
 const ViewModeBlockly = 'blocks';
 const ViewModePython = 'python';
 
-const https = require('https');
 
 type ViewMode = typeof ViewModeBlockly | typeof ViewModePython;
 
@@ -333,11 +332,17 @@ export default class Page extends Component<Props, State> {
         const encoded = btoa(fileURL);
         let shareableURL = "https://share.edublocks.org/#share?" + this.state.platform!.key + "?" + encoded;
 
-        navigator.clipboard.writeText(shareableURL).then(function() {
-        console.log('Copying to clipboard was successful!');
-        }, function(err) {
-        console.error('Could not copy text: ', err);
-        });
+        
+        const el = document.createElement('textarea');
+        el.value = shareableURL;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+
         this.setState({ modal: "share"});
     }
 
