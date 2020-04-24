@@ -196,8 +196,9 @@ export default class Page extends Component<Props, State> {
             }
 
             let self = this;
-            var loadShareURL = window.location.hash.slice(14);
-            const decoded = atob(loadShareURL)
+            var loadShareURL = window.location.href.substring(window.location.href.lastIndexOf("?") + 1);
+            const decoded = atob(loadShareURL);
+
             const xhr = new XMLHttpRequest();
             xhr.responseType = 'text';
             xhr.onload = function (event) {
