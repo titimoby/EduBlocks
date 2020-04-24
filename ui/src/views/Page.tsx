@@ -19,8 +19,8 @@ import FirebaseSelectModal from './FirebaseSelectModal';
 
 import TrinketView from './TrinketView';
 
-type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Split View' | 'Switch Language';
-let AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Split View", "Switch Language"];
+type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Switch Language';
+let AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Switch Language"];
 
 type Languages = 'English' | 'French' | 'German' | 'Welsh';
 const Languages: Languages[] = ['English', 'French', 'German', 'Welsh'];
