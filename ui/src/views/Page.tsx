@@ -10,6 +10,7 @@ import BlocklyView from './BlocklyView';
 import ImageModal from './ImageModal';
 import Nav from './Nav';
 
+
 import OverModal from './OverwriteModal';
 import PythonView from './PythonView';
 import RemoteShellView from './RemoteShellView';
@@ -26,6 +27,8 @@ const Languages: Languages[] = ['English', 'French', 'German', 'Welsh'];
 
 const ViewModeBlockly = 'blocks';
 const ViewModePython = 'python';
+
+const https = require('https');
 
 type ViewMode = typeof ViewModeBlockly | typeof ViewModePython;
 
@@ -47,14 +50,16 @@ interface FileFirebaseSelectModalOption {
 interface State {
     platform?: PlatformInterface;
     viewMode: ViewMode;
-    modal: null | 'platform' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
-    prevModal: null | 'platform' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    modal: null | 'platform' | 'share' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    prevModal: null | 'platform' | 'share' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
     extensionsActive: Extension[];
     progress: number;
+    shareURL: string;
     doc: Readonly<DocumentState>;
     fileName: string;
     files: FileFirebaseSelectModalOption[];
 }
+
 
 // Labels
 
@@ -90,6 +95,7 @@ export default class Page extends Component<Props, State> {
             prevModal: null,
             extensionsActive: [],
             progress: 0,
+            shareURL: "",
             fileName: 'Untitled',
             files: [],
             doc: {
@@ -170,26 +176,43 @@ export default class Page extends Component<Props, State> {
 
         if (window.location.hash) {
             const platformKey = window.location.hash.slice(1) as unknown as Platform;
-
             this.selectPlatform(platformKey);
         }
 
         if( locURL.indexOf('#share') >= 0){
-            if( locURL.indexOf('?python') >= 0){
+            if( locURL.indexOf('?Python') >= 0){
                 this.selectPlatform("Python");
-                let self = this;
-                var loadShareURL = window.location.hash.slice(15);
-                const decoded = decodeURIComponent(loadShareURL)
-                const xhr = new XMLHttpRequest();
-                xhr.responseType = 'text';
-                xhr.onload = function (event) {
-                    self.readBlocklyContents(xhr.responseText);
-                };
-                xhr.open('GET', decoded);
-                xhr.send();
-                this.setState({ modal: null });
             }
-        }
+            
+            if( locURL.indexOf('?MicroBit') >= 0){
+                this.selectPlatform("MicroBit");
+            }
+
+            if( locURL.indexOf('?CircuitPython') >= 0){
+                this.selectPlatform("CircuitPython");
+            }
+
+            if( locURL.indexOf('?RaspberryPi') >= 0){
+                this.selectPlatform("RaspberryPi");
+            }
+
+            let self = this;
+            var loadShareURL = window.location.hash.slice(14);
+            const decoded = atob(loadShareURL)
+            const xhr = new XMLHttpRequest();
+            xhr.responseType = 'text';
+            xhr.onload = function (event) {
+                self.readBlocklyContents(xhr.responseText);
+            };
+            xhr.open('GET', decoded);
+            xhr.send();
+            this.setState({ modal: null });
+
+            this.delay(400);
+            history.pushState(null, "", location.href.split("#")[0]);
+
+    }
+    
     }
 
     private toggleView(): 0 {
@@ -275,6 +298,7 @@ export default class Page extends Component<Props, State> {
         let self = this;
         let newFileName = file.name.replace(".xml", "");
         (document.getElementById("filename") as HTMLInputElement).value = newFileName;
+        this.setState({fileName: newFileName});
         file.getDownloadURL().then(function (url) {
             const xhr = new XMLHttpRequest();
             xhr.responseType = 'text';
@@ -297,12 +321,24 @@ export default class Page extends Component<Props, State> {
         this.closeModal();
     } 
 
+    private delay(ms: number) {
+        return new Promise( resolve => setTimeout(resolve, ms) );
+    }
+
+    
+    
+
     private async shareFirebaseFile(file: firebase.storage.Reference) {
         let fileURL = await file.getDownloadURL();
-        const encoded = encodeURIComponent(fileURL);
-        let shareURL = window.location.href + "#share?python3?" + encoded
-        alert(shareURL)
-        this.closeModal();
+        const encoded = btoa(fileURL);
+        let shareableURL = "https://share.edublocks.org/#share?" + this.state.platform!.key + "?" + encoded;
+
+        navigator.clipboard.writeText(shareableURL).then(function() {
+        console.log('Copying to clipboard was successful!');
+        }, function(err) {
+        console.error('Could not copy text: ', err);
+        });
+        this.setState({ modal: "share"});
     }
 
     private async saveFile() {
@@ -728,6 +764,15 @@ export default class Page extends Component<Props, State> {
                     title='Uh oh!'
                     visible={this.state.modal === 'error'}
                     text='Something went wrong'
+                    onCancel={() => {
+                    }}
+                    onButtonClick={(key) => key === 'close' && this.closeModal()}
+                />
+
+                <AlertModal
+                    title='Share file URL'
+                    visible={this.state.modal === 'share'}
+                    text="Shareable link copied to clipboard"
                     onCancel={() => {
                     }}
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
