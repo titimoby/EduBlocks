@@ -13,6 +13,7 @@ interface FirebaseSelectModalProps<T extends FirebaseSelectModalOption> {
   onButtonClick(key: string): void;
   onSelect(option: T): void;
   onDelete(option: T): void;
+  onShare(option: T): void;
 }
 
 interface FirebaseSelectModalState {
@@ -43,6 +44,7 @@ export default class FirebaseSelectModal<T extends FirebaseSelectModalOption> ex
         <span>{option.label}</span>
       </div>,
       <div class='SelectModal__cell SelectModal__cell--action'>
+        <button onClick={() => this.props.onShare(option)}>Share</button>
         <button class="buttonMenu error" onClick={() => this.props.onDelete(option)}>{generic[4]}</button>
         <button onClick={() => this.props.onSelect(option)}>{generic[0]}</button>
       </div>,

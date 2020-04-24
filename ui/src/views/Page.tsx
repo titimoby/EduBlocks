@@ -58,8 +58,6 @@ interface State {
 
 // Labels
 
-
-
 export let navLabels: string[] = new Array();
 navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex", "Download", "Themes"];
 
@@ -79,7 +77,7 @@ generic = ["Open",
             "Files"];
 
 export default class Page extends Component<Props, State> {
-
+    
     
     public remoteShellView?: RemoteShellView;
 
@@ -168,10 +166,29 @@ export default class Page extends Component<Props, State> {
     }
 
     public componentDidMount() {
+        var locURL = window.location.href.toString();
+
         if (window.location.hash) {
             const platformKey = window.location.hash.slice(1) as unknown as Platform;
 
             this.selectPlatform(platformKey);
+        }
+
+        if( locURL.indexOf('#share') >= 0){
+            if( locURL.indexOf('?python') >= 0){
+                this.selectPlatform("Python");
+                let self = this;
+                var loadShareURL = window.location.hash.slice(15);
+                const decoded = decodeURIComponent(loadShareURL)
+                const xhr = new XMLHttpRequest();
+                xhr.responseType = 'text';
+                xhr.onload = function (event) {
+                    self.readBlocklyContents(xhr.responseText);
+                };
+                xhr.open('GET', decoded);
+                xhr.send();
+                this.setState({ modal: null });
+            }
         }
     }
 
@@ -277,6 +294,14 @@ export default class Page extends Component<Props, State> {
 
     private async deleteFirebaseFile(file: firebase.storage.Reference) {
         file.delete();
+        this.closeModal();
+    } 
+
+    private async shareFirebaseFile(file: firebase.storage.Reference) {
+        let fileURL = await file.getDownloadURL();
+        const encoded = encodeURIComponent(fileURL);
+        let shareURL = window.location.href + "#share?python3?" + encoded
+        alert(shareURL)
         this.closeModal();
     }
 
@@ -585,10 +610,13 @@ export default class Page extends Component<Props, State> {
         }
     }
 
+    
+
     private async runAdvancedFunction(func: AdvancedFunction) {
         if (func === 'Export Python') {
             await this.downloadPython();
             await this.closeModal();
+            
         }
 
         if (func === 'Themes') {
@@ -601,20 +629,18 @@ export default class Page extends Component<Props, State> {
             this.setState({ modal: 'languages' });
         }
 
-        if (func === 'Split View') {
-            let blocklyEditor = document.getElementById('blockly') as HTMLBodyElement;
-            let pythonEditor = document.getElementById('python') as HTMLBodyElement;
-            let editorElement = document.getElementById('editor') as HTMLBodyElement;
-            
-
-            blocklyEditor.style.width = "60%";
-            editorElement.style.width = "40%";
-
-            window.dispatchEvent(new Event('resize'))
-
-            pythonEditor.classList.add("show-editor");
-
-            await this.closeModal();
+        if (func === 'Split View') { 
+            var locURL = window.location.href.toString();
+            let self = this;
+            var loadShareURL = locURL.replace('http://localhost:8081/#share?python3?','');
+            const xhr = new XMLHttpRequest();
+            xhr.responseType = 'text';
+            xhr.onload = function (event) {
+                self.readBlocklyContents(xhr.responseText);
+            };
+            xhr.open('GET', loadShareURL);
+            xhr.send();
+            this.setState({ modal: null });
         }
 
         if (func === 'Extensions') {
@@ -640,6 +666,7 @@ export default class Page extends Component<Props, State> {
 
     }
 
+    
 
     public render() {
         const availablePlatforms = getPlatformList();
@@ -784,6 +811,7 @@ export default class Page extends Component<Props, State> {
                     visible={this.state.modal === 'files'}
                     onSelect={(file: FileFirebaseSelectModalOption) => this.openFirebaseFile(file.ref)}
                     onDelete={(file: FileFirebaseSelectModalOption) => this.deleteFirebaseFile(file.ref)}
+                    onShare={(file: FileFirebaseSelectModalOption) => this.shareFirebaseFile(file.ref)}
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
                 />
 
