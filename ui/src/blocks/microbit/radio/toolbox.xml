@@ -1,4 +1,4 @@
-<category name="Radio" colour="#7EE516">
+<category name="Radio" colour="#7EE516" iconclass="blocklyTreeIconCustom radio">
 <label text="Radio" web-class="myLabelStyle"></label>
   <block type="imradio"></block>
   <block type="radioon"></block>

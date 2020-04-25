@@ -1,4 +1,4 @@
-<category name="Buttons" colour="#167EE5">
+<category name="Buttons" colour="#167EE5" iconclass="blocklyTreeIconCustom buttons">
     <label text="Buttons" web-class="myLabelStyle"></label>
     <block type="buttonispressed"></block>
     <block type="buttonwaspressed"></block>

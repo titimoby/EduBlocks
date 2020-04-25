@@ -330,7 +330,8 @@ export default class Page extends Component<Props, State> {
 
     private async shareFirebaseFile(file: firebase.storage.Reference) {
         let fileURL = await file.getDownloadURL();
-        const encoded = btoa(fileURL);
+        let newFileURL = fileURL.substring(0, fileURL.indexOf('&token='));
+        const encoded = btoa(newFileURL);
         let shareableURL = "https://share.edublocks.org/#share?" + this.state.platform!.key + "?" + encoded;
 
         

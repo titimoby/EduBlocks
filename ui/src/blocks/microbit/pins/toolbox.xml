@@ -1,4 +1,4 @@
-<category name="Pins" colour="#E51616">
+<category name="Pins" colour="#E51616" iconclass="blocklyTreeIconCustom pins">
 <label text="Pins" web-class="myLabelStyle"></label>
   <block type="pintouchednew">
   <value name="text">

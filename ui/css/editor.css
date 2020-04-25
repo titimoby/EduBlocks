@@ -563,6 +563,43 @@ button{
     content: "\f52c";
 }
 
+.blocklyTreeIconCustom.radio::before {
+    content: "\f519";
+}
+
+.blocklyTreeIconCustom.display::before {
+    content: "\f00a";
+}
+
+.blocklyTreeIconCustom.buttons::before {
+    content: "\f192";
+}
+
+.blocklyTreeIconCustom.acc::before {
+    content: "\f0b2";
+}
+
+.blocklyTreeIconCustom.compass::before {
+    content: "\f14e";
+}
+
+.blocklyTreeIconCustom.speech::before {
+    content: "\f4ad";
+}
+
+.blocklyTreeIconCustom.music::before {
+    content: "\f001";
+}
+
+.blocklyTreeIconCustom.neopixel::before {
+    content: "\f0eb";
+}
+
+.blocklyTreeIconCustom.pins::before {
+    content: "\f140";
+}
+
+
 .blocklyTreeIconCustom.camera::before {
     content: "\f030";
 }
