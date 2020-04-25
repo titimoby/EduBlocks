@@ -1,4 +1,4 @@
-<category name="Advanced" colour="#22a6b3">
+<category name="Advanced" colour="#22a6b3" iconclass="blocklyTreeIconCustom advanced">
     <label text="CPU Temperature" web-class="myLabelStyle"></label>
     <block type="import_micro"></block>
     <block type="cputemp"></block>

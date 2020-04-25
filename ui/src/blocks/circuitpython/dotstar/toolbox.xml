@@ -1,4 +1,4 @@
-<category name="Dotstar" colour="#C3E516">
+<category name="Dotstar" colour="#C3E516" iconclass="blocklyTreeIconCustom dotstar">
   <label text="Dotstar" web-class="myLabelStyle"></label>
   <block type="import_dotstar"></block>
   <block type="vardotstar">

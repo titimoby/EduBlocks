@@ -1,4 +1,4 @@
-<category name="Basic" colour="#ff0066">
+<category name="Basic" colour="#ff0066" iconclass="blocklyTreeIconCustom basic">
 
   <label text="Imports" web-class="myLabelStyle"></label>
 

@@ -1,4 +1,4 @@
-<category name="Audio" colour="#4CE254">
+<category name="Audio" colour="#4CE254" iconclass="blocklyTreeIconCustom music">
     <label text="Audio" web-class="myLabelStyle"></label>
     <block type="import_audio"></block>
     <block type="audio_conf">

@@ -599,6 +599,29 @@ button{
     content: "\f140";
 }
 
+.blocklyTreeIconCustom.analog::before {
+    content: "\f3fd";
+}
+
+.blocklyTreeIconCustom.touch::before {
+    content: "\f577";
+}
+
+.blocklyTreeIconCustom.servo::before {
+    content: "\f013";
+}
+
+.blocklyTreeIconCustom.pwm::before {
+    content: "\f201";
+}
+
+.blocklyTreeIconCustom.dotstar::before {
+    content: "\f5c0";
+}
+
+.blocklyTreeIconCustom.advanced::before {
+    content: "\f055";
+}
 
 .blocklyTreeIconCustom.camera::before {
     content: "\f030";

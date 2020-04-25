@@ -1,4 +1,4 @@
-<category name="PWM" colour="#FF4A60">
+<category name="PWM" colour="#FF4A60" iconclass="blocklyTreeIconCustom pwm">
     <label text="PWM" web-class="myLabelStyle"></label>
     <block type="import_pulseio"></block>
     <block type="import_simpleio"></block>

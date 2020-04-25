@@ -76,13 +76,6 @@ export default class Nav extends Component<Props, {}> {
                         {navLabels[2]}
                     </a>
 
-                    {downloadPython &&
-                    <a class='button icon-download' title='Download Python Source Code' href='javascript:void(0)'
-                       onClick={() => downloadPython()}>
-                        {navLabels[9]}
-                    </a>
-                    }
-
 
                     {/*<a class='button' title='Themes' href='javascript:void(0)' onClick={() => this.props.openThemes()}>
             Themes
@@ -111,6 +104,13 @@ export default class Nav extends Component<Props, {}> {
                     <a class='button icon-flash button-green' title='Download file to flash to micro:bit' href='javascript:void(0)'
                        onClick={() => downloadHex()}>
                         {navLabels[8]}
+                    </a>
+                    }
+
+                    {downloadPython &&
+                    <a class='button icon-download button-green' title='Download Python Source Code' href='javascript:void(0)'
+                       onClick={() => downloadPython()}>
+                        {navLabels[9]}
                     </a>
                     }
 
