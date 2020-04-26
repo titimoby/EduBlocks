@@ -1,7 +1,6 @@
 import React = require('preact');
 import { Component } from 'preact';
 import {generic} from './Page';
-import { link } from 'fs';
 
 interface AlertModalProps<T extends AlertModalOption> {
   title: string;
