@@ -474,12 +474,13 @@ export default class Page extends Component<Props, State> {
         this.setState({ modal: 'samples' });
     }
 
-    private selectSample(file: string) {
-        this.setState({ modal: null });
+    private async selectSample(file: string) {
+        this.setState({ viewMode: 'blocks' });
+        await this.setState({ modal: null });
 
         const xml = this.props.app.getSample(this.state.platform!.key, file);
 
-        this.readBlocklyContents(xml);
+        await this.readBlocklyContents(xml);
     }
 
 
