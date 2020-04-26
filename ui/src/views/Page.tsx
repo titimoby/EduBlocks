@@ -5,6 +5,7 @@ import { App, Capability, Extension, Platform, PlatformInterface } from '../type
 import * as firebase from 'firebase/app';
 import { AuthModal } from './Auth';
 import AlertModal from './AlertModal';
+import LoadModal from './LoadModal';
 import UploadModal from './UploadModal';
 import BlocklyView from './BlocklyView';
 import ImageModal from './ImageModal';
@@ -49,8 +50,8 @@ interface FileFirebaseSelectModalOption {
 interface State {
     platform?: PlatformInterface;
     viewMode: ViewMode;
-    modal: null | 'platform' | 'share' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
-    prevModal: null | 'platform' | 'share' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    modal: null | 'platform' | 'generating' | 'share' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    prevModal: null | 'platform' | 'generating' | 'share' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
     extensionsActive: Extension[];
     progress: number;
     shareURL: string;
@@ -335,17 +336,22 @@ export default class Page extends Component<Props, State> {
         const edublocksLink = "https://beta.app.edublocks.org/#share?" + this.state.platform!.key + "?" + encoded;
         let shareableURL = "https://api.shrtco.de/v2/shorten?url=" + encodeURIComponent(edublocksLink);
 
+        this.setState({ modal: "generating"});
+
         const response = await fetch(
             shareableURL
           );
         
+          
         const body = await response.json();
 
         console.log(shareableURL)
         
+        
         if (response.ok){
             const shortLink = "https://share.edublocks.org/" + body.result.code
             console.log(shortLink)
+            this.setState({ shareURL: shortLink});
             const el = document.createElement('textarea');
             el.value = shortLink;
             el.setAttribute('readonly', '');
@@ -769,6 +775,14 @@ export default class Page extends Component<Props, State> {
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
                 />
 
+                <LoadModal
+                    title="Generating shareable URL"
+                    visible={this.state.modal === 'generating'}
+                    onCancel={() => {
+                    }}
+                    onButtonClick={(key) => key === 'close' && this.closeModal()}
+                />
+
                 <AlertModal
                     title='Uh oh!'
                     visible={this.state.modal === 'error'}
@@ -779,9 +793,10 @@ export default class Page extends Component<Props, State> {
                 />
 
                 <AlertModal
-                    title='Share file URL'
+                    title='Share a file'
                     visible={this.state.modal === 'share'}
-                    text="Shareable link copied to clipboard"
+                    text= {this.state.shareURL}
+                    text2= "Copied to clipboard"
                     onCancel={() => {
                     }}
                     onButtonClick={(key) => key === 'close' && this.closeModal()}

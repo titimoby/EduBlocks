@@ -1,51 +1,40 @@
 import React = require('preact');
 import { Component } from 'preact';
 import {generic} from './Page';
-import { link } from 'fs';
 
-interface AlertModalProps<T extends AlertModalOption> {
+interface LoadModalProps<T extends LoadModalOption> {
   title: string;
   visible: boolean;
-  text: string;
-  text2?: string;
-
 
   onCancel(): void;
   onButtonClick(key: string): void;
 }
 
-interface AlertModalState {
+interface LoadModalState {
 
 }
 
-export interface AlertModalOption {
+export interface LoadModalOption {
   title: string;
-  text: string;
-  text2?: string;
 }
 
-
-
-export default class AlertModal<T extends AlertModalOption> extends Component<AlertModalProps<T>, AlertModalState> {
+export default class LoadModal<T extends LoadModalOption> extends Component<LoadModalProps<T>, LoadModalState> {
   public render() {
 
     return (
       <div class='modal'>
         <input id='modal_1' type='checkbox' disabled={true} checked={this.props.visible} />
         <label for='modal_1' class='overlay'></label>
-        <article class="AlertModel__container"> 
+        <article class="AlertModel__container" style="background-color: white !important;"> 
           <header class="SelectModal__header">
             <h3>{this.props.title}</h3>
             <a class='SelectModal__close close' onClick={() => this.props.onButtonClick('close')}>&times;</a>
           </header>
 
-          <section class='SelectModel__content' id="modaltext">
-            {this.props.text}
-            <br></br>
-            <div style="text-align: center; font-weight: bolder;">{this.props.text2}</div>
-            
+          <section class='SelectModel__content' style="margin-top: 5px; margin-bottom: 5px;" id="modaltext">
+            <div class="loader" style="margin: 0 auto;"></div>
           </section>
-          <footer class="alertFooter">
+          <footer class="SelectModal__buttons">
             <label for="modal_1" class="button dangerous" onClick={() => this.props.onButtonClick('close')}>
               {generic[3]}
             </label>
