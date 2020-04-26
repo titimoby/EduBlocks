@@ -1,6 +1,6 @@
 import React = require('preact');
 import { Component } from 'preact';
-import {generic} from './Page';
+
 
 interface LoadModalProps<T extends LoadModalOption> {
   title: string;
@@ -34,11 +34,6 @@ export default class LoadModal<T extends LoadModalOption> extends Component<Load
           <section class='SelectModel__content' style="margin-top: 5px; margin-bottom: 5px;" id="modaltext">
             <div class="loader" style="margin: 0 auto;"></div>
           </section>
-          <footer class="SelectModal__buttons">
-            <label for="modal_1" class="button dangerous" onClick={() => this.props.onButtonClick('close')}>
-              {generic[3]}
-            </label>
-          </footer>
         </article>
       </div>
     );
