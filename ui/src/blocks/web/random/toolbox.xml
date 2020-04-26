@@ -51,4 +51,12 @@
     </value>
   </block>
 
+    <block type="random_uniform">
+    <value name="text">
+      <shadow type="textinline">
+        <field name="text"></field>
+      </shadow>
+    </value>
+  </block>
+
 </category>

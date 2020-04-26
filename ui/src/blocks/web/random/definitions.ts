@@ -35,6 +35,23 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     }
   };
 
+  Blocks['random_uniform'] = {
+    init: function () {
+      this.appendDummyInput()
+        .appendField("random.uniform(");
+      this.appendValueInput("text")
+        .setCheck(null);
+      this.appendDummyInput()
+        .appendField(")");
+      this.setInputsInline(true);
+      this.setOutput(true, null);
+      this.setColour(rand_col);
+      this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
+      this.setTooltip("Return random decimal in range [a, b], including both end points.");
+      this.setHelpUrl("");
+    }
+  };
+
   Blocks['random_random'] = {
     init: function () {
       this.appendDummyInput()
