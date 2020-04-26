@@ -55,6 +55,7 @@ export default class BlocklyView extends Component<BlocklyViewProps, {}> {
           scaleSpeed: 1.2,
         },
         media: 'blockly/media/',
+        collapse: false,
         toolbox,
       }) as Blockly.WorkspaceSvg;
 
