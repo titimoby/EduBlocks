@@ -332,20 +332,36 @@ export default class Page extends Component<Props, State> {
         let fileURL = await file.getDownloadURL();
         let newFileURL = fileURL.substring(0, fileURL.indexOf('&token='));
         const encoded = btoa(newFileURL);
-        let shareableURL = "https://share.edublocks.org/#share?" + this.state.platform!.key + "?" + encoded;
+        const edublocksLink = "https://beta.app.edublocks.org/#share?" + this.state.platform!.key + "?" + encoded;
+        let shareableURL = "https://api.shrtco.de/v2/shorten?url=" + encodeURIComponent(edublocksLink);
 
+        const response = await fetch(
+            shareableURL
+          );
         
-        const el = document.createElement('textarea');
-        el.value = shareableURL;
-        el.setAttribute('readonly', '');
-        el.style.position = 'absolute';
-        el.style.left = '-9999px';
-        document.body.appendChild(el);
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
+        const body = await response.json();
 
-        this.setState({ modal: "share"});
+        console.log(shareableURL)
+        
+        if (response.ok){
+            const shortLink = "https://share.edublocks.org/" + body.result.code
+            console.log(shortLink)
+            const el = document.createElement('textarea');
+            el.value = shortLink;
+            el.setAttribute('readonly', '');
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+    
+            this.setState({ modal: "share"});
+
+        }
+        else{
+            console.log(console.error());
+        }
     }
 
     private async saveFile() {
