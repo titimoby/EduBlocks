@@ -350,19 +350,19 @@ export default class Page extends Component<Props, State> {
         
         if (response.ok){
             const shortLink = "https://share.edublocks.org/" + body.result.code
-            console.log(shortLink)
-            this.setState({ shareURL: shortLink});
+            await console.log(shortLink)
+            await this.setState({ shareURL: shortLink});
             const el = document.createElement('textarea');
             el.value = shortLink;
-            el.setAttribute('readonly', '');
+            await el.setAttribute('readonly', '');
             el.style.position = 'absolute';
             el.style.left = '-9999px';
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
+            await document.body.appendChild(el);
+            await el.select();
+            await document.execCommand('copy');
+            await document.body.removeChild(el);
     
-            this.setState({ modal: "share"});
+            await this.setState({ modal: "share"});
 
         }
         else{
