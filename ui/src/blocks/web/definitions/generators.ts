@@ -18,6 +18,15 @@ export default function define(Python: Blockly.BlockGenerators) {
     return code;
   };
 
+  Python['self'] = function(block) {
+    var variable_name = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+    var text_text = block.getFieldValue('NAME');
+    var value_name = Blockly.Python.valueToCode(block, 'varset', Blockly.Python.ORDER_ATOMIC);
+    // TODO: Assemble Python into code variable.
+    var code = 'self.' + variable_name + ' ' +text_text+ ' ' +value_name+ '\n';
+    return code;
+  };
+
   Python['webclass'] = function (block) {
     const text_const = Blockly.Python.valueToCode(block, 'class', Blockly.Python.ORDER_ATOMIC);
     let branch = Blockly.Python.statementToCode(block, 'DO');

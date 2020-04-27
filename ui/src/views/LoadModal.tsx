@@ -31,7 +31,7 @@ export default class LoadModal<T extends LoadModalOption> extends Component<Load
             <a class='SelectModal__close close' onClick={() => this.props.onButtonClick('close')}>&times;</a>
           </header>
 
-          <section class='SelectModel__content' style="margin-top: 5px; margin-bottom: 5px;" id="modaltext">
+          <section class='SelectModel__content' style="margin-top: 5px; margin-bottom: 20px;" id="modaltext">
             <div class="loader" style="margin: 0 auto;"></div>
           </section>
         </article>

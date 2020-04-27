@@ -364,6 +364,25 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     }
   };
 
+  Blocks['p_smooth'] = {
+    init: function () {
+      this.appendDummyInput()
+        .appendField("smooth(");
+      this.appendValueInput("text")
+        .setCheck(null);
+      this.appendDummyInput()
+        .appendField(")");
+      this.setInputsInline(true);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      
+      this.setColour(pro_col);
+      
+      this.setTooltip("");
+      this.setHelpUrl("");
+    }
+  };
+
   Blocks['p_nostroke'] = {
     init: function () {
       this.appendDummyInput()
@@ -569,6 +588,25 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     }
   };
 
+  Blocks['p_nostroke'] = {
+    init: function () {
+      this.appendDummyInput()
+        .appendField("noStroke(");
+      this.appendValueInput("text")
+        .setCheck(null);
+      this.appendDummyInput()
+        .appendField(")");
+      this.setInputsInline(true);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      
+      this.setColour(pro_col);
+      
+      this.setTooltip("");
+      this.setHelpUrl("");
+    }
+  };
+
   Blocks['p_stroke3'] = {
     init: function() {
       this.appendDummyInput()
@@ -610,7 +648,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
   Blocks['p_translate'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField("stroke(");
+        .appendField("translate(");
       this.appendValueInput("text")
         .setCheck(null);
       this.appendDummyInput()
@@ -629,7 +667,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
   Blocks['p_triangle'] = {
     init: function () {
       this.appendDummyInput()
-        .appendField("stroke(");
+        .appendField("triangle(");
       this.appendValueInput("text")
         .setCheck(null);
       this.appendDummyInput()
