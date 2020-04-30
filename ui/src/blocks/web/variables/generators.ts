@@ -18,4 +18,12 @@ export default function define(Python: Blockly.BlockGenerators) {
     return code;
   };
 
+  Python['textinline'] = function(block) {
+    var text_text = block.getFieldValue('text');
+    // TODO: Assemble Python into code variable.
+    var code = text_text;
+    // TODO: Change ORDER_NONE to the correct strength.
+    return [code, Blockly.Python.ORDER_ATOMIC];
+  };
+
 }

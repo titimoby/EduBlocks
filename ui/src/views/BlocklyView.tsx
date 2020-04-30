@@ -34,14 +34,17 @@ export default class BlocklyView extends Component<BlocklyViewProps, {}> {
     this.loadBlockly(this.props.extensionsActive);
   }
 
+  
+
   private async loadBlockly(extensionsActive: Extension[]) {
     if (this.blocklyDiv) {
       // Kill the old workspace if it's already there...
       if (this.workspace) {
         this.workspace.dispose();
       }
-
       const toolbox = await getToolBoxXml(extensionsActive);
+
+      
 
       this.workspace = Blockly.inject(this.blocklyDiv, {
 
@@ -61,12 +64,17 @@ export default class BlocklyView extends Component<BlocklyViewProps, {}> {
 
       await this.workspace.addChangeListener(() => {
         const xml = this.getXml();
+
         const python = this.getPython();
 
         this.xml = xml;
 
-        this.props.onChange(xml, python);
+        if (!this.workspace!.isDragging()) {
+          this.props.onChange(xml, python);
+        }
       });
+
+      
 
       Blockly.svgResize(this.workspace);
 

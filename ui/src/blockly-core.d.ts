@@ -5742,6 +5742,8 @@ declare module Blockly {
      */
     rendered: boolean;
 
+    isDragging: any;
+
     /**
      * Is this workspace the surface for a flyout?
      * @type {boolean}

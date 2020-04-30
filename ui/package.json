@@ -43,6 +43,7 @@
         "lodash": "^4.17.4",
         "preact": "^8.4.2",
         "jquery": "3.5.0",
-        "term.js": "^0.0.7"
+        "term.js": "^0.0.7",
+        "pxt-blockly": "2.1.14"
     }
 }
