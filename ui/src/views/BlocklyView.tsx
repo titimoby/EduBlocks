@@ -59,7 +59,7 @@ export default class BlocklyView extends Component<BlocklyViewProps, {}> {
         toolbox,
       }) as Blockly.WorkspaceSvg;
 
-      this.workspace.addChangeListener(() => {
+      await this.workspace.addChangeListener(() => {
         const xml = this.getXml();
         const python = this.getPython();
 
@@ -108,7 +108,7 @@ export default class BlocklyView extends Component<BlocklyViewProps, {}> {
   public render() {
     return (
       <div
-        style={{ display: this.props.visible ? 'block' : 'none' }}
+        style="display: block"
         id='blockly'
         ref={(div) => this.blocklyDiv = div}>
       </div>

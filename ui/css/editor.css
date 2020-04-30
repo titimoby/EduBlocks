@@ -228,7 +228,7 @@ table.primary td {
     margin-top: 3em;
 }
 
-#toggleViewButton {
+.toggleViewButton {
     position: absolute;
     top: 0;
     right: 0;
@@ -245,11 +245,11 @@ table.primary td {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
 }
 
-#toggleViewButton:focus {
+.toggleViewButton:focus {
     outline: none;
 }
 
-#toggleViewButton:hover {
+.toggleViewButton:hover {
     background: #ccc;
 }
 

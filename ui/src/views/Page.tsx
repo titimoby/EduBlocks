@@ -20,17 +20,18 @@ import FirebaseSelectModal from './FirebaseSelectModal';
 
 import TrinketView from './TrinketView';
 
-type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Switch Language';
-let AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Switch Language"];
+type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Switch Language' | 'Split View';
+let AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Switch Language", "Split View"];
 
 type Languages = 'English' | 'French' | 'German' | 'Welsh';
 const Languages: Languages[] = ['English', 'French', 'German', 'Welsh'];
 
 const ViewModeBlockly = 'blocks';
 const ViewModePython = 'python';
+const ViewModeSplit = 'python';
 
 
-type ViewMode = typeof ViewModeBlockly | typeof ViewModePython;
+type ViewMode = typeof ViewModeBlockly | typeof ViewModePython | typeof ViewModeSplit;
 
 interface Props {
     app: App;
@@ -229,14 +230,29 @@ export default class Page extends Component<Props, State> {
     private switchView(viewMode: ViewMode): 0 {
         switch (viewMode) {
             case ViewModeBlockly:
+                let blocklyEditor = document.getElementById('blockly') as HTMLBodyElement;
+                let pythonEditor = document.getElementById('editor') as HTMLBodyElement;
+                pythonEditor.style.display = "none";
+                blocklyEditor.style.display = "block";
                 this.setState({ viewMode: 'blocks' });
 
                 return 0;
 
             case ViewModePython:
+                let blockEditor = document.getElementById('blockly') as HTMLBodyElement;
+                let pyEditor = document.getElementById('editor') as HTMLBodyElement;
+                blockEditor.style.display = "none";
+                pyEditor.style.display = "block";
                 this.setState({ viewMode: 'python' });
 
                 return 0;
+
+            case ViewModeSplit:
+                    let blocksEditor = document.getElementById('blockly') as HTMLBodyElement;
+                    this.setState({ viewMode: 'blocks' });
+                    this.setState({ viewMode: 'python' });
+                    blocksEditor.style.display = "block";
+                    return 0;
         }
     }
 
@@ -676,6 +692,51 @@ export default class Page extends Component<Props, State> {
         }
     }
 
+    private async splitView(toggle: boolean){
+        if (toggle === true){
+            let blocklyEditor = document.getElementById('blockly') as HTMLBodyElement;
+            let pythonEditor = document.getElementById('python') as HTMLBodyElement;
+            let editorElement = document.getElementById('editor') as HTMLBodyElement;
+            let toggleElement = document.getElementById('toggleViewButton') as HTMLBodyElement;
+            let exitElement = document.getElementById('ExitSplit') as HTMLBodyElement;
+
+            blocklyEditor.style.width = "60%";
+            editorElement.style.width = "40%";
+            toggleElement.style.display = "none";
+            exitElement.style.display = "block";
+
+            window.dispatchEvent(new Event('resize'))
+
+            pythonEditor.classList.add("show-editor");
+
+            this.switchView(ViewModeSplit)
+
+            blocklyEditor.style.display = "block";
+
+            await this.closeModal();
+        }
+
+        if (toggle === false){
+            let editorElement = document.getElementById('editor') as HTMLBodyElement;
+            let blocklyEditor = document.getElementById('blockly') as HTMLBodyElement;
+            let exitElement = document.getElementById('ExitSplit') as HTMLBodyElement;
+            let toggleElement = document.getElementById('toggleViewButton') as HTMLBodyElement;
+            
+            toggleElement.style.display = "block";
+            exitElement.style.display = "none";
+
+            window.dispatchEvent(new Event('resize'))
+
+            blocklyEditor.style.width = "100%";
+            editorElement.style.width = "100%";
+
+            window.dispatchEvent(new Event('resize'))
+
+            this.switchView(ViewModeBlockly)
+
+            await this.closeModal();
+        }
+    }
     
 
     private async runAdvancedFunction(func: AdvancedFunction) {
@@ -688,6 +749,10 @@ export default class Page extends Component<Props, State> {
         if (func === 'Themes') {
             await this.openThemes();
             
+        }
+
+        if (func === 'Split View') {
+            this.splitView(true)    
         }
 
 
@@ -836,12 +901,25 @@ export default class Page extends Component<Props, State> {
                 <section id='workspace'>
                     <button
                         id='toggleViewButton'
+                        class='toggleViewButton'
                         onClick={() => this.toggleView()}
                     >
 
                         {this.state.viewMode}
 
                     </button>
+
+                    <button
+                        id='ExitSplit'
+                        class="toggleViewButton"
+                        style="display: none;"
+                        onClick={() => this.splitView(false)}
+                    >
+
+                        Exit Split View
+
+                    </button>
+                    
 
                     <BlocklyView
                         visible={this.state.viewMode === 'blocks'}
