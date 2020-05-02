@@ -7,7 +7,7 @@ About EduBlocks
 ---------------
 EduBlocks is a visual block based programming tool that helps teachers to introduce text based programming languages, like Python, to children at an earlier age via a drag and drop programming experience
 
-![alt tag](misc/new-edublocks-app.png)
+![alt tag](misc/newappimage.png)
 
 EduBlocks is the easiest way to make the transition from blocks to text, here's why:
 
