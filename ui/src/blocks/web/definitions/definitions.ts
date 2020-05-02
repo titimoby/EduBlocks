@@ -47,7 +47,6 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
         .setCheck(null);
       this.setPreviousStatement(true, null);
       this.setInputsInline(true);
-      this.setNextStatement(true, null);
       this.setColour("#CDDA36");
       this.setTooltip('');
       this.setHelpUrl('');
