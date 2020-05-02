@@ -78,7 +78,7 @@ var gesture_dropdown = [
     ["'6g'", "'6g'"],
     ["'8g'", "'8g'"],
     ];
-  Blockly.Blocks['accgestures'] = {
+  Blocks['accgestures'] = {
     init: function() {
       this.appendDummyInput()
           .appendField(new Blockly.FieldDropdown(gesture_dropdown), "gestures");
@@ -90,7 +90,7 @@ var gesture_dropdown = [
     }
   };
 
-Blockly.Blocks["acccurrentgesture"] = {
+Blocks["acccurrentgesture"] = {
     init: function() {
       this.appendDummyInput()
         .appendField("accelerometer.current_gesture()")
@@ -101,7 +101,7 @@ Blockly.Blocks["acccurrentgesture"] = {
     }
   };
 
-Blockly.Blocks['accget'] = {
+Blocks['accget'] = {
     init: function () {
       this.appendDummyInput()
         .appendField("accelerometer.")

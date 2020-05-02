@@ -1,5 +1,5 @@
 export default function define(Blocks: Blockly.BlockDefinitions) {
-  Blockly.Blocks['senseshow'] = {
+  Blocks['senseshow'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('sense.show_message("')
@@ -15,7 +15,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     },
   };
 
-  Blockly.Blocks['senseshowvar'] = {
+  Blocks['senseshowvar'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('sense.show_message(')
@@ -31,7 +31,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     },
   };
 
-  Blockly.Blocks['senseinit'] = {
+  Blocks['senseinit'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('sense = SenseHat()');
@@ -43,7 +43,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     },
   };
 
-  Blockly.Blocks['senseimport'] = {
+  Blocks['senseimport'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('from sense_hat import SenseHat');
@@ -55,7 +55,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     },
   };
 
-  Blockly.Blocks['senseimportemu'] = {
+  Blocks['senseimportemu'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('from sense_emu import SenseHat');
@@ -67,7 +67,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     },
   };
 
-  Blockly.Blocks['senserotation'] = {
+  Blocks['senserotation'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('sense.set_rotation(')
@@ -83,7 +83,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     },
   };
 
-  Blockly.Blocks['senseflip'] = {
+  Blocks['senseflip'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('sense.flip_h(')
@@ -99,7 +99,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     },
   };
 
-  Blockly.Blocks['senseflipv'] = {
+  Blocks['senseflipv'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('sense.flip_v(')
@@ -115,7 +115,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     },
   };
 
-  Blockly.Blocks['sensesetpix'] = {
+  Blocks['sensesetpix'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('sense.set_pixels(')
