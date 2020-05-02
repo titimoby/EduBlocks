@@ -31,5 +31,8 @@ export async function getPlatform(platform: Platform): Promise<PlatformInterface
       return newCalliopePlatform();
     default:
       throw new Error('Invalid platform: ' + platform);
+      
   }
+  
+  
 }

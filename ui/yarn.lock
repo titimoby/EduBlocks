@@ -3056,7 +3056,7 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-pxt-blockly@^2.1.14:
+pxt-blockly@2.1.14:
   version "2.1.14"
   resolved "https://registry.yarnpkg.com/pxt-blockly/-/pxt-blockly-2.1.14.tgz#1f9e9d3e134d7c0b55e705f64f6db0cd0cbbcda5"
   integrity sha512-z2Tlrm6d7swlll92yQlzZjdSwr+l1/W2POGs8PxJUQkfBukqWrmtbhKWKBju71gZudWRKDbCkpLHROXIz7tXfA==

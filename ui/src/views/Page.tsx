@@ -23,6 +23,9 @@ import TrinketView from './TrinketView';
 type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Switch Language' | 'Split View';
 let AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Switch Language", "Split View"];
 
+type ShareOptions = 'Copy Shareable URL' | 'Copy Embed Code' ;
+let ShareOptions: ShareOptions[] = ['Copy Shareable URL', 'Copy Embed Code'];
+
 type Languages = 'English' | 'French' | 'German' | 'Welsh';
 const Languages: Languages[] = ['English', 'French', 'German', 'Welsh'];
 
@@ -51,8 +54,8 @@ interface FileFirebaseSelectModalOption {
 interface State {
     platform?: PlatformInterface;
     viewMode: ViewMode;
-    modal: null | 'platform' | 'generating' | 'share' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
-    prevModal: null | 'platform' | 'generating' | 'share' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    modal: null | 'platform' | 'generating' | 'share' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    prevModal: null | 'platform' | 'generating' | 'share' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
     extensionsActive: Extension[];
     progress: number;
     shareURL: string;
@@ -350,40 +353,72 @@ export default class Page extends Component<Props, State> {
         let newFileURL = fileURL.substring(0, fileURL.indexOf('&token='));
         const encoded = btoa(newFileURL);
         const edublocksLink = "https://beta.app.edublocks.org/#share?" + this.state.platform!.key + "?" + encoded;
-        let shareableURL = "https://api.shrtco.de/v2/shorten?url=" + encodeURIComponent(edublocksLink);
+        await this.setState({ shareURL: edublocksLink});
+        await this.setState({ modal: "shareoptions"});
+    }
 
-        this.setState({ modal: "generating"});
+    private async runShareOptions(func: ShareOptions) {
+        if (func === 'Copy Shareable URL') {
+            let shareableURL = "https://api.shrtco.de/v2/shorten?url=" + encodeURIComponent(this.state.shareURL);
+            this.setState({ modal: "generating"});
 
-        const response = await fetch(
-            shareableURL
-          );
+            const response = await fetch(
+                shareableURL
+            );
         
-          
-        const body = await response.json();
+            const body = await response.json();
 
-        console.log(shareableURL)
-        
-        
-        if (response.ok){
-            const shortLink = "https://share.edublocks.org/" + body.result.code
-            await console.log(shortLink)
-            await this.setState({ shareURL: shortLink});
-            const el = document.createElement('textarea');
-            el.value = shortLink;
-            await el.setAttribute('readonly', '');
-            el.style.position = 'absolute';
-            el.style.left = '-9999px';
-            await document.body.appendChild(el);
-            await el.select();
-            await document.execCommand('copy');
-            await document.body.removeChild(el);
-    
-            await this.setState({ modal: "share"});
+            console.log(shareableURL)
+            
+            if (response.ok){
+                const shortLink = "https://share.edublocks.org/" + body.result.code
+                await console.log(shortLink)
+                await this.setState({ shareURL: shortLink});
+                const el = document.createElement('textarea');
+                el.value = shortLink;
+                await el.setAttribute('readonly', '');
+                el.style.position = 'absolute';
+                el.style.left = '-9999px';
+                await document.body.appendChild(el);
+                await el.select();
+                await document.execCommand('copy');
+                await document.body.removeChild(el);
+                await this.setState({ modal: "share"});
+            }
 
+            else{console.log(console.error());}
         }
-        else{
-            console.log(console.error());
-        }
+
+        if (func === 'Copy Embed Code') {
+            let shareableURL = "https://api.shrtco.de/v2/shorten?url=" + encodeURIComponent(this.state.shareURL);
+            this.setState({ modal: "generating"});
+
+            const response = await fetch(
+                shareableURL
+            );
+        
+            const body = await response.json();
+
+            console.log(shareableURL)
+            
+            if (response.ok){
+                const embedLink = '<iframe src="https://share.edublocks.org/' + body.result.code + '" height="600px" width="900px"></iframe>'
+                await console.log(embedLink)
+                await this.setState({ shareURL: embedLink});
+                const el = document.createElement('textarea');
+                el.value = embedLink;
+                await el.setAttribute('readonly', '');
+                el.style.position = 'absolute';
+                el.style.left = '-9999px';
+                await document.body.appendChild(el);
+                await el.select();
+                await document.execCommand('copy');
+                await document.body.removeChild(el);
+                await this.setState({ modal: "share"});
+            }
+
+            else{console.log(console.error());}
+        }  
     }
 
     private async saveFile() {
@@ -588,6 +623,15 @@ export default class Page extends Component<Props, State> {
         }
 
         return advancedFunctions.map((func) => ({
+            label: func,
+            obj: func,
+        }));
+    }
+
+    private getShareOptionsList(): SelectModalOption[] {
+        let shareOptions = ShareOptions;
+
+        return shareOptions.map((func) => ({
             label: func,
             obj: func,
         }));
@@ -990,6 +1034,16 @@ export default class Page extends Component<Props, State> {
                     visible={this.state.modal === 'functions'}
                     options={this.getAdvancedFunctionList()}
                     onSelect={(func) => this.runAdvancedFunction(func.label as AdvancedFunction)}
+                    onButtonClick={(key) => key === 'close' && this.closeModal()}
+                />
+
+                <SelectModal
+                    title="Share"
+                    selectLabel={generic[1]}
+                    buttons={[]}
+                    visible={this.state.modal === 'shareoptions'}
+                    options={this.getShareOptionsList()}
+                    onSelect={(func) => this.runShareOptions(func.label as ShareOptions)}
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
                 />
 
