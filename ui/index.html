@@ -77,7 +77,7 @@
         <div style="color: white; font-size: 20px">v3.1.0</div>
     </div>
     
-</div>
+</div> 
 
 <!-- The main Blockly files -->
 <script src="blockly/blockly_compressed.js"></script>
@@ -91,6 +91,9 @@
 <script src="dist/main.js"></script>
 
 <script async type="text/javascript">
+    goog.isString = function(val) {
+        return typeof val == 'string';
+        };
     window._urq = window._urq || [];
     _urq.push(['initSite', 'cd3e2d46-4e22-400d-9f52-f5e9460ddf8b']);
     (function () {

@@ -74,7 +74,9 @@ goog.functions.identity = function(opt_returnValue, var_args) {
  * @return {!Function} The error-throwing function.
  */
 goog.functions.error = function(message) {
-  return function() { throw Error(message); };
+  return function() {
+    throw new Error(message);
+  };
 };
 
 
@@ -99,7 +101,8 @@ goog.functions.fail = function(err) {
 goog.functions.lock = function(f, opt_numArgs) {
   opt_numArgs = opt_numArgs || 0;
   return function() {
-    return f.apply(this, Array.prototype.slice.call(arguments, 0, opt_numArgs));
+    var self = /** @type {*} */ (this);
+    return f.apply(self, Array.prototype.slice.call(arguments, 0, opt_numArgs));
   };
 };
 
@@ -132,9 +135,10 @@ goog.functions.nth = function(n) {
 goog.functions.partialRight = function(fn, var_args) {
   var rightArgs = Array.prototype.slice.call(arguments, 1);
   return function() {
+    var self = /** @type {*} */ (this);
     var newArgs = Array.prototype.slice.call(arguments);
     newArgs.push.apply(newArgs, rightArgs);
-    return fn.apply(this, newArgs);
+    return fn.apply(self, newArgs);
   };
 };
 
@@ -182,13 +186,14 @@ goog.functions.compose = function(fn, var_args) {
   var functions = arguments;
   var length = functions.length;
   return function() {
+    var self = /** @type {*} */ (this);
     var result;
     if (length) {
-      result = functions[length - 1].apply(this, arguments);
+      result = functions[length - 1].apply(self, arguments);
     }
 
     for (var i = length - 2; i >= 0; i--) {
-      result = functions[i].call(this, result);
+      result = functions[i].call(self, result);
     }
     return result;
   };
@@ -206,9 +211,10 @@ goog.functions.sequence = function(var_args) {
   var functions = arguments;
   var length = functions.length;
   return function() {
+    var self = /** @type {*} */ (this);
     var result;
     for (var i = 0; i < length; i++) {
-      result = functions[i].apply(this, arguments);
+      result = functions[i].apply(self, arguments);
     }
     return result;
   };
@@ -228,8 +234,9 @@ goog.functions.and = function(var_args) {
   var functions = arguments;
   var length = functions.length;
   return function() {
+    var self = /** @type {*} */ (this);
     for (var i = 0; i < length; i++) {
-      if (!functions[i].apply(this, arguments)) {
+      if (!functions[i].apply(self, arguments)) {
         return false;
       }
     }
@@ -251,8 +258,9 @@ goog.functions.or = function(var_args) {
   var functions = arguments;
   var length = functions.length;
   return function() {
+    var self = /** @type {*} */ (this);
     for (var i = 0; i < length; i++) {
-      if (functions[i].apply(this, arguments)) {
+      if (functions[i].apply(self, arguments)) {
         return true;
       }
     }
@@ -269,7 +277,10 @@ goog.functions.or = function(var_args) {
  * opposite.
  */
 goog.functions.not = function(f) {
-  return function() { return !f.apply(this, arguments); };
+  return function() {
+    var self = /** @type {*} */ (this);
+    return !f.apply(self, arguments);
+  };
 };
 
 
@@ -283,7 +294,7 @@ goog.functions.not = function(f) {
  *
  * @param {function(new:T, ...)} constructor The constructor for the Object.
  * @param {...*} var_args The arguments to be passed to the constructor.
- * @return {T} A new instance of the class given in {@code constructor}.
+ * @return {T} A new instance of the class given in `constructor`.
  * @template T
  */
 goog.functions.create = function(constructor, var_args) {
@@ -372,17 +383,17 @@ goog.functions.once = function(f) {
 
 
 /**
- * Wraps a function to allow it to be called, at most, once for each sequence of
- * calls fired repeatedly so long as they are fired less than a specified
- * interval apart (in milliseconds). Whether it receives one signal or multiple,
- * it will always wait until a full interval has elapsed since the last signal
- * before performing the action, passing the arguments from the last call of the
- * debouncing decorator into the decorated function.
+ * Wraps a function to allow it to be called, at most, once per interval
+ * (specified in milliseconds). If the wrapper function is called N times within
+ * that interval, only the Nth call will go through.
  *
- * This is particularly useful for bulking up repeated user actions (e.g. only
- * refreshing a view once a user finishes typing rather than updating with every
- * keystroke). For more stateful debouncing with support for pausing, resuming,
- * and canceling debounced actions, use {@code goog.async.Debouncer}.
+ * This is particularly useful for batching up repeated actions where the
+ * last action should win. This can be used, for example, for refreshing an
+ * autocomplete pop-up every so often rather than updating with every keystroke,
+ * since the final text typed by the user is the one that should produce the
+ * final autocomplete results. For more stateful debouncing with support for
+ * pausing, resuming, and canceling debounced actions, use
+ * `goog.async.Debouncer`.
  *
  * @param {function(this:SCOPE, ...?)} f Function to call.
  * @param {number} interval Interval over which to debounce. The function will
@@ -392,30 +403,26 @@ goog.functions.once = function(f) {
  * @template SCOPE
  */
 goog.functions.debounce = function(f, interval, opt_scope) {
-  if (opt_scope) {
-    f = goog.bind(f, opt_scope);
-  }
-  var timeout = null;
+  var timeout = 0;
   return /** @type {function(...?)} */ (function(var_args) {
     goog.global.clearTimeout(timeout);
     var args = arguments;
-    timeout =
-        goog.global.setTimeout(function() { f.apply(null, args); }, interval);
+    timeout = goog.global.setTimeout(function() {
+      f.apply(opt_scope, args);
+    }, interval);
   });
 };
 
 
 /**
  * Wraps a function to allow it to be called, at most, once per interval
- * (specified in milliseconds). If it is called multiple times while it is
- * waiting, it will only perform the action once at the end of the interval,
- * passing the arguments from the last call of the throttling decorator into the
- * decorated function.
+ * (specified in milliseconds). If the wrapper function is called N times in
+ * that interval, both the 1st and the Nth calls will go through.
  *
- * This is particularly useful for limiting repeated user requests (e.g.
- * preventing a user from spamming a server with frequent view refreshes). For
- * more stateful throttling with support for pausing, resuming, and canceling
- * throttled actions, use {@code goog.async.Throttle}.
+ * This is particularly useful for limiting repeated user requests where the
+ * the last action should win, but you also don't want to wait until the end of
+ * the interval before sending a request out, as it leads to a perception of
+ * slowness for the user.
  *
  * @param {function(this:SCOPE, ...?)} f Function to call.
  * @param {number} interval Interval over which to throttle. The function can
@@ -425,15 +432,12 @@ goog.functions.debounce = function(f, interval, opt_scope) {
  * @template SCOPE
  */
 goog.functions.throttle = function(f, interval, opt_scope) {
-  if (opt_scope) {
-    f = goog.bind(f, opt_scope);
-  }
-  var timeout = null;
+  var timeout = 0;
   var shouldFire = false;
   var args = [];
 
   var handleTimeout = function() {
-    timeout = null;
+    timeout = 0;
     if (shouldFire) {
       shouldFire = false;
       fire();
@@ -442,7 +446,7 @@ goog.functions.throttle = function(f, interval, opt_scope) {
 
   var fire = function() {
     timeout = goog.global.setTimeout(handleTimeout, interval);
-    f.apply(null, args);
+    f.apply(opt_scope, args);
   };
 
   return /** @type {function(...?)} */ (function(var_args) {
@@ -451,6 +455,40 @@ goog.functions.throttle = function(f, interval, opt_scope) {
       fire();
     } else {
       shouldFire = true;
+    }
+  });
+};
+
+
+/**
+ * Wraps a function to allow it to be called, at most, once per interval
+ * (specified in milliseconds). If the wrapper function is called N times within
+ * that interval, only the 1st call will go through.
+ *
+ * This is particularly useful for limiting repeated user requests where the
+ * first request is guaranteed to have all the data required to perform the
+ * final action, so there's no need to wait until the end of the interval before
+ * sending the request out.
+ *
+ * @param {function(this:SCOPE, ...?)} f Function to call.
+ * @param {number} interval Interval over which to rate-limit. The function will
+ *     only be called once per interval, and ignored for the remainer of the
+ *     interval.
+ * @param {SCOPE=} opt_scope Object in whose scope to call the function.
+ * @return {function(...?): undefined} Wrapped function.
+ * @template SCOPE
+ */
+goog.functions.rateLimit = function(f, interval, opt_scope) {
+  var timeout = 0;
+
+  var handleTimeout = function() {
+    timeout = 0;
+  };
+
+  return /** @type {function(...?)} */ (function(var_args) {
+    if (!timeout) {
+      timeout = goog.global.setTimeout(handleTimeout, interval);
+      f.apply(opt_scope, arguments);
     }
   });
 };

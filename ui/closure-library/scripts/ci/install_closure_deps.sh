@@ -1,5 +1,19 @@
 #!/bin/bash
 #
+# Copyright 2018 The Closure Library Authors. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS-IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 # Script to install all necessary dependencies for running Closure tests,
 # linting, formatting and compiling.
 
@@ -12,20 +26,32 @@ set -ex
 
 cd ..
 
+# Fetches Closure Compiler components from oss.sonatype.org
+fetch () {
+  local name="$1"
+  local snapshots="https://oss.sonatype.org/content/repositories/snapshots"
+  local repo="$snapshots/com/google/javascript"
+  local dir="$repo/$name/1.0-SNAPSHOT"
+  local jar="$name-1.0-SNAPSHOT.jar"
+  local url=$(
+    curl -o - "$dir/" |
+      sed -n 's+.*<a href="\('"$dir/$name"'-[-.0-9]*\.jar\)".*+\1+p' |
+      head -n 1)
+  [ -n "$url" ]
+  wget -O "$jar" "$url"
+}
+
 # Install clang-format.
-wget --quiet $CLANG_URL
-tar xf $CLANG_TAR
-mv $CLANG_BUILD clang
-rm -f $CLANG_TAR
+wget --quiet "$CLANG_URL"
+tar xf "$CLANG_TAR"
+mv "$CLANG_BUILD" clang
+rm -f "$CLANG_TAR"
 
 # Install closure compiler and linter.
-if [ ! -d "closure-compiler" ]; then
-  git clone --depth 1 https://github.com/google/closure-compiler.git
-fi
-cd closure-compiler
-mvn install -DskipTests=true
+fetch closure-compiler
+fetch closure-compiler-linter
 
-cd ../closure-library
+cd closure-library
 
 # Installs node "devDependencies" found in package.json.
 npm install

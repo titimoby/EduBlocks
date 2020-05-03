@@ -38,8 +38,8 @@ goog.require('goog.events');
 goog.require('goog.i18n.uChar');
 goog.require('goog.i18n.uChar.NameFetcher');
 goog.require('goog.log');
+goog.require('goog.net.EventType');
 goog.require('goog.net.XhrIo');
-goog.require('goog.structs.Map');
 
 
 
@@ -83,10 +83,10 @@ goog.i18n.uChar.RemoteNameFetcher = function(dataSourceUri) {
   /**
    * A cache of all the collected names from the server.
    *
-   * @type {!goog.structs.Map}
+   * @type {!Map<string, string>}
    * @private
    */
-  this.charNames_ = new goog.structs.Map();
+  this.charNames_ = new Map();
 };
 goog.inherits(goog.i18n.uChar.RemoteNameFetcher, goog.Disposable);
 
@@ -168,8 +168,8 @@ goog.i18n.uChar.RemoteNameFetcher.prototype.getName = function(
     character, callback) {
   var codepoint = goog.i18n.uChar.toCharCode(character).toString(16);
 
-  if (this.charNames_.containsKey(codepoint)) {
-    var name = /** @type {string} */ (this.charNames_.get(codepoint));
+  if (this.charNames_.has(codepoint)) {
+    var name = this.charNames_.get(codepoint);
     callback(name);
     return;
   }
@@ -210,7 +210,8 @@ goog.i18n.uChar.RemoteNameFetcher.prototype.getName = function(
 goog.i18n.uChar.RemoteNameFetcher.prototype.getNameCallback_ = function(
     codepoint, callback) {
   this.processResponse_(this.getNameXhrIo_);
-  var name = /** @type {?string} */ (this.charNames_.get(codepoint, null));
+  var name =
+      this.charNames_.has(codepoint) ? this.charNames_.get(codepoint) : null;
   callback(name);
 };
 

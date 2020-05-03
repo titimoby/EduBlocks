@@ -111,6 +111,7 @@ goog.setTestOnly('goog.testing.AsyncTestCase');
 goog.provide('goog.testing.AsyncTestCase');
 goog.provide('goog.testing.AsyncTestCase.ControlBreakingException');
 
+goog.require('goog.asserts');
 goog.require('goog.testing.TestCase');
 goog.require('goog.testing.asserts');
 
@@ -210,21 +211,21 @@ goog.testing.AsyncTestCase.prototype.enableDebugLogs_ = false;
 
 /**
  * A reference to the original asserts.js assert_() function.
- * @private
+ * @private {?function(?, ?, ?):?}
  */
 goog.testing.AsyncTestCase.prototype.origAssert_;
 
 
 /**
  * A reference to the original asserts.js fail() function.
- * @private
+ * @private {?function(?)}
  */
-goog.testing.AsyncTestCase.prototype.origFail_;
+goog.testing.AsyncTestCase.prototype.origFail_ = null;
 
 
 /**
  * A reference to the original window.onerror function.
- * @type {Function|undefined}
+ * @type {?Function|undefined}
  * @private
  */
 goog.testing.AsyncTestCase.prototype.origOnError_;
@@ -232,7 +233,7 @@ goog.testing.AsyncTestCase.prototype.origOnError_;
 
 /**
  * The stage of the test we are currently on.
- * @type {Function|undefined}}
+ * @type {?Function|undefined}}
  * @private
  */
 goog.testing.AsyncTestCase.prototype.curStepFunc_;
@@ -248,10 +249,10 @@ goog.testing.AsyncTestCase.prototype.curStepName_ = '';
 
 /**
  * The stage of the test we should run next.
- * @type {Function|undefined}
+ * @type {?function(this:goog.testing.AsyncTestCase, ...?):?}
  * @private
  */
-goog.testing.AsyncTestCase.prototype.nextStepFunc_;
+goog.testing.AsyncTestCase.prototype.nextStepFunc_ = null;
 
 
 /**
@@ -384,7 +385,7 @@ goog.testing.AsyncTestCase.prototype.waitForAsync = function(opt_name) {
 goog.testing.AsyncTestCase.prototype.continueTesting = function() {
   if (this.receivedSignalCount_ < this.expectedSignalCount_) {
     var remaining = this.expectedSignalCount_ - this.receivedSignalCount_;
-    throw Error('Still waiting for ' + remaining + ' signals.');
+    throw new Error('Still waiting for ' + remaining + ' signals.');
   }
   this.endCurrentStep_();
 };
@@ -439,7 +440,7 @@ goog.testing.AsyncTestCase.prototype.signal = function() {
 
 /**
  * Handles an exception thrown by a test.
- * @param {*=} opt_e The exception object associated with the failure
+ * @param {?=} opt_e The exception object associated with the failure
  *     or a string.
  * @throws Always throws a ControlBreakingException.
  */
@@ -463,9 +464,9 @@ goog.testing.AsyncTestCase.prototype.doAsyncError = function(opt_e) {
   }
 
   if (this.activeTest) {
-    // Note: if the test has an error, and then tearDown has an error, they will
-    // both be reported.
-    this.doError(fakeTestObj, opt_e);
+    // Log the error, then fail the test.
+    this.recordError(fakeTestObj.name, opt_e);
+    this.doError(fakeTestObj);
   } else {
     this.exceptionBeforeTest = opt_e;
   }
@@ -508,6 +509,7 @@ goog.testing.AsyncTestCase.prototype.runTests = function() {
   this.hookAssert_();
   this.hookOnError_();
 
+  goog.testing.TestCase.currentTestName = null;
   this.setNextStep_(this.doSetUpPage_, 'setUpPage');
   // We are an entry point, so we pump.
   this.pump_();
@@ -565,7 +567,7 @@ goog.testing.AsyncTestCase.prototype.dbgLog_ = function(message) {
  * @private
  */
 goog.testing.AsyncTestCase.prototype.doTopOfStackAsyncError_ = function(opt_e) {
-  /** @preserveTry */
+
   try {
     this.doAsyncError(opt_e);
   } catch (e) {
@@ -633,19 +635,21 @@ goog.testing.AsyncTestCase.prototype.hookAssert_ = function() {
     this.origAssert_ = _assert;
     this.origFail_ = fail;
     var self = this;
+
     _assert = function() {
-      /** @preserveTry */
+      var expectedUnknownThis = /** @type {?} */ (this);
       try {
-        self.origAssert_.apply(this, arguments);
+        self.origAssert_.apply(expectedUnknownThis, arguments);
       } catch (e) {
         self.dbgLog_('Wrapping failed assert()');
         self.doAsyncError(e);
       }
     };
+
     fail = function() {
-      /** @preserveTry */
+      var expectedUnknownThis = /** @type {?} */ (this);
       try {
-        self.origFail_.apply(this, arguments);
+        self.origFail_.apply(expectedUnknownThis, arguments);
       } catch (e) {
         self.dbgLog_('Wrapping fail()');
         self.doAsyncError(e);
@@ -696,9 +700,11 @@ goog.testing.AsyncTestCase.prototype.unhookAll_ = function() {
   if (this.origOnError_) {
     window.onerror = this.origOnError_;
     this.origOnError_ = null;
-    _assert = this.origAssert_;
+
+    _assert = goog.asserts.assert(this.origAssert_);
     this.origAssert_ = null;
-    fail = this.origFail_;
+
+    fail = goog.asserts.assert(this.origFail_);
     this.origFail_ = null;
   }
 };
@@ -718,7 +724,7 @@ goog.testing.AsyncTestCase.prototype.startTimeoutTimer_ = function() {
       this.doTopOfStackAsyncError_(
           'Timed out while waiting for ' +
           'continueTesting() to be called.');
-    }, this, null), this.stepTimeout);
+    }, this), this.stepTimeout);
     this.dbgLog_('Started timeout timer with id ' + this.timeoutHandle_);
   }
 };
@@ -739,7 +745,8 @@ goog.testing.AsyncTestCase.prototype.stopTimeoutTimer_ = function() {
 
 /**
  * Sets the next function to call in our sequence of async callbacks.
- * @param {Function} func The function that executes the next step.
+ * @param {?function(this:goog.testing.AsyncTestCase, ...?)} func
+ *     The function that executes the next step.
  * @param {string} name A description of the next step.
  * @private
  */
@@ -757,13 +764,13 @@ goog.testing.AsyncTestCase.prototype.setNextStep_ = function(func, name) {
  * @private
  */
 goog.testing.AsyncTestCase.prototype.callTopOfStackFunc_ = function(func) {
-  /** @preserveTry */
+
   try {
     func.call(this);
     return {controlBreakingExceptionThrown: false, message: ''};
   } catch (e) {
     this.dbgLog_('Caught exception in callTopOfStackFunc_');
-    /** @preserveTry */
+
     try {
       this.doAsyncError(e);
       return {controlBreakingExceptionThrown: false, message: ''};
@@ -847,6 +854,8 @@ goog.testing.AsyncTestCase.prototype.doIteration_ = function() {
   this.expectedSignalCount_ = 0;
   this.receivedSignalCount_ = 0;
   this.activeTest = this.next();
+  goog.testing.TestCase.currentTestName =
+      this.activeTest ? this.activeTest.name : null;
   if (this.activeTest && this.running) {
     this.result_.runCount++;
     // If this test should be marked as having failed, doIteration will go

@@ -1,3 +1,17 @@
+// Copyright 2018 The Closure Library Authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS-IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 // TODO(joeltine): Remove promise module when stable node version supports it
 // natively.
 var Promise = require('promise');
@@ -19,7 +33,10 @@ var IGNORED_TESTS = [
   'closure/goog/net/filedownloader_test.html',
   'closure/goog/promise/promise_test.html',
   'closure/goog/editor/plugins/abstractdialogplugin_test.html',
-  'closure/goog/net/crossdomainrpc_test.html'
+  'closure/goog/net/crossdomainrpc_test.html',
+  // Causes flaky Adobe Acrobat update popups.
+  'closure/goog/useragent/flash_test.html',
+  'closure/goog/useragent/jscript_test.html',
 ];
 
 describe('Run all Closure unit tests', function() {
@@ -33,7 +50,9 @@ describe('Run all Closure unit tests', function() {
     return tests;
   };
 
-  beforeAll(function() { allTests = removeIgnoredTests(allTests); });
+  beforeAll(function() {
+    allTests = removeIgnoredTests(allTests);
+  });
 
   beforeEach(function() {
     // Ignores synchronization with angular loading. Since we don't use angular,
@@ -50,18 +69,19 @@ describe('Run all Closure unit tests', function() {
       // executeScript runs the passed method in the "window" context of
       // the current test. JSUnit exposes hooks into the test's status through
       // the "G_testRunner" global object.
-      browser.executeScript(function() {
-               if (window['G_testRunner'] &&
-                   window['G_testRunner']['isFinished']()) {
-                 var status = {};
-                 status['isFinished'] = true;
-                 status['isSuccess'] = window['G_testRunner']['isSuccess']();
-                 status['report'] = window['G_testRunner']['getReport']();
-                 return status;
-               } else {
-                 return {'isFinished': false};
-               }
-             })
+      browser
+          .executeScript(function() {
+            if (window['G_testRunner'] &&
+                window['G_testRunner']['isFinished']()) {
+              var status = {};
+              status['isFinished'] = true;
+              status['isSuccess'] = window['G_testRunner']['isSuccess']();
+              status['report'] = window['G_testRunner']['getReport']();
+              return status;
+            } else {
+              return {'isFinished': false};
+            }
+          })
           .then(
               function(status) {
                 if (status && status.isFinished) {
@@ -81,7 +101,9 @@ describe('Run all Closure unit tests', function() {
                   }
                 }
               },
-              function(err) { reject(err); });
+              function(err) {
+                reject(err);
+              });
     };
 
     return new Promise(function(resolve, reject) {
@@ -97,7 +119,9 @@ describe('Run all Closure unit tests', function() {
     var runNextTest = function(testPath) {
       return browser.navigate()
           .to(TEST_SERVER + '/' + testPath)
-          .then(function() { return waitForTestSuiteCompletion(testPath); })
+          .then(function() {
+            return waitForTestSuiteCompletion(testPath);
+          })
           .then(function(status) {
             if (!status.isSuccess) {
               failureReports.push(status.report);
@@ -110,7 +134,9 @@ describe('Run all Closure unit tests', function() {
     // Chains the next test to the completion of the previous through its
     // promise.
     var chainNextTest = function(promise, test) {
-      return promise.then(function() { runNextTest(test); });
+      return promise.then(function() {
+        runNextTest(test);
+      });
     };
 
     var testPromise = null;

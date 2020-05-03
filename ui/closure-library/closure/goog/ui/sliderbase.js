@@ -104,6 +104,13 @@ goog.ui.SliderBase = function(opt_domHelper, opt_labelFn) {
    */
   this.labelFn_ = opt_labelFn || goog.functions.NULL;
 
+  /**
+   * Whether to move the focus to the top level element when dragging the
+   * slider, default true.
+   * @private {boolean}
+   */
+  this.focusElementOnSliderDrag_ = true;
+
   // Don't use getHandler because it gets cleared in exitDocument.
   goog.events.listen(
       this.rangeModel, goog.ui.Component.EventType.CHANGE,
@@ -136,7 +143,9 @@ goog.ui.SliderBase.EventType = {
   /** User started dragging a thumb */
   DRAG_START: goog.events.getUniqueId('dragstart'),
   /** User is done dragging a thumb */
-  DRAG_END: goog.events.getUniqueId('dragend')
+  DRAG_END: goog.events.getUniqueId('dragend'),
+  /** Animation on the value thumb ends */
+  ANIMATION_END: goog.events.getUniqueId('animationend')
 };
 
 
@@ -637,7 +646,7 @@ goog.ui.SliderBase.prototype.handleKeyDown_ = function(e) {
  * @private
  */
 goog.ui.SliderBase.prototype.handleMouseDownAndClick_ = function(e) {
-  if (this.getElement().focus) {
+  if (this.focusElementOnSliderDrag_ && this.getElement().focus) {
     this.getElement().focus();
   }
 
@@ -846,7 +855,7 @@ goog.ui.SliderBase.prototype.getThumbPosition_ = function(thumb) {
   } else if (thumb == this.extentThumb) {
     return this.rangeModel.getValue() + this.rangeModel.getExtent();
   } else {
-    throw Error('Illegal thumb element. Neither minThumb nor maxThumb');
+    throw new Error('Illegal thumb element. Neither minThumb nor maxThumb');
   }
 };
 
@@ -1287,6 +1296,7 @@ goog.ui.SliderBase.prototype.addRangeHighlightAnimations_ = function(
  */
 goog.ui.SliderBase.prototype.endAnimation_ = function(e) {
   this.isAnimating_ = false;
+  this.dispatchEvent(goog.ui.SliderBase.EventType.ANIMATION_END);
 };
 
 
@@ -1651,6 +1661,16 @@ goog.ui.SliderBase.prototype.getTextValue = function() {
   return this.labelFn_(this.getValue());
 };
 
+
+/**
+ * Sets whether focus will be moved to the top-level element when the slider is
+ * dragged.
+ * @param {boolean} focusElementOnSliderDrag
+ */
+goog.ui.SliderBase.prototype.setFocusElementOnSliderDrag = function(
+    focusElementOnSliderDrag) {
+  this.focusElementOnSliderDrag_ = focusElementOnSliderDrag;
+};
 
 
 /**

@@ -30,6 +30,8 @@ goog.require('goog.dom.SavedCaretRange');
 goog.require('goog.dom.TagIterator');
 goog.require('goog.userAgent');
 
+goog.forwardDeclare('goog.dom.TextRange');
+
 
 /**
  * Types of ranges.
@@ -315,11 +317,8 @@ goog.dom.AbstractRange.prototype.containsRange = goog.abstractMethod;
  *     entirely contained in the selection for this function to return true.
  * @return {boolean} Whether this range contains the given node.
  */
-goog.dom.AbstractRange.prototype.containsNode = function(
-    node, opt_allowPartial) {
-  return this.containsRange(
-      goog.dom.Range.createFromNodeContents(node), opt_allowPartial);
-};
+goog.dom.AbstractRange.prototype.containsNode = goog.abstractMethod;
+
 
 
 /**
