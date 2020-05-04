@@ -13,6 +13,8 @@ export function newMicrobitPlatform(): PlatformInterface {
       'scrollbit',
       'GiggleBot',
       //Automated Extensions under here
+
+      'Minibit',
       
     ],
   };

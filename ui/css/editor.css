@@ -595,6 +595,14 @@ button{
     content: "\f0eb";
 }
 
+.blocklyTreeIconCustom.robot::before {
+    content: "\f1b9";
+}
+
+.blocklyTreeIconCustom.scroll::before {
+    content: "\f06e";
+}
+
 .blocklyTreeIconCustom.pins::before {
     content: "\f140";
 }

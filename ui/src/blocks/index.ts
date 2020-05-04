@@ -169,6 +169,11 @@ export async function getToolBoxXml(extensions: Extension[]) {
   }
 
   //Automated Extensions under here
+  if (extensions.indexOf('Minibit') !== -1) {
+    (await import('./microbit/Minibit/definitions')).default(Blockly.Blocks);
+    (await import('./microbit/Minibit/generators')).default(Blockly.Python as any);
+    toolBoxXml += fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'Minibit', 'toolbox.xml'));
+  }
 
   if (extensions.indexOf('Pi General') !== -1) {
     (await import('./pi/basic/definitions')).default(Blockly.Blocks);
@@ -227,6 +232,9 @@ export function getBeforeScript(extensions: Extension[]) {
   }
   if (extensions.indexOf('GiggleBot') !== -1) {
     return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'gigglebot', 'gigglebot.py'));
+  }
+  if (extensions.indexOf('Minibit') !== -1) {
+    return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'Minibit', 'Minibit.py'));
   }
   if (extensions.indexOf('Circuit Playground Easy') !== -1) {
     return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'circuitpython', 'cpx', 'cpx.py'));
