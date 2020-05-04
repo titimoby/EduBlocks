@@ -175,6 +175,14 @@ nav .login img {
     color: #FFFFFF !important;
 }
 
+#ext:hover{
+    border-color: #1B173D;
+    border-width: 2px;
+}
+
+.blocklyTreeIconCustom{
+    line-height: 54px !important; 
+}
 
 nav .brand {
     color: white;

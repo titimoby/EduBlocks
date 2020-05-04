@@ -32,7 +32,7 @@ export default class ExtensionModal<T extends ExtensionModalOption> extends Comp
   public render() {
     const getOptions = () => this.props.options.map((option) => ([
       <a onClick={() => this.props.onSelect(option)}>
-      <div class="library-item_library-item_1DcMO library-item_featured-item_3V2-t library-item_library-item-extension_3xus9">
+      <div class="library-item_library-item_1DcMO library-item_featured-item_3V2-t library-item_library-item-extension_3xus9" id="ext">
       <div class="library-item_featured-image-container_1KIHG">
           <img class="library-item_featured-image_2gwZ6" src={"https://edublocks.org/extimages/" + option.label + ".png" }></img>
       </div>
