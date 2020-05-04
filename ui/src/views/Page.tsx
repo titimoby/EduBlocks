@@ -7,6 +7,7 @@ import { AuthModal } from './Auth';
 import AlertModal from './AlertModal';
 import LoadModal from './LoadModal';
 import UploadModal from './UploadModal';
+import ExtensionModal from './ExtensionModal';
 import BlocklyView from './BlocklyView';
 import ImageModal from './ImageModal';
 import Nav from './Nav';
@@ -54,8 +55,8 @@ interface FileFirebaseSelectModalOption {
 interface State {
     platform?: PlatformInterface;
     viewMode: ViewMode;
-    modal: null | 'platform' | 'generating' | 'share' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
-    prevModal: null | 'platform' | 'generating' | 'share' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    modal: null | 'platform' | 'generating' | 'extensionsnew' |  'share' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    prevModal: null | 'platform' | 'generating' | 'share' | 'extensionsnew' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
     extensionsActive: Extension[];
     progress: number;
     shareURL: string;
@@ -547,7 +548,7 @@ export default class Page extends Component<Props, State> {
 
 
     private openExtensions() {
-        this.setState({ modal: 'extensions' });
+        this.setState({ modal: 'extensionsnew' });
     }
 
     private selectExtension(extension: Extension) {
@@ -901,6 +902,18 @@ export default class Page extends Component<Props, State> {
                     }}
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
                 />
+
+                {this.getExtensions().length > 0 &&
+                    <ExtensionModal
+                        title='Extensions'
+                        options={this.getExtensions().map((label) => ({ label }))}
+                        selectLabel={generic[2]}
+                        buttons={[]}
+                        visible={this.state.modal === 'extensionsnew'}
+                        onSelect={(extension) => this.selectExtension(extension.label as Extension)}
+                        onButtonClick={(key) => key === 'close' && this.closeModal()}
+                    />
+                }
 
                 <AlertModal
                     title='Share a file'

@@ -156,7 +156,7 @@ export async function getToolBoxXml(extensions: Extension[]) {
     toolBoxXml += fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'pins', 'toolbox.xml'));
   }
 
-  if (extensions.indexOf('scroll:bit') !== -1) {
+  if (extensions.indexOf('scrollbit') !== -1) {
     (await import('./microbit/scrollbit/definitions')).default(Blockly.Blocks);
     (await import('./microbit/scrollbit/generators')).default(Blockly.Python as any);
     toolBoxXml += fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'scrollbit', 'toolbox.xml'));
@@ -222,7 +222,7 @@ export async function getToolBoxXml(extensions: Extension[]) {
 }
 
 export function getBeforeScript(extensions: Extension[]) {
-  if (extensions.indexOf('scroll:bit') !== -1) {
+  if (extensions.indexOf('scrollbit') !== -1) {
     return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'scrollbit', 'scrollbit.py'));
   }
   if (extensions.indexOf('GiggleBot') !== -1) {
