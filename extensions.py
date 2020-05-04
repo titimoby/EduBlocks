@@ -12,10 +12,13 @@ This program will only run on Linux, macOS or Windows Subsystem for Linux.
 """)
 
 extensionName = toolbox = input("What is the name of your extension?\n")
-toolbox = input("Please provide the full path to your toolbox.xml file (Include the toolbox.xml file name!!!)\n")
-definitions = input("Please provide the full path to your definitions.ts file (Include the definitions.ts file name!!!)\n")
-generators = input("Please provide the full path to your generators.ts file (Include the generators.ts file name!!!)\n")
-python_file = input("Please provide the full path to your " +extensionName+ ".py file (Include the " +extensionName+ ".py file name!!!)\n")
+path = input("Where are your files located? (Provide Full Path + forward slash at the end)\n")
+toolbox = path + "toolbox.xml"
+definitions = path + "definitions.ts"
+generators = path + "generators.ts"
+python_file = path + extensionName+ ".py"
+main_image = path + extensionName+ ".png"
+icon_image = path + extensionName+ "-icon.png"
 
 blocks_index_var = "  if (extensions.indexOf('" +extensionName+ "') !== -1) {\n" \
 "    (await import('./microbit/" +extensionName+ "/definitions')).default(Blockly.Blocks);\n" \
@@ -60,6 +63,8 @@ os.system("mkdir ui/src/blocks/microbit/" +extensionName)
 os.system("cp " +definitions+ " ui/src/blocks/microbit/" +extensionName+ "/definitions.ts")
 os.system("cp " +generators+ " ui/src/blocks/microbit/" +extensionName+ "/generators.ts")
 os.system("cp " +toolbox+ " ui/src/blocks/microbit/" +extensionName+ "/toolbox.xml")
+os.system("cp " +main_image+ " ui/images/" +extensionName+ ".png")
+os.system("cp " +icon_image+ " ui/images/" +extensionName+ "-icon.png")
 os.system("cp " +python_file+ " ui/src/blocks/microbit/" +extensionName+ "/"  +extensionName+  ".py")
 
 print("Completed!")
