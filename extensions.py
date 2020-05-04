@@ -23,6 +23,10 @@ blocks_index_var = "  if (extensions.indexOf('" +extensionName+ "') !== -1) {\n"
 "    toolBoxXml += fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', '" +extensionName+ "', 'toolbox.xml'));\n" \
 "  }\n"
 
+scripts_index_var = "  if (extensions.indexOf('" +extensionName+ "') !== -1) {\n" \
+"    return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', '" + extensionName+  "', '" +extensionName+ ".py')); \n" \
+"  }\n"
+
 
 typesFile = open("ui/src/types.ts", "rt")
 data = typesFile.read()
@@ -45,6 +49,11 @@ for line in fileinput.FileInput("ui/src/blocks/index.ts",inplace=1):
 for line in fileinput.FileInput("ui/src/platforms/microbit/index.ts",inplace=1):
     if "//Automated Extensions under here" in line:
         line=line.replace(line,line+"\n      '" +extensionName+ "',\n")
+    print(line, end='')
+
+for line in fileinput.FileInput("ui/src/blocks/index.ts",inplace=1):
+    if "//Automated Scripts under here" in line:
+        line=line.replace(line,line+scripts_index_var)
     print(line, end='')
 
 os.system("mkdir ui/src/blocks/microbit/" +extensionName)

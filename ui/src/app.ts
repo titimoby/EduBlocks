@@ -42,6 +42,8 @@ export function newApp(): App {
     newpy = newpy.replace('from iotloranode import loraNode', '');
     //Automated Extensions under here
 
+    newpy = newpy.replace('from movemini import *', '');
+
     newpy = newpy.replace('from Minibit import *', '');
 
     const combinedScript = (beforeScript ? (beforeScript + '\n\n') : '') + newpy;

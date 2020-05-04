@@ -14,6 +14,8 @@ export function newMicrobitPlatform(): PlatformInterface {
       'GiggleBot',
       //Automated Extensions under here
 
+      'MoveMini',
+
       'Minibit',
       
     ],

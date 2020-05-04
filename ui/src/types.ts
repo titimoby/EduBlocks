@@ -32,7 +32,7 @@ export interface TerminalInterface {
   rows: number;
 }
 
-export type Extension = 'Minibit' |     'micro:bit General' | 'Pi General' | 'Web General' | 'CircuitPython General' | 'Calliope General' | 'scrollbit' | 'enviro:bit' | 'GiggleBot' | 'EnviroBit' | 'Circuit Playground Easy';
+export type Extension = 'MoveMini' |  'Minibit' |     'micro:bit General' | 'Pi General' | 'Web General' | 'CircuitPython General' | 'Calliope General' | 'scrollbit' | 'enviro:bit' | 'GiggleBot' | 'EnviroBit' | 'Circuit Playground Easy';
 
 export type Platform = 'Python' | 'MicroBit' | 'RaspberryPi' | 'CircuitPython' | 'Calliope';
 
