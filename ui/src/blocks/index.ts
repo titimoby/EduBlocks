@@ -167,6 +167,11 @@ export async function getToolBoxXml(extensions: Extension[]) {
   }
 
   //Automated Extensions under here
+  if (extensions.indexOf('DriveBit') !== -1) {
+    (await import('./microbit/DriveBit/definitions')).default(Blockly.Blocks);
+    (await import('./microbit/DriveBit/generators')).default(Blockly.Python as any);
+    toolBoxXml += fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'DriveBit', 'toolbox.xml'));
+  }
   if (extensions.indexOf('BitBotXL') !== -1) {
     (await import('./microbit/BitBotXL/definitions')).default(Blockly.Blocks);
     (await import('./microbit/BitBotXL/generators')).default(Blockly.Python as any);
@@ -245,6 +250,9 @@ export function getBeforeScript(extensions: Extension[]) {
     return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'Minibit', 'Minibit.py'));
   }
   //Automated Scripts under here
+  if (extensions.indexOf('DriveBit') !== -1) {
+    return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'DriveBit', 'DriveBit.py')); 
+  }
   if (extensions.indexOf('BitBotXL') !== -1) {
     return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'BitBotXL', 'BitBotXL.py')); 
   }

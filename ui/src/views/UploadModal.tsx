@@ -39,11 +39,6 @@ export default class UploadModal<T extends UploadModalOption> extends Component<
             <br></br>
             {this.props.text}
           </section>
-          <footer class="alertFooter">
-            <label for="modal_1" class="button dangerous" onClick={() => this.props.onButtonClick('close')}>
-              Close
-            </label>
-          </footer>
         </article>
       </div>
     );
