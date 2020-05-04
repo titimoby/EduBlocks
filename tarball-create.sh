@@ -6,7 +6,7 @@ if [ $(whoami) == 'root' ]; then
   echo 'Please do not run me as root'
   exit 1
 fi
-
+ 
 TMP_PATH=/tmp
 
 ARCH=$1
