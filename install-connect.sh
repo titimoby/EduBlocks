@@ -23,7 +23,7 @@ sudo cp $APP_PATH/ui/images/connectlogo.png /usr/share/icons/hicolor/scalable/ap
 
 echo "Making the program visible in the menu...\n"
 sudo cp $APP_PATH/edublocks-connect.desktop /usr/share/applications
-sudo cp $APP_PATH/edublocks-desktop.desktop /usr/share/applications
+sudo cp $APP_PATH/edublocks.desktop /usr/share/applications
 
 echo "Creating symlinks... \n"
 
@@ -38,3 +38,5 @@ sudo ln -s $INSTALL_PATH/server/start.sh            $GLOBAL_BIN_PATH/edublocks-c
 sudo ln -s $INSTALL_PATH/server/startup-enable.sh   $GLOBAL_BIN_PATH/edublocks-startup-enable
 sudo ln -s $INSTALL_PATH/server/startup-disable.sh  $GLOBAL_BIN_PATH/edublocks-startup-disable
 sudo ln -s $INSTALL_PATH/scripts/uninstall.sh       $GLOBAL_BIN_PATH/edublocks-uninstall
+
+sudo curl -sSL -o /opt/edublocks/ui/dist/ http://beta.app.edublocks.org/dist/main.js

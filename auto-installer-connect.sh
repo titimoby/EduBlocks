@@ -1,13 +1,10 @@
-echo -e "Welcome to the EduBlocks Raspberry Pi Edition installer!"
-echo -e "This script will install all the necessary things to setup EduBlocks.\n"
+#!/bin/bash
 
-echo -e "Always be careful when running scripts and commands copied
-from the internet. Ensure they are from a trusted source. Although, this is an offical script and is safe to run\n"
-
-echo -e "Let's get started!\n"
+# Convenience script for one line installation.
+# Not intended to be run from here but rather it should curl'ed from somewhere.
 
 if [ $(whoami) == 'root' ]; then
-  echo -e "Please do not run me as root"
+  echo 'Please do not run me as root'
   exit 1
 fi
 
@@ -18,41 +15,41 @@ cd ~
 
 if [ -f edublocks-$ARCH.tar.xz ]; then
   echo ''
-  echo -e "Removing old download...\n"
+  echo 'Removing old download...'
   rm -f edublocks-$ARCH.tar.xz
 fi
 
 if [ -d edublocks ]; then
   echo ''
-  echo -e "Removing old extract...\n"
+  echo 'Removing old extract...'
   rm -rf edublocks
 fi
 
 echo ''
-echo -e "Downloading package...\n"
+echo 'Downloading package...'
 wget http://edublocks.org/downloads/edublocks-$ARCH.tar.xz
 
+
 echo ''
-echo -e "Extracting package...\n"
+echo 'Extracting package...'
 tar -xf edublocks-$ARCH.tar.xz
 
 echo ''
-echo -e "Running install dependencies script...\n"
+echo 'Running install dependencies script...'
 ~/edublocks/install-deps-connect.sh
 
 echo ''
-echo -e "Running install script..."
+echo 'Running install script...'
 ~/edublocks/install-connect.sh
 
 if [ -f edublocks-$ARCH.tar.xz ]; then
   echo ''
-  echo -e "Removing temp download...\n"
+  echo 'Removing temp download...'
   rm -f edublocks-$ARCH.tar.xz
 fi
 
 if [ -d edublocks ]; then
   echo ''
-  echo -e "Removing temp extract...\n"
+  echo 'Removing temp extract...'
   rm -rf edublocks
-  echo -e "EduBlocks has installed Successfully. To open EduBlocks, go to Menu > Programming > EduBlocks or type edublocks into the terminal"
 fi
