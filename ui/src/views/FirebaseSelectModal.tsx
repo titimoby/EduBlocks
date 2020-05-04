@@ -1,6 +1,6 @@
 import React = require('preact');
 import { Component } from 'preact';
-import {generic} from './Page';
+import {generic, navLabels} from './Page';
 
 interface FirebaseSelectModalProps<T extends FirebaseSelectModalOption> {
   title: string;
@@ -44,14 +44,14 @@ export default class FirebaseSelectModal<T extends FirebaseSelectModalOption> ex
         <span>{option.label}</span>
       </div>,
       <div class='SelectModal__cell SelectModal__cell--action'>
-        <button style="background-color: #49B04D" class="buttonMenu" onClick={() => this.props.onShare(option)}>Share</button>
+        <button style="background-color: #49B04D" class="buttonMenu" onClick={() => this.props.onShare(option)}>{navLabels[11]}</button>
         <button class="buttonMenu error" onClick={() => this.props.onDelete(option)}>{generic[4]}</button>
         <button onClick={() => this.props.onSelect(option)}>{generic[0]}</button>
       </div>,
     ]));
 
     return (
-      <div class='SelectModal modal'>
+      <div class='SelectModal modal' style="min-width: 60%">
 
         <input id='modal_1' type='checkbox' disabled={true} checked={this.props.visible} />
 

@@ -69,7 +69,7 @@ interface State {
 // Labels
 
 export let navLabels: string[] = new Array();
-navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex", "Download", "Themes"];
+navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex", "Download", "Themes", "Share"];
 
 export let generic: string[] = new Array();
 generic = ["Open", 
@@ -649,7 +649,7 @@ export default class Page extends Component<Props, State> {
 
     private async runLanguages(func: Languages) {
         if (func === 'English') {
-            navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex", "Download", "Themes"];
+            navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex", "Download", "Themes", "Share"];
             
             generic = ["Open", 
             "Go", 
@@ -671,7 +671,7 @@ export default class Page extends Component<Props, State> {
         }
 
         if (func === 'French') {
-            navLabels = ["Nouveau", "Ouvrir", "Sauvegarder", "Exemples", "Préférences", "Exécuter", "S'identifier", "Sans Titre", "Télécharger Hex", "Télécharger", "Thèmes"];
+            navLabels = ["Nouveau", "Ouvrir", "Sauvegarder", "Exemples", "Préférences", "Exécuter", "S'identifier", "Sans Titre", "Télécharger Hex", "Télécharger", "Thèmes", "Partager"];
             
             generic = [ "Ouvert", 
                         "Aller", 
@@ -693,7 +693,7 @@ export default class Page extends Component<Props, State> {
         }
 
         if (func === 'German') {
-            navLabels = ["Neu", "Öffnen", "Speichern", "Proben", "Extras", "Ausführen", "Login", "Unbetitelt", "Herunterladen Hex", "Herunterladen", "Themen"];
+            navLabels = ["Neu", "Öffnen", "Speichern", "Proben", "Extras", "Ausführen", "Login", "Unbetitelt", "Herunterladen Hex", "Herunterladen", "Themen", "Teilen"];
             
             generic = [ "Öffnen", 
                         "Los", 
@@ -715,7 +715,7 @@ export default class Page extends Component<Props, State> {
         }
 
         if (func === 'Welsh') {
-            navLabels = ["Newydd", "Agor", "Cadw", "Samplau", "Yn ychwanegol", "Rhedeg", "Mewngofnodi", "Heb enw", "Lawrlwython Hex", "Lawrlwython", "Themâu"];
+            navLabels = ["Newydd", "Agor", "Cadw", "Samplau", "Yn ychwanegol", "Rhedeg", "Mewngofnodi", "Heb enw", "Lawrlwython Hex", "Lawrlwython", "Themâu", "Rhannu"];
             
             generic = [ "Agor", 
                         "Mynd", 
@@ -916,7 +916,7 @@ export default class Page extends Component<Props, State> {
                 }
 
                 <AlertModal
-                    title='Share a file'
+                    title={navLabels[11]}
                     visible={this.state.modal === 'share'}
                     text= {this.state.shareURL}
                     text2= "Copied to clipboard"
@@ -1050,7 +1050,7 @@ export default class Page extends Component<Props, State> {
                 />
 
                 <SelectModal
-                    title="Share"
+                    title={navLabels[11]}
                     selectLabel={generic[1]}
                     buttons={[]}
                     visible={this.state.modal === 'shareoptions'}

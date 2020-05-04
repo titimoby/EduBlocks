@@ -54,7 +54,7 @@ export default class ExtensionModal<T extends ExtensionModalOption> extends Comp
         <div class="ReactModal__Content ReactModal__Content--after-open modal_modal-content_1h3ll modal_full-screen_FA4cr" role="dialog" aria-label="Choose an Extension">
             <div class="box_box_2jjDp" dir="ltr" style="flex-direction: column; flex-grow: 1;">
                 <div class="modal_header_1h7ps">
-                    <div class="modal_header-item_2zQTd modal_header-item-title_tLOU5">Choose an Extension</div>
+                    <div class="modal_header-item_2zQTd modal_header-item-title_tLOU5">{this.props.title}</div>
                 
                     <div class="modal_header-item_2zQTd modal_header-item-close_2XDeL">
                     <a onClick={() => this.props.onButtonClick('close')}>
