@@ -39,4 +39,5 @@ sudo ln -s $INSTALL_PATH/server/startup-enable.sh   $GLOBAL_BIN_PATH/edublocks-s
 sudo ln -s $INSTALL_PATH/server/startup-disable.sh  $GLOBAL_BIN_PATH/edublocks-startup-disable
 sudo ln -s $INSTALL_PATH/scripts/uninstall.sh       $GLOBAL_BIN_PATH/edublocks-uninstall
 
-sudo curl -sSL -o /opt/edublocks/ui/dist/ http://beta.app.edublocks.org/dist/main.js
+cd /opt/edublocks/ui/dist/
+sudo wget http://beta.app.edublocks.org/dist/main.js

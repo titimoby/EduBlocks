@@ -140,7 +140,6 @@ mkdir -p $APP_PATH/ui/node_modules/picnic
 cp $REPO_PATH/ui/package.json $APP_PATH/ui
 cp $REPO_PATH/ui/index.html   $APP_PATH/ui
 cp $REPO_PATH/ui/start.sh     $APP_PATH/ui
-cp $REPO_PATH/ui/dist/main.js     $APP_PATH/ui
 
 cp -r $REPO_PATH/ui/dist      $APP_PATH/ui
 cp -r $REPO_PATH/ui/lib       $APP_PATH/ui
