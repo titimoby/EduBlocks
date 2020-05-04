@@ -9,8 +9,6 @@ export function newCircuitPythonPlatform(): PlatformInterface {
     defaultExtensions: [
       'CircuitPython General',
     ],
-    extensions: [
-      'Circuit Playground Easy',
-    ],
+    extensions: [],
   };
 }

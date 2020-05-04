@@ -102,9 +102,7 @@ export async function getToolBoxXml(extensions: Extension[]) {
     (await import('./circuitpython/advanced/definitions')).default(Blockly.Blocks);
     (await import('./circuitpython/advanced/generators')).default(Blockly.Python as any);
     toolBoxXml += fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'circuitpython', 'advanced', 'toolbox.xml'));
-  }
 
-  if (extensions.indexOf('Circuit Playground Easy') !== -1) {
     (await import('./circuitpython/cpx/definitions')).default(Blockly.Blocks);
     (await import('./circuitpython/cpx/generators')).default(Blockly.Python as any);
     toolBoxXml += fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'circuitpython', 'cpx', 'toolbox.xml'));
@@ -245,9 +243,6 @@ export function getBeforeScript(extensions: Extension[]) {
   }
   if (extensions.indexOf('Minibit') !== -1) {
     return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'Minibit', 'Minibit.py'));
-  }
-  if (extensions.indexOf('Circuit Playground Easy') !== -1) {
-    return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'circuitpython', 'cpx', 'cpx.py'));
   }
   //Automated Scripts under here
   if (extensions.indexOf('BitBotXL') !== -1) {

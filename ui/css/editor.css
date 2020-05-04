@@ -603,6 +603,11 @@ button{
     content: "\f0eb";
 }
 
+.blocklyTreeIconCustom.cpx::before {
+    content: "\f02d";
+}
+
+
 .blocklyTreeIconCustom.robot::before {
     content: "\f1b9";
 }
