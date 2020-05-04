@@ -169,6 +169,11 @@ export async function getToolBoxXml(extensions: Extension[]) {
   }
 
   //Automated Extensions under here
+  if (extensions.indexOf('BitBotXL') !== -1) {
+    (await import('./microbit/BitBotXL/definitions')).default(Blockly.Blocks);
+    (await import('./microbit/BitBotXL/generators')).default(Blockly.Python as any);
+    toolBoxXml += fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'BitBotXL', 'toolbox.xml'));
+  }
   if (extensions.indexOf('MoveMini') !== -1) {
     (await import('./microbit/MoveMini/definitions')).default(Blockly.Blocks);
     (await import('./microbit/MoveMini/generators')).default(Blockly.Python as any);
@@ -245,6 +250,9 @@ export function getBeforeScript(extensions: Extension[]) {
     return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'circuitpython', 'cpx', 'cpx.py'));
   }
   //Automated Scripts under here
+  if (extensions.indexOf('BitBotXL') !== -1) {
+    return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'BitBotXL', 'BitBotXL.py')); 
+  }
   if (extensions.indexOf('MoveMini') !== -1) {
     return fs.readFileSync(path.join(__dirname, '..', '..', 'src', 'blocks', 'microbit', 'MoveMini', 'MoveMini.py')); 
   }
