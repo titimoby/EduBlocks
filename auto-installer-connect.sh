@@ -29,6 +29,7 @@ echo ''
 echo 'Downloading package...'
 wget http://edublocks.org/downloads/edublocks-$ARCH.tar.xz
 
+
 echo ''
 echo 'Extracting package...'
 tar -xf edublocks-$ARCH.tar.xz
