@@ -947,7 +947,6 @@ export default class Page extends Component<Props, State> {
                     saveCode={() => this.saveFile()}
                     newCode={() => this.new()}
                     openSamples={() => this.openSamples()}
-                    openExtensions={this.getExtensions().length ? () => this.openExtensions() : undefined}
                     openThemes={() => this.openThemes()}
                     onFunction={() => this.openAdvancedFunctionDialog()}
                     onFileChange={(fileName) => this.fileChange(fileName)}
