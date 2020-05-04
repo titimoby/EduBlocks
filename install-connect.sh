@@ -23,7 +23,7 @@ sudo cp $APP_PATH/ui/images/connectlogo.png /usr/share/icons/hicolor/scalable/ap
 
 echo "Making the program visible in the menu...\n"
 sudo cp $APP_PATH/edublocks-connect.desktop /usr/share/applications
-sudo cp $APP_PATH/edublocks.desktop /usr/share/applications
+sudo cp $APP_PATH/edublocks-desktop.desktop /usr/share/applications
 
 echo "Creating symlinks... \n"
 
