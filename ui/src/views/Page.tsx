@@ -328,22 +328,22 @@ export default class Page extends Component<Props, State> {
         if (file.name.indexOf("(Python)") !== -1 && this.state.platform!.key !== "Python"){
             this.new();
             this.selectPlatform("Python");
-            newFileName = file.name.replace("(PY).xml", "");
+            newFileName = file.name.replace("(Python).xml", "");
         }
         if (file.name.indexOf("(RPi)") !== -1 && this.state.platform!.key !== "RaspberryPi"){
             this.new();
             this.selectPlatform("RaspberryPi");
-            newFileName = file.name.replace("(RP).xml", "");
+            newFileName = file.name.replace("(RPi).xml", "");
         }
         if (file.name.indexOf("(microbit)") !== -1 && this.state.platform!.key !== "MicroBit"){
             this.new();
             this.selectPlatform("MicroBit");
-            newFileName = file.name.replace("(MB).xml", "");
+            newFileName = file.name.replace("(microbit).xml", "");
         }
         if (file.name.indexOf("(CircuitPython)") !== -1 && this.state.platform!.key !== "CircuitPython"){
             this.new();
             this.selectPlatform("CircuitPython");
-            newFileName = file.name.replace("(CP).xml", "");
+            newFileName = file.name.replace("(CircuitPython).xml", "");
         }
         (document.getElementById("filename") as HTMLInputElement).value = newFileName;
         this.setState({fileName: newFileName});
