@@ -382,6 +382,7 @@ export default class Page extends Component<Props, State> {
         const encoded = btoa(newFileURL);
         const edublocksLink = "https://beta.app.edublocks.org/#share?" + this.state.platform!.key + "?" + encoded;
         await this.setState({ shareURL: edublocksLink});
+        await console.log(this.state.shareURL)
         await this.setState({ modal: "shareoptions"});
     }
 
@@ -394,14 +395,14 @@ export default class Page extends Component<Props, State> {
                 shareableURL
             );
         
-          //  const body = await response.json();
+            const body = await response.json();
 
             console.log(this.state.shareURL)
             
             if (response.ok){
-               // const shortLink = "https://share.edublocks.org/" + body.result.code
+                const shortLink = "https://share.edublocks.org/" + body.result.code
                 await console.log(this.state.shareURL)
-                //await this.setState({ shareURL: shortLink});
+                await this.setState({ shareURL: shortLink});
                 const el = document.createElement('textarea');
                 el.value = this.state.shareURL;
                 await el.setAttribute('readonly', '');
