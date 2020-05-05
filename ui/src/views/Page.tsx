@@ -404,7 +404,7 @@ export default class Page extends Component<Props, State> {
                 await console.log(this.state.shareURL)
                 await this.setState({ shareURL: shortLink});
                 const el = document.createElement('textarea');
-                el.value = this.state.shareURL;
+                el.value = shortLink;
                 await el.setAttribute('readonly', '');
                 el.style.position = 'absolute';
                 el.style.left = '-9999px';
