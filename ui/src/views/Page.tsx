@@ -335,7 +335,7 @@ export default class Page extends Component<Props, State> {
             this.selectPlatform("RaspberryPi");
             newFileName = file.name.replace("(RP).xml", "");
         }
-        if (file.name.indexOf("(micro:bit)") !== -1 && this.state.platform!.key !== "MicroBit"){
+        if (file.name.indexOf("(microbit)") !== -1 && this.state.platform!.key !== "MicroBit"){
             this.new();
             this.selectPlatform("MicroBit");
             newFileName = file.name.replace("(MB).xml", "");
@@ -465,7 +465,7 @@ export default class Page extends Component<Props, State> {
                     plat = "(Python)"
                 }
                 if (this.state.platform!.key === "MicroBit"){
-                    plat = "(micro:bit)"
+                    plat = "(microbit)"
                 }
                 if (this.state.platform!.key === "RaspberryPi"){
                     plat = "(RPi)"
