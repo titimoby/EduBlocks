@@ -114,7 +114,7 @@ export default class Page extends Component<Props, State> {
         };
     }
 
-    private readBlocklyContents(xml: string) {
+    private async readBlocklyContents(xml: string) {
         if (this.state.doc.xml === xml) {
             return;
         }
@@ -127,7 +127,17 @@ export default class Page extends Component<Props, State> {
 
         this.setState({ doc });
 
-        this.switchView(ViewModeBlockly);
+        if (split === true){
+            this.switchView(ViewModeBlockly);
+
+            await this.splitView(false);
+
+            split = true
+            this.splitView(true);
+        }
+        else{
+            this.switchView(ViewModeBlockly);
+        }
     }
 
     
@@ -167,7 +177,7 @@ export default class Page extends Component<Props, State> {
         this.setState({ doc });
     }
 
-    private new() {
+    private async new() {
         const doc: DocumentState = {
             xml: null,
             python: null,
@@ -175,12 +185,7 @@ export default class Page extends Component<Props, State> {
         };
 
         this.setState({ doc });
-        if (split === true){
-            this.splitView(true);
-        }
-        else{
-            this.switchView('blocks');
-        }
+
     }
 
     public componentDidMount() {
@@ -326,22 +331,18 @@ export default class Page extends Component<Props, State> {
         let self = this;
         let newFileName = "";
         if (file.name.indexOf("(Python)") !== -1 && this.state.platform!.key !== "Python"){
-            this.new();
             this.selectPlatform("Python");
             newFileName = file.name.replace("(Python).xml", "");
         }
         if (file.name.indexOf("(RPi)") !== -1 && this.state.platform!.key !== "RaspberryPi"){
-            this.new();
             this.selectPlatform("RaspberryPi");
             newFileName = file.name.replace("(RPi).xml", "");
         }
         if (file.name.indexOf("(microbit)") !== -1 && this.state.platform!.key !== "MicroBit"){
-            this.new();
             this.selectPlatform("MicroBit");
             newFileName = file.name.replace("(microbit).xml", "");
         }
         if (file.name.indexOf("(CircuitPython)") !== -1 && this.state.platform!.key !== "CircuitPython"){
-            this.new();
             this.selectPlatform("CircuitPython");
             newFileName = file.name.replace("(CircuitPython).xml", "");
         }
@@ -563,6 +564,18 @@ export default class Page extends Component<Props, State> {
             modal: null,
             extensionsActive: platform.defaultExtensions,
         });
+
+        if (split === true){
+            this.switchView(ViewModeBlockly);
+
+            await this.splitView(false);
+
+            split = true
+            this.splitView(true);
+        }
+        else{
+            this.switchView(ViewModeBlockly);
+        }
     }
 
 
@@ -587,6 +600,8 @@ export default class Page extends Component<Props, State> {
         const xml = this.props.app.getSample(this.state.platform!.key, file);
 
         await this.readBlocklyContents(xml);
+
+        
     }
 
 
