@@ -88,5 +88,6 @@
       </shadow>
     </value>
   </block>
+  <block type="stringinline"></block>
 
 </category>

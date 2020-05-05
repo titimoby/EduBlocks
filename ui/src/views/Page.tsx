@@ -68,6 +68,7 @@ interface State {
 
 // Labels
 
+
 export let navLabels: string[] = new Array();
 navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex", "Download", "Themes", "Share"];
 
@@ -79,7 +80,7 @@ generic = ["Open",
             "Delete", 
             "Yes", 
             "No", 
-            "Attention!", 
+            "Attention!",  
             "There is no code to run!", 
             "Changing mode will make you lose your code, do you wish to continue?", 
             "Uploading...", 
@@ -287,12 +288,12 @@ export default class Page extends Component<Props, State> {
         this.updateFromPython(python);
     }
 
+
     private async openFile() {
         const user = firebase.auth().currentUser;
         if (user) {
             let self = this;
             const ref = firebase.storage().ref(`blocks/${user.uid}`);
-
             ref.listAll().then(function (res) {
                 self.setState({
                     files: res.items.map((i) => ({
@@ -317,7 +318,27 @@ export default class Page extends Component<Props, State> {
     private async openFirebaseFile(file: firebase.storage.Reference) {
         this.closeModal();
         let self = this;
-        let newFileName = file.name.replace(".xml", "");
+        let newFileName = "";
+        if (file.name.indexOf("(PY)") !== -1 && this.state.platform!.key !== "Python"){
+            this.new();
+            this.selectPlatform("Python");
+            newFileName = file.name.replace("(PY).xml", "");
+        }
+        if (file.name.indexOf("(RP)") !== -1 && this.state.platform!.key !== "RaspberryPi"){
+            this.new();
+            this.selectPlatform("RaspberryPi");
+            newFileName = file.name.replace("(RP).xml", "");
+        }
+        if (file.name.indexOf("(MB)") !== -1 && this.state.platform!.key !== "MicroBit"){
+            this.new();
+            this.selectPlatform("MicroBit");
+            newFileName = file.name.replace("(MB).xml", "");
+        }
+        if (file.name.indexOf("(CP)") !== -1 && this.state.platform!.key !== "CircuitPython"){
+            this.new();
+            this.selectPlatform("CircuitPython");
+            newFileName = file.name.replace("(CP).xml", "");
+        }
         (document.getElementById("filename") as HTMLInputElement).value = newFileName;
         this.setState({fileName: newFileName});
         file.getDownloadURL().then(function (url) {
@@ -433,7 +454,20 @@ export default class Page extends Component<Props, State> {
                 this.setState({
                     modal: 'progress',
                 });
-                const ref = firebase.storage().ref(`blocks/${user.uid}/${this.state.fileName}.xml`);
+                let plat = "";
+                if (this.state.platform!.key === "Python"){
+                    plat = "(PY)"
+                }
+                if (this.state.platform!.key === "MicroBit"){
+                    plat = "(MB)"
+                }
+                if (this.state.platform!.key === "RaspberryPi"){
+                    plat = "(RP)"
+                }
+                if (this.state.platform!.key === "CircuitPython"){
+                    plat = "(CP)"
+                }
+                const ref = firebase.storage().ref(`blocks/${user.uid}/${this.state.fileName} ${plat}.xml`);
                 const task = ref.putString(xml, undefined, {
                     contentType: 'text/xml',
                 });
