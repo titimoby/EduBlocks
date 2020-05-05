@@ -394,16 +394,16 @@ export default class Page extends Component<Props, State> {
                 shareableURL
             );
         
-            const body = await response.json();
+          //  const body = await response.json();
 
-            console.log(shareableURL)
+            console.log(this.state.shareURL)
             
             if (response.ok){
-                const shortLink = "https://share.edublocks.org/" + body.result.code
-                await console.log(shortLink)
-                await this.setState({ shareURL: shortLink});
+               // const shortLink = "https://share.edublocks.org/" + body.result.code
+                await console.log(this.state.shareURL)
+                //await this.setState({ shareURL: shortLink});
                 const el = document.createElement('textarea');
-                el.value = shortLink;
+                el.value = this.state.shareURL;
                 await el.setAttribute('readonly', '');
                 el.style.position = 'absolute';
                 el.style.left = '-9999px';
