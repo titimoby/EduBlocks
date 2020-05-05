@@ -377,10 +377,23 @@ export default class Page extends Component<Props, State> {
     
 
     private async shareFirebaseFile(file: firebase.storage.Reference) {
+        let filePlatform = ""
+        if (file.name.indexOf("(Python)") !== -1){
+            filePlatform = "Python"
+        }
+        if (file.name.indexOf("(RPi)") !== -1){
+            filePlatform = "RaspberryPi"
+        }
+        if (file.name.indexOf("(microbit)") !== -1){
+            filePlatform = "MicroBit"
+        }
+        if (file.name.indexOf("(CircuitPython)") !== -1){
+            filePlatform = "CircuitPython"
+        }
         let fileURL = await file.getDownloadURL();
         let newFileURL = fileURL.substring(0, fileURL.indexOf('&token='));
         const encoded = btoa(newFileURL);
-        const edublocksLink = "https://beta.app.edublocks.org/#share?" + this.state.platform!.key + "?" + encoded;
+        const edublocksLink = "https://beta.app.edublocks.org/#share?" + filePlatform + "?" + encoded;
         await this.setState({ shareURL: edublocksLink});
         await console.log(this.state.shareURL)
         await this.setState({ modal: "shareoptions"});
