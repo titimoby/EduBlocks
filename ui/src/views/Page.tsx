@@ -68,6 +68,8 @@ interface State {
 
 // Labels
 
+export let split = false;
+
 
 export let navLabels: string[] = new Array();
 navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex", "Download", "Themes", "Share"];
@@ -173,8 +175,12 @@ export default class Page extends Component<Props, State> {
         };
 
         this.setState({ doc });
-
-        this.switchView('blocks');
+        if (split === true){
+            this.splitView(true);
+        }
+        else{
+            this.switchView('blocks');
+        }
     }
 
     public componentDidMount() {
@@ -319,22 +325,22 @@ export default class Page extends Component<Props, State> {
         this.closeModal();
         let self = this;
         let newFileName = "";
-        if (file.name.indexOf("(PY)") !== -1 && this.state.platform!.key !== "Python"){
+        if (file.name.indexOf("(Python)") !== -1 && this.state.platform!.key !== "Python"){
             this.new();
             this.selectPlatform("Python");
             newFileName = file.name.replace("(PY).xml", "");
         }
-        if (file.name.indexOf("(RP)") !== -1 && this.state.platform!.key !== "RaspberryPi"){
+        if (file.name.indexOf("(RPi)") !== -1 && this.state.platform!.key !== "RaspberryPi"){
             this.new();
             this.selectPlatform("RaspberryPi");
             newFileName = file.name.replace("(RP).xml", "");
         }
-        if (file.name.indexOf("(MB)") !== -1 && this.state.platform!.key !== "MicroBit"){
+        if (file.name.indexOf("(micro:bit)") !== -1 && this.state.platform!.key !== "MicroBit"){
             this.new();
             this.selectPlatform("MicroBit");
             newFileName = file.name.replace("(MB).xml", "");
         }
-        if (file.name.indexOf("(CP)") !== -1 && this.state.platform!.key !== "CircuitPython"){
+        if (file.name.indexOf("(CircuitPython)") !== -1 && this.state.platform!.key !== "CircuitPython"){
             this.new();
             this.selectPlatform("CircuitPython");
             newFileName = file.name.replace("(CP).xml", "");
@@ -456,16 +462,16 @@ export default class Page extends Component<Props, State> {
                 });
                 let plat = "";
                 if (this.state.platform!.key === "Python"){
-                    plat = "(PY)"
+                    plat = "(Python)"
                 }
                 if (this.state.platform!.key === "MicroBit"){
-                    plat = "(MB)"
+                    plat = "(micro:bit)"
                 }
                 if (this.state.platform!.key === "RaspberryPi"){
-                    plat = "(RP)"
+                    plat = "(RPi)"
                 }
                 if (this.state.platform!.key === "CircuitPython"){
-                    plat = "(CP)"
+                    plat = "(CircuitPython)"
                 }
                 const ref = firebase.storage().ref(`blocks/${user.uid}/${this.state.fileName} ${plat}.xml`);
                 const task = ref.putString(xml, undefined, {
@@ -510,7 +516,7 @@ export default class Page extends Component<Props, State> {
         const platform = await getPlatform(platformKey);
 
         if (platformKey === 'Python') {
-            this.new();
+           this.new()
         }
 
         if (platformKey === 'RaspberryPi') {
@@ -561,7 +567,7 @@ export default class Page extends Component<Props, State> {
     }
 
     private async selectSample(file: string) {
-        this.setState({ viewMode: 'blocks' });
+        this.new()
         await this.setState({ modal: null });
 
         const xml = this.props.app.getSample(this.state.platform!.key, file);
@@ -773,6 +779,7 @@ export default class Page extends Component<Props, State> {
 
     private async splitView(toggle: boolean){
         if (toggle === true){
+            split = true;
             let blocklyEditor = document.getElementById('blockly') as HTMLBodyElement;
             let pythonEditor = document.getElementById('python') as HTMLBodyElement;
             let editorElement = document.getElementById('editor') as HTMLBodyElement;
@@ -796,6 +803,7 @@ export default class Page extends Component<Props, State> {
         }
 
         if (toggle === false){
+            split = false;
             let editorElement = document.getElementById('editor') as HTMLBodyElement;
             let blocklyEditor = document.getElementById('blockly') as HTMLBodyElement;
             let exitElement = document.getElementById('ExitSplit') as HTMLBodyElement;
