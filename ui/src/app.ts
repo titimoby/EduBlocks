@@ -104,13 +104,7 @@ export function newApp(): App {
   function getThemes() {
     return [
       'Default',
-      'Tangerine',
-      'Vivid',
-      'DarkRed',
-      'Celestial',
-      'Pacific',
       'Dark',
-      'Solarized',
     ];
   }
 

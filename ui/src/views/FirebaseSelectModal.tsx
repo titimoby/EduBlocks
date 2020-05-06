@@ -44,8 +44,8 @@ export default class FirebaseSelectModal<T extends FirebaseSelectModalOption> ex
         <span>{option.label}</span>
       </div>,
       <div class='SelectModal__cell SelectModal__cell--action'>
-        <button style="background-color: #49B04D" class="buttonMenu" onClick={() => this.props.onShare(option)}>{navLabels[11]}</button>
-        <button class="buttonMenu error" onClick={() => this.props.onDelete(option)}>{generic[4]}</button>
+        <button style="background-color: #49B04D" id="sharebutton" class="buttonMenu" onClick={() => this.props.onShare(option)}>{navLabels[11]}</button>
+        <button class="buttonMenu error" id="deletebutton" onClick={() => this.props.onDelete(option)}>{generic[4]}</button>
         <button onClick={() => this.props.onSelect(option)}>{generic[0]}</button>
       </div>,
     ]));

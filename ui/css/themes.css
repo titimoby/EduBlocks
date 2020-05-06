@@ -1,9 +1,101 @@
 .theme-Dark nav {
   background: #1F1F1F;
+  border: 0px !important;
 }
-.theme-Dark .blocklySvg {
-  background-color: #363636 !important;
+
+.theme-Dark .SelectModal__header{
+  background: #1F1F1F !important;
 }
+
+.theme-Dark #filename{
+  background-color: #121212 !important;
+  color: white !important;
+}
+
+.theme-Dark .modal_header_1h7ps {
+  background: #1F1F1F !important;
+}
+
+.theme-Dark .library_library-scroll-grid_1jyXm{
+  background-color: #121212 !important;
+}
+
+.theme-Dark .library-item_featured-item_3V2-t{
+  background: #1F1F1F !important;
+  color: white;
+}
+
+.theme-Dark library-item_library-item_1DcMO:hover{
+  border: blue;
+}
+
+.theme-Dark library-item_library-item_1DcMO{
+  border: white;
+}
+
+.theme-Dark .SelectModel__container {
+  -webkit-box-shadow:0 0 20px white; 
+  -moz-box-shadow: 0 0 20px white; 
+  box-shadow:0 0 20px white;
+}
+
+.theme-Dark .AlertModel__container {
+  -webkit-box-shadow:0 0 20px white; 
+  -moz-box-shadow: 0 0 20px white; 
+  box-shadow:0 0 20px white;
+}
+
+.theme-Dark .blocklySvg{
+  background-color: #121212 !important;
+}
+
+.theme-Dark #imagemodal {
+  -webkit-box-shadow:0 0 20px white; 
+  -moz-box-shadow: 0 0 20px white; 
+  box-shadow:0 0 20px white;
+}
+
+
+.theme-Dark .SelectModel__content{
+  background-color: #121212 !important;
+  color: white !important;
+}
+
+.theme-Dark .SelectModal__buttons{
+  background-color: #121212 !important;
+}
+
+.theme-Dark .alertFooter{
+  background-color: #121212 !important;
+}
+
+.theme-Dark #imageheader{
+  background: #1F1F1F !important;
+}
+
+.theme-Dark .blocklyMainBackground{
+  stroke: #121212;
+  stroke-opacity: 0;
+}
+
+.theme-Dark #imagefooter {
+  background-color: #121212 !important;
+}
+
+.theme-Dark #imagecontent{
+  background-color: #121212 !important;
+}
+
+.theme-Dark .ace-monokai{
+  background-color: #121212 !important;
+}
+
+.theme-Dark .ace_gutter{
+  background-color: #1E1E1E !important;
+  color: white
+}
+
+
 .theme-Dark .menu .button,
 .theme-Dark button {
   color: white;
@@ -17,57 +109,66 @@
   color: white
 }
 
-.theme-Dark .blocklyToolboxDiv {
-  background-color: #006BBD;
+.theme-Dark .blocklyToolboxDiv{
+  background-color: #1E1E1E !important;
   color: white
 }
 
 
 .theme-Dark #toggleViewButton{
-  background-color: #006BBD;
-  color: white
-}
-
-
-
-.theme-Solarized nav {
-  background: #00262F;
-}
-
-.theme-Solarized .SelectModal__header  {
-  background: #00262F;
-}
-.theme-Solarized .blocklySvg {
-  background-color: #002F39 !important;
-}
-.theme-Solarized .menu .button,
-.theme-Solarized button {
+  background-color: blue;
+  -webkit-box-shadow:0 0 120px blue; 
+  -moz-box-shadow: 0 0 120px blue; 
+  box-shadow:0 0 120px blue;
   color: white;
 }
 
-.theme-Solarized .button {
+.theme-Dark #deletebutton{
+  background-color: red !important;
+  -webkit-box-shadow:0 0 60px red !important; 
+  -moz-box-shadow: 0 0 60px red !important; 
+  box-shadow:0 0 60px red !important;
   color: white;
 }
 
-.theme-Solarized body{
-  background-color: #002F39 !important;
+.theme-Dark #sharebutton{
+  background-color: #49B04D !important;
+  -webkit-box-shadow:0 0 120px #49B04D !important; 
+  -moz-box-shadow: 0 0 120px  #49B04D!important; 
+  box-shadow:0 0 120px  #49B04D !important;
+  color: white;
 }
 
-.theme-Solarized .brand {
-  color: white
+.theme-Dark .SelectModal__grid button {
+  background-color: blue !important;
+  -webkit-box-shadow: 0 0 70px blue !important;
+  -moz-box-shadow: 0 0 70px blue !important;
+  box-shadow: 0 0 70px blue !important;
+  color: white !important;
 }
 
-.theme-Solarized .blocklyToolboxDiv {
-  background-color: #00262F !important;
-  color: white
+.theme-Dark .SelectModal__buttons button{
+  background-color: red !important;
+  -webkit-box-shadow: 0 0 70px red !important;
+  -moz-box-shadow: 0 0 70px red !important;
+  box-shadow: 0 0 70px red !important;
+  color: white !important;
 }
 
-
-.theme-Solarized #toggleViewButton{
-  background-color: #053844;
-  color: white
+.theme-Dark #ExitSplit{
+  background-color: blue;
+  -webkit-box-shadow:0 0 120px blue; 
+  -moz-box-shadow: 0 0 120px blue; 
+  box-shadow:0 0 120px blue;
+  color: white;
 }
 
+.theme-Dark .button-green{
+  -webkit-box-shadow:0 0 120px #49B04D; 
+  -moz-box-shadow: 0 0 120px #49B04D; 
+  box-shadow:0 0 120px #49B04D;
+  color: white;
+}
 
 
 
@@ -88,104 +189,12 @@
 
 /* Tangerine Theme */
 
-.theme-Tangerine nav{
-  background: #fc4a1a;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #f7b733, #fc4a1a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.theme-Deep-Blue nav{
+  background-color: #6200EE;
 
 }
 
-.theme-Tangerine .SelectModal__header{
-  background: #fc4a1a;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #f7b733, #fc4a1a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.theme-Deep-Blue .SelectModal__header{
+  background-color: #6200EE;
 
 }
-
-/* Vivid Theme */
-
-.theme-Vivid nav{
-  background: #FC466B;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #3F5EFB, #FC466B);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #3F5EFB, #FC466B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-}
-
-.theme-Vivid .SelectModal__header{
-  background: #FC466B;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #3F5EFB, #FC466B);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #3F5EFB, #FC466B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-}
-
-/* Purple Theme */
-
-.theme-DarkRed nav{
-  background: #070000;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #070000, #4C0001, #070000);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #070000, #4C0001, #070000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-
-}
-
-.theme-DarkRed .SelectModal__header{
-  background: #070000;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #070000, #4C0001, #070000);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #070000, #4C0001, #070000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-
-}
-
-
-/* Celestial Theme */
-
-.theme-Celestial nav{
-  background: #C33764;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #1D2671, #C33764);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #1D2671, #C33764); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-
-
-}
-
-.theme-Celestial .SelectModal__header{
-  background: #C33764;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #1D2671, #C33764);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #1D2671, #C33764); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-
-
-}
-
-
-
-/* Pacific Theme */
-
-.theme-Pacific nav{
-  background: #34e89e;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #0f3443, #34e89e);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #0f3443, #34e89e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-
-
-
-}
-
-.theme-Pacific .SelectModal__header{
-  background: #34e89e;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #0f3443, #34e89e);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #0f3443, #34e89e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-
-
-
-
-}
-
