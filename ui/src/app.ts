@@ -66,12 +66,14 @@ export function newApp(): App {
 
     // const hex = getHexFile(combinedScript);
 
-    // await io.saveFile(hex, 'hex', 'application/octet-stream');
+    //await io.saveFile("jk", hex, 'hex', 'application/octet-stream');
 
     await flashMicroBit(combinedScript, onProgress);
   }
 
   async function saveHex(fileName: string, python: string, extensions: Extension[]) {
+    
+
     const combinedScript = getCombinedScript(python, extensions);
 
     const hex = getHexFile(combinedScript);

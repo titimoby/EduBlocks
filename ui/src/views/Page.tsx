@@ -185,8 +185,9 @@ export default class Page extends Component<Props, State> {
         };
         this.setState({ doc });
 
-        this.setState({fileName: ""});
-        (document.getElementById("filename") as HTMLInputElement).value = this.state.fileName;
+        (document.getElementById("filename") as HTMLInputElement).value = "";
+
+        this.setState({fileName: "Untitled"});
 
     }
 
@@ -549,7 +550,7 @@ export default class Page extends Component<Props, State> {
         const python = this.state.doc.python;
 
         if (python) {
-            await this.props.app.saveHex(this.state.fileName, python, this.state.extensionsActive);
+            this.props.app.saveHex(this.state.fileName, python, this.state.extensionsActive);
         }
     }
 
