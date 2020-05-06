@@ -332,6 +332,7 @@ export default class Page extends Component<Props, State> {
         this.closeModal();
         let self = this;
         let newFileName = "";
+        await console.log("Opening file...")
         if (file.name.indexOf("(Python)") !== -1 && this.state.platform!.key !== "Python"){
             this.selectPlatform("Python");
             newFileName = file.name.replace("(Python)", "");
@@ -555,12 +556,7 @@ export default class Page extends Component<Props, State> {
     private async selectPlatform(platformKey: Platform) {
         const platform = await getPlatform(platformKey);
 
-        if (platformKey === 'Python') {
-           this.new()
-        }
-
         if (platformKey === 'RaspberryPi') {
-            this.new();
             let ip: string | null = null;
 
             if (window.location.protocol === 'https:') {
