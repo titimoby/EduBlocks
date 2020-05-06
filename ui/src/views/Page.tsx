@@ -183,8 +183,10 @@ export default class Page extends Component<Props, State> {
             python: null,
             pythonClean: true,
         };
-
         this.setState({ doc });
+
+        this.setState({fileName: ""});
+        (document.getElementById("filename") as HTMLInputElement).value = this.state.fileName;
 
     }
 
@@ -332,21 +334,44 @@ export default class Page extends Component<Props, State> {
         let newFileName = "";
         if (file.name.indexOf("(Python)") !== -1 && this.state.platform!.key !== "Python"){
             this.selectPlatform("Python");
-            newFileName = file.name.replace("(Python).xml", "");
+            newFileName = file.name.replace("(Python)", "");
+            
         }
         if (file.name.indexOf("(RPi)") !== -1 && this.state.platform!.key !== "RaspberryPi"){
             this.selectPlatform("RaspberryPi");
-            newFileName = file.name.replace("(RPi).xml", "");
+            newFileName = file.name.replace("(RPi)", "");
+            
         }
         if (file.name.indexOf("(microbit)") !== -1 && this.state.platform!.key !== "MicroBit"){
             this.selectPlatform("MicroBit");
-            newFileName = file.name.replace("(microbit).xml", "");
+            newFileName = file.name.replace("(microbit)", "");
+            
         }
         if (file.name.indexOf("(CircuitPython)") !== -1 && this.state.platform!.key !== "CircuitPython"){
             this.selectPlatform("CircuitPython");
-            newFileName = file.name.replace("(CircuitPython).xml", "");
+            newFileName = file.name.replace("(CircuitPython)", "");
+            
         }
+
+        if (file.name.indexOf("(Python)") !== -1 && this.state.platform!.key === "Python"){
+            newFileName = file.name.replace("(Python)", "");
+            
+        }
+        if (file.name.indexOf("(RPi)") !== -1 && this.state.platform!.key === "RaspberryPi"){
+            newFileName = file.name.replace("(RPi)", "");
+            
+        }
+        if (file.name.indexOf("(microbit)") !== -1 && this.state.platform!.key === "MicroBit"){
+            newFileName = file.name.replace("(microbit)", "");
+            
+        }
+        if (file.name.indexOf("(CircuitPython)") !== -1 && this.state.platform!.key === "CircuitPython"){
+            newFileName = file.name.replace("(CircuitPython)", "");
+            
+        }
+
         (document.getElementById("filename") as HTMLInputElement).value = newFileName;
+
         this.setState({fileName: newFileName});
         file.getDownloadURL().then(function (url) {
             const xhr = new XMLHttpRequest();
@@ -488,7 +513,7 @@ export default class Page extends Component<Props, State> {
                 if (this.state.platform!.key === "CircuitPython"){
                     plat = "(CircuitPython)"
                 }
-                const ref = firebase.storage().ref(`blocks/${user.uid}/${this.state.fileName} ${plat}.xml`);
+                const ref = firebase.storage().ref(`blocks/${user.uid}/${this.state.fileName} ${plat}`);
                 const task = ref.putString(xml, undefined, {
                     contentType: 'text/xml',
                 });
