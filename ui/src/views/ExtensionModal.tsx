@@ -61,7 +61,7 @@ export default class ExtensionModal<T extends ExtensionModalOption> extends Comp
                         <span class="button_outlined-button_1bS__ modal_back-button_2ej6v" role="button">
                             <img class="button_icon_77d8G"  src="https://scratch.mit.edu/static/assets/aaa4a3575852fe11d04f44c4a972ae73.svg"></img>
                             <div class="button_content_3jdgj">
-                                <span style="color: white !important;">Back</span>
+                                <span style="color: white;" id="backbutton">Back</span>
                             </div>
                         </span>
                         </a>

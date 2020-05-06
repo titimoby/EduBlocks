@@ -1,3 +1,4 @@
+/* Dark Theme */
 .theme-Dark nav {
   background: #1F1F1F;
   border: 0px !important;
@@ -9,7 +10,7 @@
 
 .theme-Dark #filename{
   background-color: #121212 !important;
-  color: white !important;
+  color: #2E3338 !important;
 }
 
 .theme-Dark .modal_header_1h7ps {
@@ -170,6 +171,157 @@
   color: white;
 }
 
+/* Light Theme */
+
+.theme-Light nav {
+  background: #E3E5E8;
+  border: 0px !important;
+}
+
+.theme-Light #name{
+  color: #2E3338 !important;
+}
+
+
+.theme-Light .menu a{
+  color: #2E3338 !important;
+}
+
+
+.theme-Light .SelectModal__header{
+  background: #E3E5E8 !important;
+  color: #2E3338 !important;
+}
+
+.theme-Light input, textarea, .select select {
+  border: 2px solid #2E3338;
+}
+
+.theme-Light #filename{
+  background-color: white !important;
+  color: #2E3338 !important;
+}
+
+.theme-Light .modal_header_1h7ps {
+  background: #E3E5E8 !important;
+}
+
+.theme-Light .library_library-scroll-grid_1jyXm{
+  background-color: white !important;
+}
+
+.theme-Light .library-item_featured-item_3V2-t{
+  background: white !important;
+  color: #2E3338 !important;
+}
+
+
+
+.theme-Light #backbutton{
+  color: #2E3338 !important;
+}
+
+.theme-Light .blocklySvg{
+  background-color: white !important;
+}
+
+
+.theme-Light .SelectModel__content{
+  background-color: white !important;
+  color: #2E3338 !important;
+}
+
+.theme-Light .SelectModal__buttons{
+  background-color: white !important;
+}
+
+.theme-Light .alertFooter{
+  background-color: white !important;
+}
+
+.theme-Light #imageheader{
+  background: #E3E5E8 !important;
+  color: #2E3338 !important;
+}
+
+.theme-Light .blocklyMainBackground{
+  stroke: #121212;
+  stroke-opacity: 0;
+}
+
+.theme-Light .SelectModal__close {
+  color: #2E3338 !important;
+}
+
+.theme-Light #imagefooter {
+  background-color: white !important;
+}
+
+.theme-Light #imagecontent{
+  background-color: white !important;
+}
+
+.theme-Light .ace-monokai{
+  background-color: white !important;
+  color: #2E3338 !important;
+}
+
+.theme-Light .ace_gutter{
+  background-color: #F2F3F5 !important;
+  color: #2E3338 !important;
+}
+
+.theme-Light .ace-monokai .ace_marker-layer .ace_active-line {
+  background-color: #F2F3F5 !important;
+}
+
+.theme-Light .ace-monokai .ace_marker-layer .ace_selection {
+  background-color: #F2F3F5 !important;
+}
+
+.theme-Light .ace-monokai .ace_gutter-active-line {
+  background-color: #F2F3F5 !important;
+}
+
+.theme-Light #toggleViewButton{
+  color: #2E3338 !important;
+}
+
+.theme-Light #ExitSplit{
+  color: #2E3338 !important;
+}
+
+.theme-Light .menu .button,
+.theme-Light button {
+  color: white;
+}
+
+.theme-Light .modal_header-item_2zQTd{
+  color: #2E3338 !important;
+}
+
+.theme-Light .button_content_3jdgj{
+  color: #2E3338 !important;
+}
+
+.theme-Light label.button {
+  color: white !important;
+}
+
+
+.theme-Light .button { 
+  color: #2E3338;
+}
+
+.theme-Light .brand {
+  color: #2E3338
+}
+
+.theme-Light .blocklyToolboxDiv{
+  background-color: #F2F3F5 !important;
+  color: #2E3338 !important;
+}
+
 
 
 /* Default Theme */
@@ -187,14 +339,3 @@
 }
 
 
-/* Tangerine Theme */
-
-.theme-Deep-Blue nav{
-  background-color: #6200EE;
-
-}
-
-.theme-Deep-Blue .SelectModal__header{
-  background-color: #6200EE;
-
-}

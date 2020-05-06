@@ -72,7 +72,7 @@ export function newApp(): App {
   }
 
   async function saveHex(fileName: string, python: string, extensions: Extension[]) {
-    
+
 
     const combinedScript = getCombinedScript(python, extensions);
 
@@ -107,6 +107,7 @@ export function newApp(): App {
     return [
       'Default',
       'Dark',
+      'Light'
     ];
   }
 

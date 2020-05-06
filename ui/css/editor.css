@@ -1070,6 +1070,10 @@ library-item_featured-item_3V2-t {
     cursor: pointer;
 }
 
+input:-moz-placeholder {
+    box-shadow:none !important;
+}
+
 library-item_library-item_1DcMO:hover{
     border: #1B173D;
 }
