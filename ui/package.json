@@ -44,6 +44,7 @@
         "preact": "^8.4.2",
         "jquery": "3.5.0",
         "term.js": "^0.0.7",
+        "js-cookie": "2.2.1",
         "pxt-blockly": "2.1.14"
     }
 }

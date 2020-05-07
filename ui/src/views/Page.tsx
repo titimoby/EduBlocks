@@ -12,6 +12,7 @@ import BlocklyView from './BlocklyView';
 import ImageModal from './ImageModal';
 import Nav from './Nav';
 
+const Cookies = require("js-cookie")
 
 import OverModal from './OverwriteModal';
 import PythonView from './PythonView';
@@ -192,6 +193,16 @@ export default class Page extends Component<Props, State> {
     }
 
     public componentDidMount() {
+        let currentTheme = Cookies.get("theme")
+
+        document.body.className = `theme-${currentTheme}`;
+
+        let currentSplit = Cookies.get("split")
+
+        if (currentSplit === true){
+            alert("Hi")
+        }
+
         var locURL = window.location.href.toString();
 
         if (window.location.hash) {
@@ -555,6 +566,7 @@ export default class Page extends Component<Props, State> {
     }
 
     private async selectPlatform(platformKey: Platform) {
+
         const platform = await getPlatform(platformKey);
 
         if (platformKey === 'RaspberryPi') {
@@ -586,6 +598,15 @@ export default class Page extends Component<Props, State> {
             modal: null,
             extensionsActive: platform.defaultExtensions,
         });
+
+        let currentSplit = Cookies.get("split")
+
+        if (currentSplit === true){
+            this.splitView(true)
+        }
+        else{
+            this.splitView(false)
+        }
 
         if (split === true){
             this.switchView(ViewModeBlockly);
@@ -633,6 +654,8 @@ export default class Page extends Component<Props, State> {
 
     private selectTheme(theme: string) {
         this.closeModal();
+
+        Cookies.set("theme", theme)
 
         document.body.className = `theme-${theme}`;
     }
@@ -850,7 +873,6 @@ export default class Page extends Component<Props, State> {
 
             blocklyEditor.style.display = "block";
 
-            await this.closeModal();
         }
 
         if (toggle === false){
@@ -872,7 +894,6 @@ export default class Page extends Component<Props, State> {
 
             this.switchView(ViewModeBlockly)
 
-            await this.closeModal();
         }
     }
     
