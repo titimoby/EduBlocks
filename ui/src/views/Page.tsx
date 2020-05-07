@@ -347,40 +347,39 @@ export default class Page extends Component<Props, State> {
         await console.log("Opening file...")
         if (file.name.indexOf("(Python)") !== -1 && this.state.platform!.key !== "Python"){
             this.selectPlatform("Python");
-            newFileName = file.name.replace("(Python)", "");
+            newFileName = file.name.replace(" (Python)", "");
             
         }
         if (file.name.indexOf("(RPi)") !== -1 && this.state.platform!.key !== "RaspberryPi"){
             this.selectPlatform("RaspberryPi");
-            newFileName = file.name.replace("(RPi)", "");
+            newFileName = file.name.replace(" (RPi)", "");
             
         }
         if (file.name.indexOf("(microbit)") !== -1 && this.state.platform!.key !== "MicroBit"){
             this.selectPlatform("MicroBit");
-            newFileName = file.name.replace("(microbit)", "");
+            newFileName = file.name.replace(" (microbit)", "");
             
         }
         if (file.name.indexOf("(CircuitPython)") !== -1 && this.state.platform!.key !== "CircuitPython"){
             this.selectPlatform("CircuitPython");
-            newFileName = file.name.replace("(CircuitPython)", "");
+            newFileName = file.name.replace(" (CircuitPython)", "");
             
         }
 
         if (file.name.indexOf("(Python)") !== -1 && this.state.platform!.key === "Python"){
-            newFileName = file.name.replace("(Python)", "");
+            newFileName = file.name.replace(" (Python)", "");
             
         }
         if (file.name.indexOf("(RPi)") !== -1 && this.state.platform!.key === "RaspberryPi"){
-            newFileName = file.name.replace("(RPi)", "");
+            newFileName = file.name.replace(" (RPi)", "");
             
         }
         if (file.name.indexOf("(microbit)") !== -1 && this.state.platform!.key === "MicroBit"){
-            newFileName = file.name.replace("(microbit)", "");
+            newFileName = file.name.replace(" (microbit)", "");
             
         }
         if (file.name.indexOf("(CircuitPython)") !== -1 && this.state.platform!.key === "CircuitPython"){
-            newFileName = file.name.replace("(CircuitPython)", "");
-            
+            newFileName = file.name.replace(" (CircuitPython)", "");
         }
 
         (document.getElementById("filename") as HTMLInputElement).value = newFileName;
@@ -514,19 +513,21 @@ export default class Page extends Component<Props, State> {
                     modal: 'progress',
                 });
                 let plat = "";
+
                 if (this.state.platform!.key === "Python"){
-                    plat = "(Python)"
+                    plat = " (Python)"
                 }
                 if (this.state.platform!.key === "MicroBit"){
-                    plat = "(microbit)"
+                    plat = " (microbit)"
                 }
                 if (this.state.platform!.key === "RaspberryPi"){
-                    plat = "(RPi)"
+                    plat = " (RPi)"
                 }
                 if (this.state.platform!.key === "CircuitPython"){
-                    plat = "(CircuitPython)"
+                    plat = " (CircuitPython)"
                 }
-                const ref = firebase.storage().ref(`blocks/${user.uid}/${this.state.fileName} ${plat}`);
+
+                const ref = firebase.storage().ref(`blocks/${user.uid}/${this.state.fileName}${plat}`);
                 const task = ref.putString(xml, undefined, {
                     contentType: 'text/xml',
                 });
