@@ -569,6 +569,16 @@ export default class Page extends Component<Props, State> {
 
         const platform = await getPlatform(platformKey);
 
+        if (platformKey === "CircuitPython"){
+            let filebox = document.getElementById("filename");
+            this.setState({"fileName": "code"});
+            filebox!.style.display = "none";
+        }
+        else{
+            let filebox = document.getElementById("filename");
+            filebox!.style.display = "block";
+        }
+
         if (platformKey === 'RaspberryPi') {
             let ip: string | null = null;
 

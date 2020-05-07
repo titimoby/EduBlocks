@@ -304,17 +304,29 @@
   color: #2E3338 !important;
 }
 
-.theme-Light label.button {
+.theme-Light .alertFooter label.button {
   color: white !important;
 }
 
+.theme-Light .burgermenu::before {
+  color: #2E3338 !important;
+}
 
 .theme-Light .button { 
-  color: #2E3338;
+  color: #2E3338 !important;
 }
 
 .theme-Light .brand {
   color: #2E3338
+}
+
+.theme-Light #menubar{
+  background-color: #E3E5E8;
+  color: #2E3338 !important;
+}
+
+.theme-Light .login button{
+  color: #2E3338 !important;
 }
 
 .theme-Light .blocklyToolboxDiv{

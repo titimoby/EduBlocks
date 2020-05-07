@@ -55,7 +55,7 @@ export default class Nav extends Component<Props, {}> {
                        style='width: 200px !important; color:black; margin-left: 5px; float:right'
                        onChange={(e) => this.props.onFileChange((e.target as any).value)}/>
                 <input id='bmenub' type='checkbox' class='show'/>
-                <label for='bmenub' class='burger pseudo button icon-menu'/>
+                <label for='bmenub' id="burgermenu" class='burger pseudo button icon-menu'/>
 
 
                 <div class='menu' id="menubar">
