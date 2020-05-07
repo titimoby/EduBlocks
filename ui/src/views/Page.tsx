@@ -873,6 +873,8 @@ export default class Page extends Component<Props, State> {
 
             blocklyEditor.style.display = "block";
 
+            this.closeModal()
+
         }
 
         if (toggle === false){
@@ -892,7 +894,7 @@ export default class Page extends Component<Props, State> {
 
             window.dispatchEvent(new Event('resize'))
 
-            this.switchView(ViewModeBlockly)
+            this.switchView(ViewModeBlockly);
 
         }
     }
