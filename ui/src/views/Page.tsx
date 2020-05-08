@@ -210,12 +210,6 @@ export default class Page extends Component<Props, State> {
 
         document.body.className = `theme-${currentTheme}`;
 
-        let currentSplit = Cookies.get("split")
-
-        if (currentSplit === true){
-            alert("Hi")
-        }
-
         var locURL = window.location.href.toString();
 
         if (window.location.hash) {
@@ -622,15 +616,6 @@ export default class Page extends Component<Props, State> {
             modal: null,
             extensionsActive: platform.defaultExtensions,
         });
-
-        let currentSplit = Cookies.get("split")
-
-        if (currentSplit === true){
-            this.splitView(true)
-        }
-        else{
-            this.splitView(false)
-        }
 
         if (split === true){
             this.switchView(ViewModeBlockly);
