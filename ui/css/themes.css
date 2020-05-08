@@ -4,13 +4,17 @@
   border: 0px !important;
 }
 
+.theme-Dark .LoginModal__header{
+  background: #1F1F1F !important;
+}
+
 .theme-Dark .SelectModal__header{
   background: #1F1F1F !important;
 }
 
 .theme-Dark #filename{
   background-color: #121212 !important;
-  color: #2E3338 !important;
+  color: white !important;
 }
 
 .theme-Dark .modal_header_1h7ps {
@@ -35,6 +39,12 @@
 }
 
 .theme-Dark .SelectModel__container {
+  -webkit-box-shadow:0 0 20px white; 
+  -moz-box-shadow: 0 0 20px white; 
+  box-shadow:0 0 20px white;
+}
+
+.theme-Dark .LoginModal__container {
   -webkit-box-shadow:0 0 20px white; 
   -moz-box-shadow: 0 0 20px white; 
   box-shadow:0 0 20px white;
@@ -184,6 +194,15 @@
 
 
 .theme-Light .menu a{
+  color: #2E3338 !important;
+}
+
+.theme-Light .LoginModal__header{
+  background: #E3E5E8 !important;
+  color: #2E3338 !important;
+}
+
+.theme-Light .LoginModal__header a{
   color: #2E3338 !important;
 }
 

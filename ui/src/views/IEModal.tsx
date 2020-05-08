@@ -1,6 +1,5 @@
 import React = require('preact');
 import { Component } from 'preact';
-import {generic} from './Page';
 
 interface IEModalProps<T extends IEModalOption> {
   title: string;
