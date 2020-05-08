@@ -5,6 +5,7 @@ import { App, Capability, Extension, Platform, PlatformInterface } from '../type
 import * as firebase from 'firebase/app';
 import { AuthModal } from './Auth';
 import AlertModal from './AlertModal';
+import IEModal from './IEModal';
 import LoadModal from './LoadModal';
 import UploadModal from './UploadModal';
 import ExtensionModal from './ExtensionModal';
@@ -56,8 +57,8 @@ interface FileFirebaseSelectModalOption {
 interface State {
     platform?: PlatformInterface;
     viewMode: ViewMode;
-    modal: null | 'platform' | 'generating' | 'extensionsnew' |  'share' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
-    prevModal: null | 'platform' | 'generating' | 'share' | 'extensionsnew' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    modal: null | 'platform' | 'IE' | 'generating' | 'extensionsnew' |  'share' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    prevModal: null | 'platform' | 'IE' | 'generating' | 'share' | 'extensionsnew' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
     extensionsActive: Extension[];
     progress: number;
     shareURL: string;
@@ -114,6 +115,14 @@ export default class Page extends Component<Props, State> {
             },
         };
     }
+
+    private isIE() {
+        let ua = navigator.userAgent;
+
+        var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+        
+        return is_ie; 
+      }
 
     private async readBlocklyContents(xml: string) {
         if (this.state.doc.xml === xml) {
@@ -194,6 +203,10 @@ export default class Page extends Component<Props, State> {
 
     public componentDidMount() {
         let currentTheme = Cookies.get("theme")
+
+        if (this.isIE()){
+            this.setState({ modal: "IE" })
+        }
 
         document.body.className = `theme-${currentTheme}`;
 
@@ -1002,6 +1015,14 @@ export default class Page extends Component<Props, State> {
                     onCancel={() => {
                     }}
                     onButtonClick={(key) => key === 'close' && this.closeModal()}
+                />
+
+                <IEModal
+                    title="We're Sorry"
+                    visible={this.state.modal === 'IE'}
+                    text='EduBlocks no longer supports Internet Explorer. Please use Chrome or Firefox instead.'
+                    onCancel={() => {
+                    }}
                 />
 
                 <AlertModal
