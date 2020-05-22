@@ -486,15 +486,7 @@ export default class Page extends Component<Props, State> {
                 const embedLink = '<iframe src="https://share.edublocks.org/' + body.result.code + '" height="600px" width="900px"></iframe>'
                 await console.log(embedLink)
                 await this.setState({ shareURL: embedLink});
-                const el = document.createElement('textarea');
-                el.value = embedLink;
-                await el.setAttribute('readonly', '');
-                el.style.position = 'absolute';
-                el.style.left = '-9999px';
-                await document.body.appendChild(el);
-                await el.select();
-                await document.execCommand('copy');
-                await document.body.removeChild(el);
+                copy(this.state.shareURL)
                 await this.setState({ modal: "share"});
             }
 
