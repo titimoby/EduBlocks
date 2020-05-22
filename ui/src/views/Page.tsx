@@ -11,6 +11,7 @@ import UploadModal from './UploadModal';
 import ExtensionModal from './ExtensionModal';
 import BlocklyView from './BlocklyView';
 import ImageModal from './ImageModal';
+const copy = require('copy-text-to-clipboard');
 import Nav from './Nav';
 
 const Cookies = require("js-cookie")
@@ -440,15 +441,15 @@ export default class Page extends Component<Props, State> {
         const encoded = btoa(newFileURL);
         const edublocksLink = "https://beta.app.edublocks.org/#share?" + filePlatform + "?" + encoded;
         await this.setState({ shareURL: edublocksLink});
-        await console.log(this.state.shareURL)
-        await this.setState({ modal: "shareoptions"});
+        await console.log(this.state.shareURL);
+        await this.setState({ modal: "shareoptions", prevModal: null});
     }
 
     private async runShareOptions(func: ShareOptions) {
         if (func === 'Copy Shareable URL') {
             let shareableURL = "https://api.shrtco.de/v2/shorten?url=" + encodeURIComponent(this.state.shareURL);
             this.setState({ modal: "generating"});
-
+            
             const response = await fetch(
                 shareableURL
             );
@@ -456,20 +457,13 @@ export default class Page extends Component<Props, State> {
             const body = await response.json();
 
             console.log(this.state.shareURL)
-            
+            await this.closeModal()
             if (response.ok){
                 const shortLink = "https://share.edublocks.org/" + body.result.code
                 await console.log(this.state.shareURL)
                 await this.setState({ shareURL: shortLink});
-                const el = document.createElement('textarea');
-                el.value = shortLink;
-                await el.setAttribute('readonly', '');
-                el.style.position = 'absolute';
-                el.style.left = '-9999px';
-                await document.body.appendChild(el);
-                await el.select();
-                await document.execCommand('copy');
-                await document.body.removeChild(el);
+                copy(this.state.shareURL)
+                await this.closeModal()
                 await this.setState({ modal: "share"});
             }
 
@@ -574,7 +568,7 @@ export default class Page extends Component<Props, State> {
     }
 
     private async selectPlatform(platformKey: Platform) {
-
+        this.closeModal()
         const platform = await getPlatform(platformKey);
 
         if (platformKey === "CircuitPython"){
@@ -633,6 +627,7 @@ export default class Page extends Component<Props, State> {
 
     private closeModal() {
         this.setState({ modal: this.state.prevModal, prevModal: null });
+        
     }
 
 
@@ -723,6 +718,8 @@ export default class Page extends Component<Props, State> {
     private openAdvancedFunctionDialog() {
         this.setState({ modal: 'functions' });
     }
+
+    
 
     private fileChange(fileName: string) {
         this.setState({ fileName });

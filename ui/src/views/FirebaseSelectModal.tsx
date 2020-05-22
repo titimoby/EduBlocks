@@ -57,7 +57,7 @@ export default class FirebaseSelectModal<T extends FirebaseSelectModalOption> ex
 
         <label for='modal_1' class='overlay'></label>
 
-        <article class='SelectModel__container' style="max-height: 100%;">
+        <article class='SelectModel__container'>
 
           <header class='SelectModal__header'>
             <h3>{generic[12]}</h3>
