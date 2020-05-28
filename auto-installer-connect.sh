@@ -53,3 +53,8 @@ if [ -d edublocks ]; then
   echo 'Removing temp extract...'
   rm -rf edublocks
 fi
+
+cd /opt/edublocks/ui
+mkdir picnic
+cd picnic
+sudo wget http://beta.app.edublocks.org/picnic/picnic.css

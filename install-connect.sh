@@ -17,15 +17,15 @@ sudo mkdir -p $INSTALL_PATH
 sudo cp -r $APP_PATH/* $INSTALL_PATH
 
 
-echo "Copying the icon...\n"
+echo "Copying the icon..."
 sudo cp $APP_PATH/ui/images/logo.png /usr/share/icons/hicolor/scalable/apps/logo.png
 sudo cp $APP_PATH/ui/images/connectlogo.png /usr/share/icons/hicolor/scalable/apps/connectlogo.png
 
-echo "Making the program visible in the menu...\n"
+echo "Making the program visible in the menu..."
 sudo cp $APP_PATH/edublocks-connect.desktop /usr/share/applications
 sudo cp $APP_PATH/edublocks.desktop /usr/share/applications
 
-echo "Creating symlinks... \n"
+echo "Creating symlinks..."
 
 sudo rm -f $GLOBAL_BIN_PATH/edublocks
 sudo rm -f $GLOBAL_BIN_PATH/edublocks-connect
@@ -41,7 +41,3 @@ sudo ln -s $INSTALL_PATH/scripts/uninstall.sh       $GLOBAL_BIN_PATH/edublocks-u
 
 cd /opt/edublocks/ui/dist/
 sudo wget http://beta.app.edublocks.org/dist/main.js
-cd /opt/edublocks/ui
-mkdir picnic
-cd picnic
-sudo wget http://beta.app.edublocks.org/picnic/picnic.css
