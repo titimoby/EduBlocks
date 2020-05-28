@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NODE_VERSION_WANTED="v8.3.0"
+NODE_VERSION_WANTED="v6.10.2"
 
 if [ $(whoami) == 'root' ]; then
   echo 'Please do not run me as root'
