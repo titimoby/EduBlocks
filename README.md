@@ -85,7 +85,7 @@ EduBlocks UI will now be available at http://localhost:8081/
 
 #### Linux Install Instructions:
 
-    sudo apt install git build-essential tmux
+    sudo apt install git build-essential tmux curl
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
     . ~/.nvm/nvm.sh
     nvm install v10.15.3
@@ -98,10 +98,7 @@ EduBlocks UI will now be available at http://localhost:8081/
 
     yarn
     yarn run build
-
-    cd ../server
-    yarn upgrade
-    yarn
+    sudo ln -s /usr/bin/python3 /usr/bin/python 
 
     cd ..
     tools/dev-start.sh
