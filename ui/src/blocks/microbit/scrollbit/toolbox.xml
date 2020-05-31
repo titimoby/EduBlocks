@@ -1,4 +1,4 @@
-<category name="scroll:bit" colour="843">
+<category name="scroll:bit" colour="843" iconclass="blocklyTreeIconCustom scroll">
     <label text="Pimoroni scroll:bit" web-class="myLabelStyle"></label>
     <block type="scrollbit_import"></block>
 

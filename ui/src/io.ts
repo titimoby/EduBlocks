@@ -19,6 +19,9 @@ function getWebIo() {
 
         const reader = new FileReader();
 
+        let newFileName = file.name.replace(".xml", "");
+        (document.getElementById("filename") as HTMLInputElement).value = newFileName;
+
         reader.onload = (e) => {
           const contents = (e.target as any).result;
           resolve(contents);

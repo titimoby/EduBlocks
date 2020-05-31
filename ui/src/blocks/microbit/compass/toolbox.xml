@@ -1,4 +1,4 @@
-<category name="Compass" colour="#A016E5">
+<category name="Compass" colour="#A016E5" iconclass="blocklyTreeIconCustom compass">
 <label text="Compass" web-class="myLabelStyle"></label>
   <block type="compasscalibrate"></block>
   <block type="compasscalibrated"></block>

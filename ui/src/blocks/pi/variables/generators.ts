@@ -8,7 +8,7 @@ export default function define(Python: Blockly.BlockGenerators) {
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.Python.ORDER_ATOMIC];
   };
-
+ 
   Python['variables_set'] = function(block) {
     var variable_name = Blockly.Python.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     var text_text = block.getFieldValue('NAME');

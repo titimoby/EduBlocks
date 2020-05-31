@@ -3,7 +3,7 @@ import { PlatformInterface } from '../../types';
 export function newRaspberryPiPlatform(): PlatformInterface {
   return {
     key: 'RaspberryPi',
-    name: 'micro:bit',
+    name: 'Raspberry Pi',
     image: '/images/pi.png',
     capabilities: ['RemoteShell'],
     defaultExtensions: [

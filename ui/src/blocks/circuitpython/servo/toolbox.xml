@@ -1,4 +1,4 @@
-<category name="Servo" colour="#9C56B8">
+<category name="Servo" colour="#9C56B8" iconclass="blocklyTreeIconCustom servo">
     <label text="Servo" web-class="myLabelStyle"></label>
     <block type="import_servo"></block>
     <block type="servo_conf">

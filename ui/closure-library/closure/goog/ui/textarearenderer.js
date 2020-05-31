@@ -31,7 +31,6 @@ goog.require('goog.ui.ControlRenderer');
  * be no-ops.
  * @constructor
  * @extends {goog.ui.ControlRenderer}
- * @final
  */
 goog.ui.TextareaRenderer = function() {
   goog.ui.ControlRenderer.call(this);
@@ -121,7 +120,7 @@ goog.ui.TextareaRenderer.prototype.setFocusable = goog.nullFunction;
 
 /**
  * Textareas also expose the DISABLED state in the HTML textarea's
- * {@code disabled} attribute.
+ * `disabled` attribute.
  * @override
  */
 goog.ui.TextareaRenderer.prototype.setState = function(

@@ -151,7 +151,7 @@
     </value>
   </block>
 
-  <block type="p_nosmooth">
+  <block type="p_smooth">
     <value name="text">
       <shadow type="textinline">
         <field name="text"></field>
@@ -234,6 +234,14 @@
   </block>
 
   <block type="p_stroke">
+    <value name="text">
+      <shadow type="textinline">
+        <field name="text"></field>
+      </shadow>
+    </value>
+  </block>
+
+  <block type="p_nostroke">
     <value name="text">
       <shadow type="textinline">
         <field name="text"></field>

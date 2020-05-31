@@ -1,4 +1,4 @@
-<category name="GiggleBot" colour="#46BFB1">
+<category name="GiggleBot" colour="#46BFB1" iconclass="blocklyTreeIconCustom robot">
 <label text="GiggleBot" web-class="myLabelStyle"></label>
  <block type="import_gigglebot"></block>
  <block type="gigglebot_init"></block>

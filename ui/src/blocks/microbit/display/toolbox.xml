@@ -1,4 +1,4 @@
-<category name="Display" colour="#C3E516">
+<category name="Display" colour="#C3E516" iconclass="blocklyTreeIconCustom display">
   <label text="Display" web-class="myLabelStyle"></label>
   <block type="scrollnew">
     <value name="displaytext">

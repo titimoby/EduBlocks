@@ -29,6 +29,7 @@ echo ''
 echo 'Downloading package...'
 wget http://edublocks.org/downloads/edublocks-$ARCH.tar.xz
 
+
 echo ''
 echo 'Extracting package...'
 tar -xf edublocks-$ARCH.tar.xz
@@ -52,3 +53,8 @@ if [ -d edublocks ]; then
   echo 'Removing temp extract...'
   rm -rf edublocks
 fi
+
+cd /opt/edublocks/ui
+sudo mkdir picnic
+cd picnic
+sudo wget http://beta.app.edublocks.org/picnic/picnic.css

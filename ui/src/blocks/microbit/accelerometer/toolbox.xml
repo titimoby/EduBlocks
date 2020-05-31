@@ -1,4 +1,4 @@
-<category name="Accelerometer" colour="#E57E16">
+<category name="Accelerometer" colour="#E57E16" iconclass="blocklyTreeIconCustom acc">
     <label text="Accelerometer" web-class="myLabelStyle"></label>
     <block type="accisgesturenew">
     <value name="text">

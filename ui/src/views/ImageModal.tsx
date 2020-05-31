@@ -24,12 +24,13 @@ export default class ImageModal<T extends ImageModalOption> extends Component<Im
   public render() {
     const getOptions = () => (
       this.props.options.map((option) => (
-        <div className='ImageModalOption'>
-          {option.title}
+        <div className='ImageModalOption' onClick={() => this.props.onSelect(option)} style="position: relative; cursor: pointer;">
           <img src={option.image} />
           <div className='ImageModalOptionButtonContainer'>
-            <button onClick={() => this.props.onSelect(option)}>Select</button>
-            <a class='icon-help-circled' style='color:#aaa' href={option.help}></a>
+            <button className="ImageSelectButton" onClick={() => this.props.onSelect(option)}>{option.title}</button>
+            <div className='ImageHelpIconContainer' style="text-align: center;">
+              <a class='icon-help-circled' style='color: rgba(255, 255, 255, 0.8);font-size: 23px;' href={option.help}></a>
+            </div>
           </div>
         </div>
       ))
@@ -39,17 +40,17 @@ export default class ImageModal<T extends ImageModalOption> extends Component<Im
       <div class='modal'>
         <input id='modal_1' type='checkbox' disabled={true} checked={this.props.visible} />
         <label for='modal_1' class='overlay'></label>
-        <article>
-          <header>
-            <h3>{this.props.title}</h3>
+        <article style="width: 57%;" id="imagemodal">
+          <header style="text-align: center;" id="imageheader">
+            <h3 style="margin: 0 !important;">{this.props.title}</h3>
           </header>
 
-          <section class='content'>
+          <section class='content' id="imagecontent">
             <div class='ImageModalOptionContainer'>
               {getOptions()}
             </div>
           </section>
-          <footer>
+          <footer id="imagefooter"> 
 
           </footer>
         </article>

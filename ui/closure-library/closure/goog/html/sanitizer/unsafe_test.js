@@ -16,30 +16,22 @@
  * @fileoverview Unit Test for the unsafe API of the HTML Sanitizer.
  */
 
+goog.provide('goog.html.UnsafeTest');
 goog.setTestOnly();
 
 goog.require('goog.html.SafeHtml');
+goog.require('goog.html.sanitizer.AttributeWhitelist');
 goog.require('goog.html.sanitizer.HtmlSanitizer');
+goog.require('goog.html.sanitizer.TagWhitelist');
 goog.require('goog.html.sanitizer.unsafe');
+
 goog.require('goog.string.Const');
 goog.require('goog.testing.dom');
 goog.require('goog.testing.jsunit');
 goog.require('goog.userAgent');
 
-/**
- * @return {boolean} Whether the browser is IE8 or below.
- */
-function isIE8() {
-  return goog.userAgent.IE && !goog.userAgent.isVersionOrHigher(9);
-}
 
-
-/**
- * @return {boolean} Whether the browser is IE9.
- */
-function isIE9() {
-  return goog.userAgent.IE && !goog.userAgent.isVersionOrHigher(10) && !isIE8();
-}
+var isSupported = !goog.userAgent.IE || goog.userAgent.isVersionOrHigher(10);
 
 
 var just = goog.string.Const.from('test');
@@ -64,20 +56,14 @@ function assertSanitizedHtml(
     builder = goog.html.sanitizer.unsafe.alsoAllowAttributes(
         just, builder, opt_attrs);
   var sanitizer = builder.build();
-  try {
-    var sanitized = sanitizer.sanitize(originalHtml);
-    if (isIE9()) {
-      assertEquals('', goog.html.SafeHtml.unwrap(sanitized));
-      return;
-    }
-    goog.testing.dom.assertHtmlMatches(
-        expectedHtml, goog.html.SafeHtml.unwrap(sanitized),
-        true /* opt_strictAttributes */);
-  } catch (err) {
-    if (!isIE8()) {
-      throw err;
-    }
+  var sanitized = sanitizer.sanitize(originalHtml);
+  if (!isSupported) {
+    assertEquals('', goog.html.SafeHtml.unwrap(sanitized));
+    return;
   }
+  goog.testing.dom.assertHtmlMatches(
+      expectedHtml, goog.html.SafeHtml.unwrap(sanitized),
+      true /* opt_strictAttributes */);
 }
 
 
@@ -165,6 +151,14 @@ function testAllowOverwriteAttrPolicy() {
 }
 
 
+function testAllowDAttribute() {
+  var input = '<path d="1.5 1.5 1.5 14.5 14.5 14.5 14.5 1.5"/>';
+  var expected = '<path d="1.5 1.5 1.5 14.5 14.5 14.5 14.5 1.5"/>';
+  assertSanitizedHtml(
+      input, expected, ['path'], [{tagName: 'path', attributeName: 'd'}]);
+}
+
+
 function testWhitelistAliasing() {
   var builder = new goog.html.sanitizer.HtmlSanitizer.Builder();
   goog.html.sanitizer.unsafe.alsoAllowTags(just, builder, ['QqQ']);
@@ -176,4 +170,31 @@ function testWhitelistAliasing() {
   assertUndefined(goog.html.sanitizer.AttributeWhitelist['* QQQ']);
   assertUndefined(goog.html.sanitizer.AttributeWhitelist['* QqQ']);
   assertUndefined(goog.html.sanitizer.AttributeWhitelist['* qqq']);
+}
+
+
+function testAllowRelaxExistingAttributePolicyWildcard() {
+  var input = '<a href="javascript:alert(1)"></a>';
+  // define a tag-specific one, takes precedence
+  assertSanitizedHtml(
+      input, input, null,
+      [{tagName: 'a', attributeName: 'href', policy: goog.functions.identity}]);
+  // overwrite the global one
+  assertSanitizedHtml(
+      input, input, null,
+      [{tagName: '*', attributeName: 'href', policy: goog.functions.identity}]);
+}
+
+
+function testAllowRelaxExistingAttributePolicySpecific() {
+  var input = '<a target="foo"></a>';
+  var expected = '<a></a>';
+  // overwrite the global one, the specific one still has precedence
+  assertSanitizedHtml(input, expected, null, [
+    {tagName: '*', attributeName: 'target', policy: goog.functions.identity}
+  ]);
+  // overwrite the tag-specific one, this one should take precedence
+  assertSanitizedHtml(input, input, null, [
+    {tagName: 'a', attributeName: 'target', policy: goog.functions.identity}
+  ]);
 }

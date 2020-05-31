@@ -15,6 +15,8 @@ export default class PythonView extends Component<PythonViewProps, {}> {
   private editorDiv?: Element;
   private editor: any;
 
+  
+
   public componentWillReceiveProps(nextProps: PythonViewProps) {
     if (nextProps.visible) {
       // Need to check visible change as well to force refresh

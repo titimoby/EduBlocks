@@ -35,6 +35,8 @@ goog.require('goog.style');
 goog.require('goog.ui.ControlRenderer');
 goog.require('goog.userAgent');
 
+goog.forwardDeclare('goog.ui.Palette');
+
 
 
 /**
@@ -93,7 +95,7 @@ goog.ui.PaletteRenderer.CSS_CLASS = goog.getCssName('goog-palette');
 goog.ui.PaletteRenderer.prototype.createDom = function(palette) {
   var classNames = this.getClassNames(palette);
   var element = palette.getDomHelper().createDom(
-      goog.dom.TagName.DIV, classNames ? classNames.join(' ') : null,
+      goog.dom.TagName.DIV, classNames,
       this.createGrid(
           /** @type {Array<Node>} */ (palette.getContent()), palette.getSize(),
           palette.getDomHelper()));
@@ -103,8 +105,8 @@ goog.ui.PaletteRenderer.prototype.createDom = function(palette) {
 
 
 /**
- * Returns the given items in a table with {@code size.width} columns and
- * {@code size.height} rows.  If the table is too big, empty cells will be
+ * Returns the given items in a table with `size.width` columns and
+ * `size.height` rows.  If the table is too big, empty cells will be
  * created as needed.  If the table is too small, the items that don't fit
  * will not be rendered.
  * @param {Array<Node>} items Palette items.
@@ -335,8 +337,8 @@ goog.ui.PaletteRenderer.prototype.highlightCell = function(
     goog.asserts.assert(cell);
     goog.dom.classlist.enable(
         cell, goog.getCssName(this.getCssClass(), 'cell-hover'), highlight);
-    // See http://www.w3.org/TR/2006/WD-aria-state-20061220/#activedescendent
-    // for an explanation of the activedescendent.
+    // See https://www.w3.org/TR/wai-aria/#aria-activedescendant
+    // for an explanation of the activedescendant.
     if (highlight) {
       goog.a11y.aria.setState(
           palette.getElementStrict(), goog.a11y.aria.State.ACTIVEDESCENDANT,

@@ -29,6 +29,19 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     }
   };
 
+  Blocks['textinline'] = {
+    init: function() {
+      this.appendDummyInput()
+        .appendField(new Blockly.FieldTextInput(""), "text");
+      this.setInputsInline(true);
+      this.setOutput(true, null);
+      this.setColour("#FFFFFF", "#FFFFFF", "#FFFFFF");
+      this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
+      this.setTooltip("Text input for inline input");
+      this.setHelpUrl("");
+    }
+  };
+
   
 }
 

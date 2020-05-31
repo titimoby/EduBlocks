@@ -1,4 +1,4 @@
-<category name="Variables" custom="VARIABLE" colour="#0000CD">
+<category name="Variables" custom="VARIABLE" colour="#0000CD" iconclass="blocklyTreeIconCustom variables">
   <button text="A button" callbackKey="myFirstButtonPressed"></button>
   <block type="variables_set">
     <value name="varset">

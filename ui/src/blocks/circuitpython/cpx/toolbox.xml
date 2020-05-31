@@ -1,4 +1,4 @@
-<category name="CPX Easy" colour="#556EE6">
+<category name="CPX Easy" colour="#556EE6" iconclass="blocklyTreeIconCustom cpx">
     <label text="Circuit Playground Easy" web-class="myLabelStyle"></label>
     <block type="import_cpx"></block>
     <label text="Red LED" web-class="myLabelStyle"></label>

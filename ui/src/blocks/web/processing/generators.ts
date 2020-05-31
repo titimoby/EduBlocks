@@ -135,6 +135,13 @@ export default function define(Python: Blockly.BlockGenerators) {
     return code;
   };
 
+  Python['p_smooth'] = function(block) {
+    var value_text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
+    // TODO: Assemble Python into code variable.
+    var code = 'smooth(' +value_text+ ')\n';
+    return code;
+  };
+
   Python['p_point'] = function(block) {
     var value_text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
@@ -204,6 +211,13 @@ export default function define(Python: Blockly.BlockGenerators) {
     return code;
   };
 
+  Python['p_nostroke'] = function(block) {
+    var value_text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
+    // TODO: Assemble Python into code variable.
+    var code = 'noStroke(' +value_text+ ')\n';
+    return code;
+  };
+
   Python['p_stroke3'] = function(block) {
     var dropdown_name = block.getFieldValue('NAME');
     var value_text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
@@ -222,14 +236,14 @@ export default function define(Python: Blockly.BlockGenerators) {
   Python['p_translate'] = function(block) {
     var value_text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'stroke(' +value_text+ ')\n';
+    var code = 'translate(' +value_text+ ')\n';
     return code;
   };
 
   Python['p_triangle'] = function(block) {
     var value_text = Blockly.Python.valueToCode(block, 'text', Blockly.Python.ORDER_ATOMIC);
     // TODO: Assemble Python into code variable.
-    var code = 'stroke(' +value_text+ ')\n';
+    var code = 'triangle(' +value_text+ ')\n';
     return code;
   };
 

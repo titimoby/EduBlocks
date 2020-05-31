@@ -38,6 +38,8 @@ goog.require('goog.string');
 goog.require('goog.testing.fs.File');
 goog.require('goog.testing.fs.FileWriter');
 
+goog.forwardDeclare('goog.testing.fs.FileSystem');
+
 
 
 /**
@@ -144,9 +146,11 @@ goog.testing.fs.Entry.prototype.copyTo = function(parent, opt_newName) {
       (opt_newName ? ', renaming to ' + opt_newName : '');
   var self = this;
   return this.checkNotDeleted(msg).addCallback(function() {
+    goog.asserts.assert(parent instanceof goog.testing.fs.DirectoryEntry);
     var name = opt_newName || self.getName();
     var entry = self.clone();
-    parent.children[name] = entry;
+    /** @type {!goog.testing.fs.DirectoryEntry} */ (parent).children[name] =
+        entry;
     parent.lastModifiedTimestamp_ = goog.now();
     entry.name_ = name;
     entry.parent = /** @type {!goog.testing.fs.DirectoryEntry} */ (parent);
@@ -212,8 +216,7 @@ goog.testing.fs.Entry.prototype.checkNotDeleted = function(action) {
   var d = new goog.async.Deferred(undefined, this);
   goog.Timer.callOnce(function() {
     if (this.deleted) {
-      var err = new goog.fs.Error(
-          /** @type {!FileError} */ ({'name': 'NotFoundError'}), action);
+      var err = new goog.fs.Error({'name': 'NotFoundError'}, action);
       d.errback(err);
     } else {
       d.callback();
@@ -286,7 +289,7 @@ goog.testing.fs.DirectoryEntry.prototype.isDirectory = function() {
 goog.testing.fs.DirectoryEntry.prototype.getLastModified = function() {
   var msg = 'reading last modified date for ' + this.getFullPath();
   return this.checkNotDeleted(msg).addCallback(function() {
-    return new Date(this.lastModifiedTimestamp_)
+    return new Date(this.lastModifiedTimestamp_);
   });
 };
 
@@ -295,7 +298,7 @@ goog.testing.fs.DirectoryEntry.prototype.getLastModified = function() {
 goog.testing.fs.DirectoryEntry.prototype.getMetadata = function() {
   var msg = 'reading metadata for ' + this.getFullPath();
   return this.checkNotDeleted(msg).addCallback(function() {
-    return this.getMetadata_()
+    return this.getMetadata_();
   });
 };
 
@@ -312,10 +315,9 @@ goog.testing.fs.DirectoryEntry.prototype.remove = function() {
   if (!goog.object.isEmpty(this.children)) {
     var d = new goog.async.Deferred();
     goog.Timer.callOnce(function() {
-      d.errback(
-          new goog.fs.Error(
-              /** @type {!FileError} */ ({'name': 'InvalidModificationError'}),
-              'removing ' + this.getFullPath()));
+      d.errback(new goog.fs.Error(
+          {'name': 'InvalidModificationError'},
+          'removing ' + this.getFullPath()));
     }, 0, this);
     return d;
   } else if (this != this.getFileSystem().getRoot()) {
@@ -457,8 +459,8 @@ goog.testing.fs.DirectoryEntry.prototype.getEntry_ = function(
     var subdir = dir.children[p];
     if (!subdir) {
       throw new goog.fs.Error(
-          /** @type {!FileError} */ ({'name': 'NotFoundError'}), 'loading ' +
-              path + ' from ' + this.getFullPath() + ' (directory ' +
+          {'name': 'NotFoundError'},
+          'loading ' + path + ' from ' + this.getFullPath() + ' (directory ' +
               dir.getFullPath() + '/' + p + ')');
     }
     dir = subdir;
@@ -470,7 +472,7 @@ goog.testing.fs.DirectoryEntry.prototype.getEntry_ = function(
   if (!entry) {
     if (behavior == goog.fs.DirectoryEntry.Behavior.DEFAULT) {
       throw new goog.fs.Error(
-          /** @type {!FileError} */ ({'name': 'NotFoundError'}),
+          {'name': 'NotFoundError'},
           'loading ' + path + ' from ' + this.getFullPath());
     } else {
       goog.asserts.assert(
@@ -483,11 +485,11 @@ goog.testing.fs.DirectoryEntry.prototype.getEntry_ = function(
     }
   } else if (behavior == goog.fs.DirectoryEntry.Behavior.CREATE_EXCLUSIVE) {
     throw new goog.fs.Error(
-        /** @type {!FileError} */ ({'name': 'InvalidModificationError'}),
+        {'name': 'InvalidModificationError'},
         'loading ' + path + ' from ' + this.getFullPath());
   } else if (entry.isFile() != isFile) {
     throw new goog.fs.Error(
-        /** @type {!FileError} */ ({'name': 'TypeMismatchError'}),
+        {'name': 'TypeMismatchError'},
         'loading ' + path + ' from ' + this.getFullPath());
   } else {
     if (behavior == goog.fs.DirectoryEntry.Behavior.CREATE) {

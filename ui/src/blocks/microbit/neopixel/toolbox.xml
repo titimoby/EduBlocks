@@ -1,4 +1,4 @@
-<category name="Neopixel" colour="#16E57E"> 
+<category name="Neopixel" colour="#16E57E" iconclass="blocklyTreeIconCustom neopixel"> 
   <label text="NeoPixel" web-class="myLabelStyle"></label>
   <block type="importneo"></block>
   <block type="setneonew">

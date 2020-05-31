@@ -27,4 +27,11 @@
       </shadow>
     </value>
   </block>
+  <block type="self">
+    <value name="varset">
+      <shadow type="textinline">
+        <field name="text">0</field>
+      </shadow>
+    </value>
+  </block>
 </category>

@@ -1,5 +1,6 @@
 import React = require('preact');
 import { Component } from 'preact';
+import {generic} from './Page';
 
 interface SelectModalProps<T extends SelectModalOption> {
   title: string;
@@ -68,7 +69,7 @@ export default class SelectModal<T extends SelectModalOption> extends Component<
           <footer class='SelectModal__buttons'>
             {
               this.getButtons().map((button) => (
-                <button style={{ float: button.position, [`margin-${button.position === 'left' ? 'right' : 'left'}`]: '8px' }} onClick={() => this.props.onButtonClick(button.key)}>{button.label}</button>
+                <button style={{ float: button.position, [`margin-${button.position === 'left' ? 'right' : 'left'}`]: '8px' }} onClick={() => this.props.onButtonClick(button.key)}>{generic[3]}</button>
               ))
             }
           </footer>

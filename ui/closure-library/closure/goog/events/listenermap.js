@@ -15,13 +15,9 @@
 /**
  * @fileoverview A map of listeners that provides utility functions to
  * deal with listeners on an event target. Used by
- * {@code goog.events.EventTarget}.
+ * `goog.events.EventTarget`.
  *
  * WARNING: Do not use this class from outside goog.events package.
- *
- * @visibility {//closure/goog/bin/sizetests:__pkg__}
- * @visibility {//closure/goog/events:__pkg__}
- * @visibility {//closure/goog/labs/events:__pkg__}
  */
 
 goog.provide('goog.events.ListenerMap');
@@ -170,7 +166,7 @@ goog.events.ListenerMap.prototype.removeByKey = function(listener) {
 
   var removed = goog.array.remove(this.listeners[type], listener);
   if (removed) {
-    listener.markAsRemoved();
+    /** @type {!goog.events.Listener} */ (listener).markAsRemoved();
     if (this.listeners[type].length == 0) {
       delete this.listeners[type];
       this.typeCount_--;

@@ -66,7 +66,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
   };
 
 
-  Blockly.Blocks['setpos'] = {
+  Blocks['setpos'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('mc.player.setPos(')
@@ -593,7 +593,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     },
   };
 
-  Blockly.Blocks['mcpiblockas'] = {
+  Blocks['mcpiblockas'] = {
     init: function () {
       this.appendDummyInput()
         .appendField('import mcpi.block as block');
@@ -605,7 +605,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
     },
   };
 
-  Blockly.Blocks['defcall'] = {
+  Blocks['defcall'] = {
     init: function () {
       this.appendDummyInput()
       this.appendValueInput("text")

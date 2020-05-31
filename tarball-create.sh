@@ -1,10 +1,12 @@
 #!/bin/bash
 
+NODE_VERSION_WANTED="v10.15.3"
+
 if [ $(whoami) == 'root' ]; then
   echo 'Please do not run me as root'
   exit 1
 fi
-
+ 
 TMP_PATH=/tmp
 
 ARCH=$1
@@ -24,9 +26,9 @@ echo '========================'
 
 echo ''
 echo 'Downloading / Extracting Node.JS...'
-curl https://nodejs.org/dist/v6.10.2/node-v6.10.2-linux-$ARCH.tar.xz | tar -xJ -C $TMP_PATH
+curl https://nodejs.org/dist/$NODE_VERSION_WANTED/node-$NODE_VERSION_WANTED-linux-$ARCH.tar.xz | tar -xJ -C $TMP_PATH
 
-NODE_TMP_PATH=$TMP_PATH/node-v6.10.2-linux-$ARCH
+NODE_TMP_PATH=$TMP_PATH/node-$NODE_VERSION_WANTED-linux-$ARCH
 
 REPO_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -34,9 +36,9 @@ cd $REPO_PATH
 
 NODE_VERSION=$(node -v)
 
-if [ "$NODE_VERSION" != 'v6.10.2' ]; then
+if [ "$NODE_VERSION" != "$NODE_VERSION_WANTED" ]; then
   echo "NodeJS has invalid version! ($NODE_VERSION)"
-  echo "Please switch to v6.10.2 using nvm or similar tool, i.e. nvm use v6.10.2"
+  echo "Please switch to $NODE_VERSION_WANTED using nvm or similar tool, i.e. nvm use $NODE_VERSION_WANTED"
   exit 1
 fi
 
@@ -71,6 +73,7 @@ cp $REPO_PATH/install-deps-connect.sh     $BUNDLE_PATH
 cp $REPO_PATH/install-connect.sh          $BUNDLE_PATH
 
 cp $REPO_PATH/edublocks-connect.desktop   $APP_PATH
+cp $REPO_PATH/edublocks.desktop   $APP_PATH
 
 cp -r $REPO_PATH/script-includes  $APP_PATH
 cp -r $REPO_PATH/scripts          $APP_PATH
@@ -122,10 +125,6 @@ echo '========================='
 cd $REPO_PATH/ui
 
 echo ''
-echo 'Clean...'
-yarn clean
-
-echo ''
 echo 'Installing dev dependencies...'
 yarn install
 
@@ -148,7 +147,6 @@ cp -r $REPO_PATH/ui/blockly   $APP_PATH/ui
 cp -r $REPO_PATH/ui/images    $APP_PATH/ui
 cp -r $REPO_PATH/ui/css       $APP_PATH/ui
 cp -r $REPO_PATH/ui/fonts     $APP_PATH/ui
-cp -r $REPO_PATH/ui/node_modules/picnic/picnic.min.css $APP_PATH/ui/node_modules/picnic
 
 cd $REPO_PATH
 

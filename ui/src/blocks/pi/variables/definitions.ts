@@ -10,7 +10,7 @@ export default function define(Blocks: Blockly.BlockDefinitions) {
    this.setTooltip("");
    this.setHelpUrl("");
     }
-  };
+  }; 
 
 
   Blocks['variables_set'] = {

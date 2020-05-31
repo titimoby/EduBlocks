@@ -1,4 +1,4 @@
-<category name="Speech" colour="#16E5E5">
+<category name="Speech" colour="#16E5E5" iconclass="blocklyTreeIconCustom speech">
 <label text="Speech" web-class="myLabelStyle"></label>
     <block type="imspeech"></block>
     <block type="speechsaynew">

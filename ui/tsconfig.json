@@ -5,6 +5,7 @@
     "sourceMap": false,
     "strict": true,
     "noUnusedLocals": true,
+    "esModuleInterop": true,
     "jsx": "react",
     "outDir": "build"
   },

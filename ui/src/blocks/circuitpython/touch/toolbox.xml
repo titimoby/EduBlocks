@@ -1,4 +1,4 @@
-<category name="Touch" colour="#E84C3D">
+<category name="Touch" colour="#E84C3D" iconclass="blocklyTreeIconCustom touch">
     <label text="Touch" web-class="myLabelStyle"></label>
     <block type="import_touchio"></block>
     <block type="touch_conf">
