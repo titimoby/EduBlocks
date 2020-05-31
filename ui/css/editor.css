@@ -101,8 +101,21 @@ nav .login {
     align-items: center;
 }
 
+@media only screen and (max-width: 600px) {
+    #filename{
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #loginimage{
+        display: none !important;
+    }
+}
+
 nav .login img {
     max-height: 100%;
+    height: 45px;
     border-radius: 50%;
     margin-right: 0.5em;
 }

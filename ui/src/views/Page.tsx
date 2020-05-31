@@ -497,48 +497,54 @@ export default class Page extends Component<Props, State> {
     private async saveFile() {
         const xml = this.state.doc.xml;
 
-        if (xml) {
-            const user = firebase.auth().currentUser;
+        if (this.state.extensionsActive.length > 1){
+            await this.setState({ modal: "error", "prevModal": null});
+        }
 
-            if (user) {
-                let self = this;
-                this.setState({
-                    modal: 'progress',
-                });
-                let plat = "";
-
-                if (this.state.platform!.key === "Python"){
-                    plat = " (Python)"
-                }
-                if (this.state.platform!.key === "MicroBit"){
-                    plat = " (microbit)"
-                }
-                if (this.state.platform!.key === "RaspberryPi"){
-                    plat = " (RPi)"
-                }
-                if (this.state.platform!.key === "CircuitPython"){
-                    plat = " (CircuitPython)"
-                }
-
-                const ref = firebase.storage().ref(`blocks/${user.uid}/${this.state.fileName}${plat}`);
-                const task = ref.putString(xml, undefined, {
-                    contentType: 'text/xml',
-                });
-                task.on('state_changed', function (snapshot) {
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes);
-                    self.setState({
-                        progress: progress,
+        else {
+            if (xml) {
+                const user = firebase.auth().currentUser;
+    
+                if (user) {
+                    let self = this;
+                    this.setState({
+                        modal: 'progress',
                     });
-                }, function (error) {
-                    self.setState({
-                        modal: 'error',
+                    let plat = "";
+    
+                    if (this.state.platform!.key === "Python"){
+                        plat = " (Python)"
+                    }
+                    if (this.state.platform!.key === "MicroBit"){
+                        plat = " (microbit)"
+                    }
+                    if (this.state.platform!.key === "RaspberryPi"){
+                        plat = " (RPi)"
+                    }
+                    if (this.state.platform!.key === "CircuitPython"){
+                        plat = " (CircuitPython)"
+                    }
+    
+                    const ref = firebase.storage().ref(`blocks/${user.uid}/${this.state.fileName}${plat}`);
+                    const task = ref.putString(xml, undefined, {
+                        contentType: 'text/xml',
                     });
-                    console.error(error);
-                }, function () {
-                    self.closeModal();
-                });
-            } else {
-                await this.props.app.saveFile(this.state.fileName, xml, 'xml', 'text/xml;charset=utf-8');
+                    task.on('state_changed', function (snapshot) {
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes);
+                        self.setState({
+                            progress: progress,
+                        });
+                    }, function (error) {
+                        self.setState({
+                            modal: 'error',
+                        });
+                        console.error(error);
+                    }, function () {
+                        self.closeModal();
+                    });
+                } else {
+                    await this.props.app.saveFile(this.state.fileName, xml, 'xml', 'text/xml;charset=utf-8');
+                }
             }
         }
     }
