@@ -582,11 +582,11 @@ export default class Page extends Component<Props, State> {
         if (platformKey === 'RaspberryPi') {
             let ip: string | null = null;
 
-         /*   if (window.location.protocol === 'https:') {
+           if (window.location.protocol === 'https:') {
                 alert('Need to switch to HTTP to access Raspberry Pi mode...');
                 window.location.protocol = 'http:';
                 return;
-            } */
+            } 
 
             if (navigator.platform.indexOf('arm') !== -1) {
                 await this.props.app.initConnection('localhost');

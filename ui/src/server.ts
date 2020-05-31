@@ -24,7 +24,7 @@ export async function newServerConnection(ip: string | null): Promise<ServerConn
     reconnect: stub,
   };
 
-  const url = `wss://${getHost()}/terminal`;
+  const url = `ws://${getHost()}/terminal`;
 
   const ws = await initSocket(url);
 
