@@ -439,7 +439,7 @@ export default class Page extends Component<Props, State> {
         let fileURL = await file.getDownloadURL();
         let newFileURL = fileURL.substring(0, fileURL.indexOf('&token='));
         const encoded = btoa(newFileURL);
-        const edublocksLink = "https://beta.app.edublocks.org/#share?" + filePlatform + "?" + encoded;
+        const edublocksLink = "https://app.edublocks.org/#share?" + filePlatform + "?" + encoded;
         await this.setState({ shareURL: edublocksLink});
         await console.log(this.state.shareURL);
         await this.setState({ modal: "shareoptions", prevModal: null});
