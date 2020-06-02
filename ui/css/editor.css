@@ -8,6 +8,10 @@ body {
     width: 0 !important;
 }
 
+nav .login {
+    width: 160px;
+}
+
 .blocklyFlyoutLabelIcon {
     font-family: 'Font Awesome\ 5 Free';
     font-size: 1.5rem;
