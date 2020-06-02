@@ -109,6 +109,9 @@ nav .login {
     #filename{
         display: none !important;
     }
+    nav .login {
+        width: 130px;
+    }
 }
 
 @media only screen and (max-width: 400px) {
