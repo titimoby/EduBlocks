@@ -486,7 +486,7 @@ export default class Page extends Component<Props, State> {
                 const shortLink = "https://share.edublocks.org/" + body.result.code
                 await console.log(this.state.shareURL)
                 await this.setState({ shareURL: shortLink});
-                copy(this.state.shareURL)
+                await copy(this.state.shareURL)
                 await this.closeModal()
                 await this.setState({ modal: "share"});
             }
@@ -510,7 +510,7 @@ export default class Page extends Component<Props, State> {
                 const embedLink = '<iframe src="https://share.edublocks.org/' + body.result.code + '" height="600px" width="900px"></iframe>'
                 await console.log(embedLink)
                 await this.setState({ shareURL: embedLink});
-                copy(this.state.shareURL)
+                await copy(this.state.shareURL)
                 await this.setState({ modal: "share"});
             }
 
