@@ -120,6 +120,16 @@ nav .login {
     }
 }
 
+@media (max-width: 80em) {
+#filename{
+    float: left !important;
+}
+.SelectModel__container {
+    min-width: 53%;
+}
+
+}
+
 nav .login img {
     max-height: 100%;
     height: 45px;

@@ -51,9 +51,6 @@ export default class Nav extends Component<Props, {}> {
                     <img class='logo' src='https://i.ibb.co/2Zp0pyw/weblogo.png'/>
                 </a>
                 <Auth openAuth={this.props.openAuth} closeAuth={this.props.closeAuth}/>
-                <input id="filename" class='brand' placeholder={navLabels[7]}
-                       style='width: 200px !important; color:black; margin-left: 5px; float:right'
-                       onChange={(e) => this.props.onFileChange((e.target as any).value)}/>
                 <input id='bmenub' type='checkbox' class='show'/>
                 <label for='bmenub' id="burgermenu" class='burger pseudo button icon-menu'/>
 
@@ -113,6 +110,9 @@ export default class Nav extends Component<Props, {}> {
                         {navLabels[9]}
                     </a>
                     }
+                    <input id="filename" class='brand' placeholder={navLabels[7]}
+                       style='width: 200px; color:black; margin-left: 5px; float:right; top: 24px;'
+                       onChange={(e) => this.props.onFileChange((e.target as any).value)}/>
 
                     
 
