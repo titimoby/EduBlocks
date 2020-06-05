@@ -101,10 +101,9 @@ nav .login {
     align-items: center;
 }
 
-@media only screen and (max-width: 1408px) {
+@media only screen and (max-width: 600px) {
     #filename{
-        float: left !important;
-        width: 100% !important;
+        display: none !important;
     }
 }
 
@@ -112,6 +111,16 @@ nav .login {
     #loginimage{
         display: none !important;
     }
+}
+
+@media (max-width: 80em) {
+#filename{
+    float: left !important;
+}
+.SelectModel__container {
+    min-width: 53%;
+}
+
 }
 
 nav .login img {

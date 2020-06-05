@@ -464,7 +464,7 @@ export default class Page extends Component<Props, State> {
                 const shortLink = "https://share.edublocks.org/" + body.result.code
                 await console.log(this.state.shareURL)
                 await this.setState({ shareURL: shortLink});
-                window.open("https://classroom.google.com/u/0/share?url=" + encodeURIComponent(this.state.shareURL) + "&usegapi=1&id=I0_1591303124637&parent=https%3A%2F%2Fwww.gstatic.com&pfname=%2FI0_1591303123749&rpctoken=58755424&jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en.utl9jrRztb8.O%2Fam%3DwQE%2Fd%3D1%2Fct%3Dzgms%2Frs%3DAGLTcCOUgIiKp6EMsn7UOgLQFm23i5pjzQ%2Fm%3D__features__",'1591307119253','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0')
+                window.open("https://classroom.google.com/u/0/share?url=" + encodeURIComponent(this.state.shareURL) + "&usegapi=1&id=I0_1591303124637&parent=https%3A%2F%2Fwww.gstatic.com&pfname=%2FI0_1591303123749&rpctoken=58755424&jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en.utl9jrRztb8.O%2Fam%3DwQE%2Fd%3D1%2Fct%3Dzgms%2Frs%3DAGLTcCOUgIiKp6EMsn7UOgLQFm23i5pjzQ%2Fm%3D__features__",'1591307119253','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=600,top=300')
                 this.closeModal()
             }
 
