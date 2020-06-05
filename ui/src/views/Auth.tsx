@@ -114,7 +114,7 @@ export default class Auth extends React.Component<AuthProps, State> {
         if (this.state.user) {
             GlobalVars.openFiles = "Files"
             return <div className='login'>
-                {this.state.user.photoURL ? <img id="loginimage" src={this.state.user.photoURL} alt='' /> : <img id="loginimage" src="https://www.elitefitnessnow.com/assets/uploads/user/photo/default-profile-image.png" alt='' />}
+                {this.state.user.photoURL ? <img id="loginimage" src={this.state.user.photoURL} alt='' /> : <img id="loginimage" src="images/default-profile-image.png" alt='' />}
                 <button style='background: rgba(0, 0, 0, 0); padding: 0.1em !important;' onClick={this.logOutAccount} data-tooltip='Log Out'><span id="name">{this.state.user.displayName}</span></button>
             </div>;
         }
