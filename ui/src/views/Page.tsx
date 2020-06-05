@@ -27,8 +27,8 @@ import TrinketView from './TrinketView';
 type AdvancedFunction = 'Export Python' | 'Themes' | 'Flash Hex' | 'Extensions' | 'Switch Language' | 'Split View';
 let AdvancedFunctions: AdvancedFunction[] = ['Export Python', 'Themes', "Switch Language", "Split View"];
 
-type ShareOptions = 'Copy Shareable URL' | 'Copy Embed Code' | 'Share on Google Classroom';
-let ShareOptions: ShareOptions[] = ['Copy Shareable URL', 'Copy Embed Code', 'Share on Google Classroom'];
+type ShareOptions = 'Copy Shareable URL' | 'Copy Embed Code' | 'Share to Google Classroom' | 'Share to Microsoft Teams';
+let ShareOptions: ShareOptions[] = ['Copy Shareable URL', 'Copy Embed Code', 'Share to Google Classroom', 'Share to Microsoft Teams'];
 
 type Languages = 'English' | 'French' | 'German' | 'Welsh';
 const Languages: Languages[] = ['English', 'French', 'German', 'Welsh'];
@@ -70,6 +70,10 @@ interface State {
 
 
 // Labels
+
+export class GlobalVars {
+    public static openFiles: any = "Open";
+  }
 
 export let split = false;
 
@@ -448,7 +452,7 @@ export default class Page extends Component<Props, State> {
     }
 
     private async runShareOptions(func: ShareOptions) {
-        if (func === 'Share on Google Classroom'){
+        if (func === 'Share to Google Classroom'){
             let shareableURL = "https://api.shrtco.de/v2/shorten?url=" + encodeURIComponent(this.state.shareURL);
             this.setState({ modal: "generating"});
             
@@ -465,6 +469,28 @@ export default class Page extends Component<Props, State> {
                 await console.log(this.state.shareURL)
                 await this.setState({ shareURL: shortLink});
                 window.open("https://classroom.google.com/u/0/share?url=" + encodeURIComponent(this.state.shareURL) + "&usegapi=1&id=I0_1591303124637&parent=https%3A%2F%2Fwww.gstatic.com&pfname=%2FI0_1591303123749&rpctoken=58755424&jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en.utl9jrRztb8.O%2Fam%3DwQE%2Fd%3D1%2Fct%3Dzgms%2Frs%3DAGLTcCOUgIiKp6EMsn7UOgLQFm23i5pjzQ%2Fm%3D__features__",'1591307119253','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=600,top=300')
+                this.closeModal()
+            }
+
+            else{console.log(console.error());}
+        }
+        if (func === 'Share to Microsoft Teams'){
+            let shareableURL = "https://api.shrtco.de/v2/shorten?url=" + encodeURIComponent(this.state.shareURL);
+            this.setState({ modal: "generating"});
+            
+            const response = await fetch(
+                shareableURL
+            );
+        
+            const body = await response.json();
+
+            console.log(this.state.shareURL)
+            await this.closeModal()
+            if (response.ok){
+                const shortLink = "https://share.edublocks.org/" + body.result.code
+                await console.log(this.state.shareURL)
+                await this.setState({ shareURL: shortLink});
+                window.open("https://teams.microsoft.com/share?href=" + encodeURIComponent(this.state.shareURL),'1591307119253','width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=600,top=300')
                 this.closeModal()
             }
 
@@ -791,6 +817,8 @@ export default class Page extends Component<Props, State> {
 
     private async runLanguages(func: Languages) {
         if (func === 'English') {
+            GlobalVars.openFiles = "Open";
+
             navLabels = ["New", "Open", "Save", "Samples", "Extras", "Run", "Login", "Untitled", "Download Hex", "Download", "Themes", "Share"];
             
             generic = ["Open", 
@@ -813,6 +841,8 @@ export default class Page extends Component<Props, State> {
         }
 
         if (func === 'French') {
+            GlobalVars.openFiles = "Ouvrir";
+
             navLabels = ["Nouveau", "Ouvrir", "Sauvegarder", "Exemples", "Préférences", "Exécuter", "S'identifier", "Sans Titre", "Télécharger Hex", "Télécharger", "Thèmes", "Partager"];
             
             generic = [ "Ouvert", 
@@ -835,6 +865,8 @@ export default class Page extends Component<Props, State> {
         }
 
         if (func === 'German') {
+            GlobalVars.openFiles = "Öffnen";
+
             navLabels = ["Neu", "Öffnen", "Speichern", "Proben", "Extras", "Ausführen", "Login", "Unbetitelt", "Herunterladen Hex", "Herunterladen", "Themen", "Teilen"];
             
             generic = [ "Öffnen", 
@@ -857,6 +889,8 @@ export default class Page extends Component<Props, State> {
         }
 
         if (func === 'Welsh') {
+            GlobalVars.openFiles = "Agor";
+
             navLabels = ["Newydd", "Agor", "Cadw", "Samplau", "Yn ychwanegol", "Rhedeg", "Mewngofnodi", "Heb enw", "Lawrlwython Hex", "Lawrlwython", "Themâu", "Rhannu"];
             
             generic = [ "Agor", 
