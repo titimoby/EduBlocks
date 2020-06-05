@@ -2,6 +2,7 @@ import React = require('preact');
 import {Component} from 'preact';
 import Auth from './Auth';
 import {navLabels} from './Page';
+import { GlobalVars } from './Page';
 
 interface Props {
     platformImg?: string;
@@ -65,7 +66,7 @@ export default class Nav extends Component<Props, {}> {
 
                     <a class='button icon-folder-open' title='Open a file' href='javascript:void(0)'
                        onClick={() => this.props.openCode()}>
-                        {navLabels[1]}
+                        {GlobalVars.openFiles}
                     </a>
 
                     <a class='button icon-floppy' title='Save a file' href='javascript:void(0)'
