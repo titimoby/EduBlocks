@@ -3,10 +3,13 @@ import { Component } from 'preact';
 
 interface Props {
   visible: boolean;
+  turtle: boolean;
   pythonCode: string;
 
   onClose(): void;
 }
+
+export let josh = "hi"
 
 export default class TrinketView extends Component<Props, {}> {
   private escapeListener = (e: KeyboardEvent) => {
@@ -53,10 +56,17 @@ export default class TrinketView extends Component<Props, {}> {
         <div class='TrinketView__Container'>
           <div class='TrinketView__ContainerLoading' />
 
-          {this.props.visible &&
+          {this.props.visible && 
             <iframe
               frameBorder={0}
               src={`https://trinket.io/tools/1.0/jekyll/embed/python3?runOption=run&outputOnly=true&start=result#code=${this.getEscapedCode()}`}
+            />
+          }
+
+          {this.props.turtle &&
+            <iframe
+              frameBorder={0}
+              src={`https://trinket.io/tools/1.0/jekyll/embed/python?runOption=run&outputOnly=true&start=result#code=${this.getEscapedCode()}`}
             />
           }
         </div>

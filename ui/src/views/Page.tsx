@@ -58,8 +58,9 @@ interface FileFirebaseSelectModalOption {
 interface State {
     platform?: PlatformInterface;
     viewMode: ViewMode;
-    modal: null | 'platform' | 'IE' | 'generating' | 'extensionsnew' |  'share' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
-    prevModal: null | 'platform' | 'IE' | 'generating' | 'share' | 'extensionsnew' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    includeTurtle: boolean;
+    modal: null | 'platform' | 'turtle' | 'IE' | 'generating' | 'extensionsnew' |  'share' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
+    prevModal: null | 'platform' | 'turtle' | 'IE' | 'generating' | 'share' | 'extensionsnew' | 'shareoptions' | 'terminal' | 'languages' | 'samples' | 'themes' | 'extensions' | 'functions' | 'pythonOverwritten' | 'https' | 'noCode' | 'codeOverwrite' | 'progress' | 'auth' | 'error' | 'files';
     extensionsActive: Extension[];
     progress: number;
     shareURL: string;
@@ -109,6 +110,7 @@ export default class Page extends Component<Props, State> {
         this.state = {
             viewMode: ViewModeBlockly,
             modal: 'platform',
+            includeTurtle: false,
             prevModal: null,
             extensionsActive: [],
             progress: 0,
@@ -308,6 +310,13 @@ export default class Page extends Component<Props, State> {
         }
 
         this.setState({ modal: 'terminal' });
+
+        if (this.state.doc.python.indexOf("turtle") !== -1 || this.state.doc.python.indexOf("processing") !== -1 ) {
+            this.setState({includeTurtle: true})
+        } 
+        else{
+            this.setState({includeTurtle: false})
+        }
 
         if (this.remoteShellView) {
             this.remoteShellView.focus();
@@ -1189,6 +1198,7 @@ export default class Page extends Component<Props, State> {
                     <TrinketView
                         pythonCode={this.getPythonCode()}
                         visible={this.state.modal === 'terminal'}
+                        turtle={this.state.includeTurtle === true}
                         onClose={() => this.onTerminalClose()}
                     />
                 }
