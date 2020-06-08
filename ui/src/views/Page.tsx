@@ -311,7 +311,7 @@ export default class Page extends Component<Props, State> {
 
         this.setState({ modal: 'terminal' });
 
-        if (this.state.doc.python.indexOf("turtle") !== -1 || this.state.doc.python.indexOf("processing") !== -1 ) {
+        if (this.state.doc.python.indexOf("turtle") !== -1 || this.state.doc.python.indexOf("processing") !== -1 || this.state.doc.python.indexOf("pygal") !== -1) {
             this.setState({includeTurtle: true})
         } 
         else{
