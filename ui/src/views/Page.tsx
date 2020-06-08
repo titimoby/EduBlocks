@@ -707,7 +707,7 @@ export default class Page extends Component<Props, State> {
     private selectTheme(theme: string) {
         this.closeModal();
 
-        Cookies.set("theme", theme)
+        Cookies.set("theme", theme, { expires: 100000 })
 
         document.body.className = `theme-${theme}`;
     }

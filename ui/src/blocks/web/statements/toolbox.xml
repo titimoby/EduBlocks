@@ -81,9 +81,22 @@
       </shadow>
     </value>
   </block>
+
   <block type="webstr">
     <value name="bool">
       <shadow type="textinline">
+        <field name="text">1</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="webcomma">
+    <value name="in1">
+      <shadow type="stringinline">
+        <field name="text">1</field>
+      </shadow>
+    </value>
+    <value name="in2">
+      <shadow type="stringinline">
         <field name="text">1</field>
       </shadow>
     </value>
