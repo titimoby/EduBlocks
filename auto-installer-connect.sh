@@ -57,4 +57,4 @@ fi
 cd /opt/edublocks/ui
 sudo mkdir picnic
 cd picnic
-sudo wget http://beta.app.edublocks.org/picnic/picnic.css
+sudo wget http://app.edublocks.org/picnic/picnic.css

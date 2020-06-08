@@ -40,4 +40,4 @@ sudo ln -s $INSTALL_PATH/server/startup-disable.sh  $GLOBAL_BIN_PATH/edublocks-s
 sudo ln -s $INSTALL_PATH/scripts/uninstall.sh       $GLOBAL_BIN_PATH/edublocks-uninstall
 
 cd /opt/edublocks/ui/dist/
-sudo wget http://beta.app.edublocks.org/dist/main.js
+sudo wget http://app.edublocks.org/dist/main.js
